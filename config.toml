@@ -58,7 +58,7 @@ menu_items = [
 
 # Whether to show links to earlier and later posts
 # on each post page (defaults to true).
-enable_post_view_navigation = true
+enable_post_view_navigation = false
 
 # # The text shown at the bottom of a post,
 # # before earlier/later post links.
