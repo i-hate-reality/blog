@@ -29,7 +29,7 @@ smart_punctuation = true
 # Put all your custom variables here
 
 logo_text = "I hate reality"
-author = "Maybe Waffle"
+author = "Waffle Lapkin"
 
 # TODO: make footer less weird
 copyright_html = "<div class=\"copyright\"><span>© 2021-2024 Waffle Lapkin</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">  :: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\"> :: </span><a href=\"/rss.xml\">rss</a></div><span class=\"copyright-theme-sep\"> :: </span><a href=\"/atom.xml\">atom</a>"
@@ -58,7 +58,7 @@ menu_items = [
 
 # Whether to show links to earlier and later posts
 # on each post page (defaults to true).
-enable_post_view_navigation = true
+enable_post_view_navigation = false
 
 # # The text shown at the bottom of a post,
 # # before earlier/later post links.
