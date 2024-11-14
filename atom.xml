@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>I hate reality</title>
+    <link rel="self" type="application/atom+xml" href="https://blog.ihatereality.space/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://blog.ihatereality.space"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2023-12-11T00:00:00+00:00</updated>
+    <id>https://blog.ihatereality.space/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 9</title>
+        <published>2023-12-11T00:00:00+00:00</published>
+        <updated>2023-12-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-09/"/>
+        <id>https://blog.ihatereality.space/devlog-09/</id>
+        
+        <summary type="html">&lt;p&gt;This is a devlog for 2023-12-01—2023-12-11. This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 8</title>
+        <published>2023-11-30T00:00:00+00:00</published>
+        <updated>2023-11-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-08/"/>
+        <id>https://blog.ihatereality.space/devlog-08/</id>
+        
+        <summary type="html">&lt;p&gt;This is a devlog for 2023-11-01—2023-11-30, or, in other words, the month of November. This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 7</title>
+        <published>2023-11-29T00:00:00+00:00</published>
+        <updated>2023-11-29T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-07/"/>
+        <id>https://blog.ihatereality.space/devlog-07/</id>
+        
+        <summary type="html">&lt;p&gt;This is a devlog for 2023-10-01—2023-10-31, or, in other words, the month of October. This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 6</title>
+        <published>2023-11-21T00:00:00+00:00</published>
+        <updated>2023-11-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-06/"/>
+        <id>https://blog.ihatereality.space/devlog-06/</id>
+        
+        <summary type="html">&lt;p&gt;This is a devlog for 2023-09-01—2023-09-30, or, in other words, the month of September. This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 5</title>
+        <published>2023-11-20T00:00:00+00:00</published>
+        <updated>2023-11-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-05/"/>
+        <id>https://blog.ihatereality.space/devlog-05/</id>
+        
+        <summary type="html">&lt;p&gt;This is a devlog for 2023-08-07—2023-08-31. This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 4</title>
+        <published>2023-08-24T00:00:00+00:00</published>
+        <updated>2023-08-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-04/"/>
+        <id>https://blog.ihatereality.space/devlog-04/</id>
+        
+        <summary type="html">&lt;p&gt;The devlog is back, now as a &lt;del&gt;bi-weekly&lt;&#x2F;del&gt; hopefully regular thing. This is a devlog for 2023-07-17—2023-08-06. This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 3</title>
+        <published>2023-04-21T00:00:00+00:00</published>
+        <updated>2023-04-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-03/"/>
+        <id>https://blog.ihatereality.space/devlog-03/</id>
+        
+        <summary type="html">&lt;p&gt;This week was something else! There is a lot I’ve done this week (2023-04-17—2023-04-21). This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 2</title>
+        <published>2023-04-14T00:00:00+00:00</published>
+        <updated>2023-04-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-02/"/>
+        <id>https://blog.ihatereality.space/devlog-02/</id>
+        
+        <summary type="html">&lt;p&gt;Blah. Things I’ve done this week (2023-04-10—2023-04-14). This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things, but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 1</title>
+        <published>2023-04-07T00:00:00+00:00</published>
+        <updated>2023-04-07T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-01/"/>
+        <id>https://blog.ihatereality.space/devlog-01/</id>
+        
+        <summary type="html">&lt;p&gt;Is this week already over? That fast? In this economy?
+Anyway, things I’ve done this week (2023-04-03—2023-04-07).
+This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things™,
+but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waffle Devlog 0</title>
+        <published>2023-04-02T00:00:00+00:00</published>
+        <updated>2023-04-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/devlog-00/"/>
+        <id>https://blog.ihatereality.space/devlog-00/</id>
+        
+        <summary type="html">&lt;p&gt;Things I’ve done this week (2023-03-27—2023-03-31). This is mostly a log for &lt;em&gt;myself&lt;&#x2F;em&gt; so that I remember that I did things™ but you may be interested in reading it too, for whatever reason.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>(Ab)using Rust traits to write silly things</title>
+        <published>2022-06-29T00:00:00+00:00</published>
+        <updated>2022-06-29T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/08-abusing-rust-traits-to-write-silly-things/"/>
+        <id>https://blog.ihatereality.space/08-abusing-rust-traits-to-write-silly-things/</id>
+        
+        <summary type="html">&lt;p&gt;Recently I’ve found some cursed Rust code and decided to make a little joke&#x2F;question &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;maybewaffle&#x2F;status&#x2F;1541910667812274183&quot;&gt;on twitter&lt;&#x2F;a&gt;.
+In the tweet I’ve presented some unusual code and asked “how could it compile?”.
+The solution was found quite fast by &lt;a href=&quot;https:&#x2F;&#x2F;twitter.com&#x2F;Veykril&quot;&gt;@Veykril&lt;&#x2F;a&gt; (kudos to them!) and in this post I want to explain it in detail.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Why we can’t have nice things: min&#x2F;max</title>
+        <published>2022-06-24T00:00:00+00:00</published>
+        <updated>2022-06-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/07-why-we-can-not-have-nice-things-min-max/"/>
+        <id>https://blog.ihatereality.space/07-why-we-can-not-have-nice-things-min-max/</id>
+        
+        <summary type="html">&lt;p&gt;In this post I’ll talk about Rust’s &lt;a href=&quot;https:&#x2F;&#x2F;doc.rust-lang.org&#x2F;std&#x2F;collections&#x2F;btree_set&#x2F;struct.BTreeSet.html&quot;&gt;&lt;code&gt;BTreeSet&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; and tell a sad story about its methods.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Comments are weak</title>
+        <published>2022-01-30T00:00:00+00:00</published>
+        <updated>2022-01-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/06-comments-are-weak/"/>
+        <id>https://blog.ihatereality.space/06-comments-are-weak/</id>
+        
+        <summary type="html">&lt;p&gt;I like writing comments. But at the same time comments kind of suck. In this post, I want to outline some ways we could improve this.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>if-else chains considered harmful</title>
+        <published>2022-01-24T00:00:00+00:00</published>
+        <updated>2022-01-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/05-if-else-chains-considered-harmful/"/>
+        <id>https://blog.ihatereality.space/05-if-else-chains-considered-harmful/</id>
+        
+        <summary type="html">&lt;p&gt;As always, I have some strong opinions on things I probably shouldn’t have opinions on. This time I want to tell you why I think &lt;code&gt;if&lt;&#x2F;code&gt;-&lt;code&gt;else&lt;&#x2F;code&gt; chains are syntactically harmful.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>What does `&amp;mut &amp;[T]` mean?</title>
+        <published>2021-11-02T00:00:00+00:00</published>
+        <updated>2021-11-02T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/04-what-mutref-to-slice-ref-means/"/>
+        <id>https://blog.ihatereality.space/04-what-mutref-to-slice-ref-means/</id>
+        
+        <summary type="html">&lt;p&gt;References can be quite confusing, especially with different mutabilities. Indeed, only a third of people in &lt;a href=&quot;https:&#x2F;&#x2F;t.me&#x2F;ihatereality&#x2F;1776&quot;&gt;my poll&lt;&#x2F;a&gt; said that they understand what &lt;code&gt;&amp;amp;mut &amp;amp;[T]&lt;&#x2F;code&gt; means!&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Everybody needs a place (and time) to pause</title>
+        <published>2021-10-12T00:00:00+00:00</published>
+        <updated>2021-10-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/03-a-place-to-pause/"/>
+        <id>https://blog.ihatereality.space/03-a-place-to-pause/</id>
+        
+        <summary type="html">&lt;p&gt;As you may know, I have a (russian) &lt;a href=&quot;https:&#x2F;&#x2F;t.me&#x2F;ihatereality&quot;&gt;telegram channel&lt;&#x2F;a&gt;. One day I had a random thought about something I could make there. Now it became a tradition…&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>You wouldn&#x27;t use `filter_map`, right?</title>
+        <published>2021-09-20T00:00:00+00:00</published>
+        <updated>2021-09-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/02-you-would-not-use-filter-map/"/>
+        <id>https://blog.ihatereality.space/02-you-would-not-use-filter-map/</id>
+        
+        <summary type="html">&lt;p&gt;There is a function &lt;code&gt;Iterator::filter_map&lt;&#x2F;code&gt;. I want to argue that it’s useless and Rust provides more powerful tools to replace it.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Why null sucks, even if it&#x27;s checked</title>
+        <published>2021-08-20T00:00:00+00:00</published>
+        <updated>2022-07-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/01-why-null-sucks/"/>
+        <id>https://blog.ihatereality.space/01-why-null-sucks/</id>
+        
+        <summary type="html">&lt;p&gt;We all know that &lt;code&gt;null&lt;&#x2F;code&gt; is a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Null_pointer#History&quot;&gt;“billion-dollar mistake”&lt;&#x2F;a&gt;, that it creates a lot of easy ways to make terrible mistakes. But it’s only so bad when it’s not checked by anyone and the compiler doesn’t force you to check it, right? Well, the title might be a spoiler, but let’s find out…&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+</feed>

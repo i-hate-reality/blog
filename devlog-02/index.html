@@ -2,65 +2,34 @@
 <html lang="en">
 
 <head>
-    <title>Waffle Devlog 2</title>
+    <title>I hate reality</title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="robots" content="noodp"/>
     <meta name="author" content="Maybe Waffle">
 
-    <meta name="theme-color" content="#EE72F1">
-
-    
-    
-    <meta name="title" content="Waffle Devlog 2">
-    <meta name="description" content="Blah. Things I&#x27;ve done this week (2023-04-10—2023-04-14).">
-    <meta name="image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-
-    
-        <meta name="keywords" itemprop="tags" content="devlog">
-    
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://blog.ihatereality.space/devlog-02/">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Waffle Devlog 2">
-    <meta property="og:description" content="Blah. Things I&#x27;ve done this week (2023-04-10—2023-04-14).">
-    <meta property="og:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-    <meta property="og:locale" content="en">
-
-    
-        <meta property="article:published_time" content="2023-04-14">
-    
-
-    
-        
-            <meta property="article:tag" content="devlog">
-        
-    
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta property="twitter:domain" content="blog.ihatereality.space">
-    <meta property="twitter:url" content="https://blog.ihatereality.space/devlog-02/">
-    <meta name="twitter:title" content="Waffle Devlog 2">
-    <meta name="twitter:description" content="Blah. Things I&#x27;ve done this week (2023-04-10—2023-04-14).">
-    <meta name="twitter:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-    <meta name="twitter:creator" content="maybewaffle">
-
-
-
-    
-    <link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
+    <meta name="theme-color" content="#EE72F1"><link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
     <link rel="stylesheet" href="https://blog.ihatereality.space/color/pink.css">
 
     <link rel="stylesheet" href="https://blog.ihatereality.space/font-hack.css">
 
+    <meta name="description" content="Blah. Things I've done this week (2023-04-10—2023-04-14).">
 
-    
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.ihatereality.space/rss.xml">
-    
-        <link rel="shortcut icon" type="image&#x2F;png" href="/you_cant_escape_from_reality_128x128.png">
+    <meta property="og:description" content="Blah. Things I've done this week (2023-04-10—2023-04-14).">
+    <meta property="og:title" content="I hate reality">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.ihatereality.space/devlog-02/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="Blah. Things I've done this week (2023-04-10—2023-04-14).">
+    <meta name="twitter:title" content="I hate reality">
+    <meta property="twitter:domain" content="blog.ihatereality.space">
+    <meta property="twitter:url" content="https://blog.ihatereality.space/devlog-02/">
+
+                <link rel="alternate" type="application/rss+xml" title="I hate reality RSS Feed" href="https://blog.ihatereality.space/rss.xml" />
+                <link rel="alternate" type="application/atom+xml" title="I hate reality Atom Feed" href="https://blog.ihatereality.space/atom.xml" />
+        <link rel="shortcut icon" type="image/png" href="/you_cant_escape_from_reality_128x128.png">
     
     </head>
 
@@ -73,8 +42,10 @@
                     
                 <a href="https://blog.ihatereality.space" style="text-decoration: none;">
                     <div class="logo">
+                      
                             I hate reality
-                        </div>
+                        
+                    </div>
                 </a>
             </div>
         </div>
@@ -87,6 +58,7 @@
                 <li><a href="https://github.com/iloathereality/blog" target="_blank" rel="noopener noreferrer">source</a></li>
             </ul>
         </nav>
+    
     
 
     </header>
@@ -114,13 +86,13 @@
             <!-- TODO: rethink how tags look -->
             <br>
             
-        <span class="post-tags-inline"><a class="post-tag" href="https://blog.ihatereality.space/tags/devlog/">#devlog</a></span>
+        <span class="post-tags-inline">
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/devlog/">#devlog</a></span>
     
         </div>
     
 
 
-        
         <div class="post-content">
             <p>Blah. Things I’ve done this week (2023-04-10—2023-04-14). This is mostly a log for <em>myself</em> so that I remember that I did things, but you may be interested in reading it too, for whatever reason.</p>
 <span id="continue-reading"></span><h1 id="tagged-pointer-rewrite">Tagged Pointer Rewrite<a class="zola-anchor" href="#tagged-pointer-rewrite" aria-label="Anchor link for: tagged-pointer-rewrite">⌗</a></h1>
@@ -132,7 +104,7 @@
 original implementation used <code>NonZeroUsize</code> as the inner type of the tagged pointer type.
 This technically works, but is generally a bad idea.
 You are <strong>really</strong> not supposed to store pointers as integers.</p>
-<p>I’ve rewritten the implementation using the new <a href="https://doc.rust-lang.org/std/ptr/index.html#provenance">“strict provenance” APIs</a> and a <code>NonNull</code> pointer as the inner type, 
+<p>I’ve rewritten the implementation using the new <a href="https://doc.rust-lang.org/std/ptr/index.html#provenance">“strict provenance” APIs</a> and a <code>NonNull</code> pointer as the inner type,
 doing other code &amp; documentation improvements along the way.
 In my opinion the resulting code is quite nice and cute, I like it.</p>
 <p>Along the way I also discovered a missed optimization case in LLVM (<a href="https://github.com/llvm/llvm-project/issues/62093">llvm/62093</a>)
@@ -180,6 +152,29 @@ I did what feels like a million “fix doc”, “fix fmt” and similar commits
         </div>
 
         
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://blog.ihatereality.space/devlog-01/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Waffle Devlog 1</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://blog.ihatereality.space/devlog-03/">
+                                <span class="button__text">Waffle Devlog 3</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
     </div>
 
     </div>
@@ -187,15 +182,14 @@ I did what feels like a million “fix doc”, “fix fmt” and similar commits
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2024 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">:: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep">:: </span><a href="/rss.xml">rss</a></div></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2024 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     
 
 </div>
-
-<!-- Tracking via https://www.goatcounter.com/ -->
-<script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <!-- Tracking via https://www.goatcounter.com/ -->
+    <script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 
 </html>

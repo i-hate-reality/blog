@@ -2,65 +2,34 @@
 <html lang="en">
 
 <head>
-    <title>You wouldn&#x27;t use `filter_map`, right?</title>
+    <title>I hate reality</title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="robots" content="noodp"/>
     <meta name="author" content="Maybe Waffle">
 
-    <meta name="theme-color" content="#EE72F1">
-
-    
-    
-    <meta name="title" content="You wouldn&#x27;t use `filter_map`, right?">
-    <meta name="description" content="There is a function `Iterator::filter_map`. I want to argue that it&#x27;s useless and Rust provides more powerful tools to replace it.">
-    <meta name="image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-
-    
-        <meta name="keywords" itemprop="tags" content="rust">
-    
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://blog.ihatereality.space/02-you-would-not-use-filter-map/">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="You wouldn&#x27;t use `filter_map`, right?">
-    <meta property="og:description" content="There is a function `Iterator::filter_map`. I want to argue that it&#x27;s useless and Rust provides more powerful tools to replace it.">
-    <meta property="og:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-    <meta property="og:locale" content="en">
-
-    
-        <meta property="article:published_time" content="2021-09-20">
-    
-
-    
-        
-            <meta property="article:tag" content="rust">
-        
-    
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta property="twitter:domain" content="blog.ihatereality.space">
-    <meta property="twitter:url" content="https://blog.ihatereality.space/02-you-would-not-use-filter-map/">
-    <meta name="twitter:title" content="You wouldn&#x27;t use `filter_map`, right?">
-    <meta name="twitter:description" content="There is a function `Iterator::filter_map`. I want to argue that it&#x27;s useless and Rust provides more powerful tools to replace it.">
-    <meta name="twitter:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-    <meta name="twitter:creator" content="maybewaffle">
-
-
-
-    
-    <link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
+    <meta name="theme-color" content="#EE72F1"><link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
     <link rel="stylesheet" href="https://blog.ihatereality.space/color/pink.css">
 
     <link rel="stylesheet" href="https://blog.ihatereality.space/font-hack.css">
 
+    <meta name="description" content="There is a function `Iterator::filter_map`. I want to argue that it's useless and Rust provides more powerful tools to replace it.">
 
-    
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.ihatereality.space/rss.xml">
-    
-        <link rel="shortcut icon" type="image&#x2F;png" href="/you_cant_escape_from_reality_128x128.png">
+    <meta property="og:description" content="There is a function `Iterator::filter_map`. I want to argue that it's useless and Rust provides more powerful tools to replace it.">
+    <meta property="og:title" content="I hate reality">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.ihatereality.space/02-you-would-not-use-filter-map/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="There is a function `Iterator::filter_map`. I want to argue that it's useless and Rust provides more powerful tools to replace it.">
+    <meta name="twitter:title" content="I hate reality">
+    <meta property="twitter:domain" content="blog.ihatereality.space">
+    <meta property="twitter:url" content="https://blog.ihatereality.space/02-you-would-not-use-filter-map/">
+
+                <link rel="alternate" type="application/rss+xml" title="I hate reality RSS Feed" href="https://blog.ihatereality.space/rss.xml" />
+                <link rel="alternate" type="application/atom+xml" title="I hate reality Atom Feed" href="https://blog.ihatereality.space/atom.xml" />
+        <link rel="shortcut icon" type="image/png" href="/you_cant_escape_from_reality_128x128.png">
     
     </head>
 
@@ -73,8 +42,10 @@
                     
                 <a href="https://blog.ihatereality.space" style="text-decoration: none;">
                     <div class="logo">
+                      
                             I hate reality
-                        </div>
+                        
+                    </div>
                 </a>
             </div>
         </div>
@@ -87,6 +58,7 @@
                 <li><a href="https://github.com/iloathereality/blog" target="_blank" rel="noopener noreferrer">source</a></li>
             </ul>
         </nav>
+    
     
 
     </header>
@@ -109,20 +81,20 @@
 
             
     <span class="post-read-time">
-        :: 6 min read
+        :: 5 min read
     </span>
 
 
             <!-- TODO: rethink how tags look -->
             <br>
             
-        <span class="post-tags-inline"><a class="post-tag" href="https://blog.ihatereality.space/tags/rust/">#rust</a></span>
+        <span class="post-tags-inline">
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/rust/">#rust</a></span>
     
         </div>
     
 
 
-        
         <div class="post-content">
             <p>There is a function <code>Iterator::filter_map</code>. I want to argue that it’s useless and Rust provides more powerful tools to replace it.</p>
 <span id="continue-reading"></span> 
@@ -192,7 +164,7 @@
 </div>
 <p>So far, <code>filter_map</code> seems pretty useful, right? Well, turns out it’s just a less general version of…</p>
 <h1 id="flat-map-to-rule-them-all"><code>flat_map</code> to rule them all<a class="zola-anchor" href="#flat-map-to-rule-them-all" aria-label="Anchor link for: flat-map-to-rule-them-all">⌗</a></h1>
-<p><a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flat_map"><code>flat_map</code></a> is another function provided by the <code>Iterator</code> trait. It looks like this: </p>
+<p><a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flat_map"><code>flat_map</code></a> is another function provided by the <code>Iterator</code> trait. It looks like this:</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">flat_map</span><span>&lt;U, F&gt;(</span><span style="color:#bf616a;">self</span><span>, </span><span style="color:#bf616a;">f</span><span>: F)
 </span><span>     -&gt; FlatMap&lt;</span><span style="color:#b48ead;">Self</span><span>, U, F&gt;
 </span><span>     </span><span style="color:#65737e;">// -&gt; impl Iterator&lt;Item = U::Item&gt;
@@ -200,7 +172,7 @@
 </span><span>    F: FnMut(</span><span style="color:#b48ead;">Self::</span><span>Item) -&gt; U,
 </span><span>    U: IntoIterator,
 </span></code></pre>
-<p>This function is equivalent to <code>map</code> combined with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flatten"><code>flatten</code></a> (which, in turn, is equivalent to <code>flat_map(id)</code>, they are interchangeable). </p>
+<p>This function is equivalent to <code>map</code> combined with <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.flatten"><code>flatten</code></a> (which, in turn, is equivalent to <code>flat_map(id)</code>, they are interchangeable).</p>
 <p>At first glance, it may seem like <code>filter_map</code> and <code>flat_map</code> are different: the first expects a function that returns <code>Option</code> while the other expects a function that returns something that can be turned into <code>Iterator</code>. But then, if you think about it, <code>Option</code> may be seen as a collection with 0 or 1 elements, and <a href="https://doc.rust-lang.org/std/option/enum.Option.html#method.take"><code>take</code></a> is its <a href="https://blog.ihatereality.space/02-you-would-not-use-filter-map/+https://doc.rust-lang.org/std/iter/trait.Iterator.html#tymethod.next"><code>next</code></a> function (if you know how monads work, this might have been obvious). Moreover, <code>Option</code> actually <a href="https://doc.rust-lang.org/std/option/enum.Option.html#impl-IntoIterator">implements <code>IntoIterator</code></a>! So… you can replace any call to <code>filter_map</code> with a call to <code>flat_map</code> and everything will continue to work just fine :flower:</p>
 <p>We can’t just remove <code>filter_map</code> because backwards compatibility sucks. But I don’t think I’ll use it ever again.</p>
 <h1 id="some-more-takeovers-from-option-intoiterator">Some more takeovers from <code>Option: IntoIterator</code><a class="zola-anchor" href="#some-more-takeovers-from-option-intoiterator" aria-label="Anchor link for: some-more-takeovers-from-option-intoiterator">⌗</a></h1>
@@ -248,7 +220,7 @@
     alt="🐸"
   />
   <div class="callout-body">
-    <p>This article received some criticism that needed to be addressed. </p>
+    <p>This article received some criticism that needed to be addressed.</p>
 <p>In response to it this paragraph was added in <a href="https://github.com/iloathereality/blog/pull/30">2021-09-21 update</a>.</p>
 
   </div>
@@ -256,12 +228,35 @@
 <p>Turns out <code>filter_map</code> has one advantage over <code>flat_map</code> — it can know its own size better. Since <code>filter_map</code> can’t ever add more elements than there were previously, its <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.size_hint"><code>size_hint</code></a> is <code>(0, upper)</code> (where <code>upper</code> is the upper bound of the inner iterator). <code>flat_map</code>’s <code>size_hint</code> on the other hand returns <code>(0, None)</code> in most cases (it’s a bit more complicated than that since <code>flat_map</code> stores iterators it can <em>sometimes</em> know <em>a bit</em> more).</p>
 <p>It should be possible to specialize <code>flat_map</code> for <code>Option&lt;_&gt;</code> (and maybe <code>Result&lt;_&gt;</code>, etc) so it produces more accurate <code>size_hint</code>. However, at the moment of writing this there is no such specialization which may make <code>flat_map</code> considerably worse than <code>filter_map</code> in some scenarious. I’d like for <code>filter_map</code> to be fully equivalent to <code>flat_map</code>, however atm it simply isn’t.</p>
 <h1 id="conclusion">Conclusion<a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">⌗</a></h1>
-<p>I still prefer to use <code>flat_map</code> over <code>filter_map</code>, it seems <em>right</em> (also for some reason I really like the name). When making your choice between the two consider readability and <code>size_hint</code> (see above). </p>
+<p>I still prefer to use <code>flat_map</code> over <code>filter_map</code>, it seems <em>right</em> (also for some reason I really like the name). When making your choice between the two consider readability and <code>size_hint</code> (see above).</p>
 <p>There are a lot of hidden things in Rust, which are hard to notice, but when you do notice them, you can only say “of course!” (for example <code>Option: IntoIterator</code>). I would recommend reading iterator docs carefully, there are a lot of hidden gems.</p>
 <p>bye.</p>
 
         </div>
 
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://blog.ihatereality.space/01-why-null-sucks/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Why null sucks, even if it&#x27;s checked</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://blog.ihatereality.space/03-a-place-to-pause/">
+                                <span class="button__text">Everybody needs a place (and time) to pause</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
         
     </div>
 
@@ -270,15 +265,14 @@
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2024 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">:: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep">:: </span><a href="/rss.xml">rss</a></div></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2024 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     
 
 </div>
-
-<!-- Tracking via https://www.goatcounter.com/ -->
-<script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <!-- Tracking via https://www.goatcounter.com/ -->
+    <script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 
 </html>

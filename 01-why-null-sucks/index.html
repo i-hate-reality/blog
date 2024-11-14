@@ -2,79 +2,34 @@
 <html lang="en">
 
 <head>
-    <title>Why null sucks, even if it&#x27;s checked</title>
+    <title>I hate reality</title>
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="robots" content="noodp"/>
     <meta name="author" content="Maybe Waffle">
 
-    <meta name="theme-color" content="#EE72F1">
-
-    
-    
-    <meta name="title" content="Why null sucks, even if it&#x27;s checked">
-    <meta name="description" content="We all know that `null` is a &quot;billion-dollar mistake&quot;, that it creates a lot of easy ways to make terrible mistakes. But it&#x27;s only so bad when it&#x27;s not checked by anyone and the compiler doesn&#x27;t force you to check it, right? Well, the title might be a spoiler, but let&#x27;s find out...">
-    <meta name="image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-
-    
-        <meta name="keywords" itemprop="tags" content="kotlin, csharp, java, scala, haskell, rust, go, swift">
-    
-
-    <!-- Facebook Meta Tags -->
-    <meta property="og:url" content="https://blog.ihatereality.space/01-why-null-sucks/">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Why null sucks, even if it&#x27;s checked">
-    <meta property="og:description" content="We all know that `null` is a &quot;billion-dollar mistake&quot;, that it creates a lot of easy ways to make terrible mistakes. But it&#x27;s only so bad when it&#x27;s not checked by anyone and the compiler doesn&#x27;t force you to check it, right? Well, the title might be a spoiler, but let&#x27;s find out...">
-    <meta property="og:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-    <meta property="og:locale" content="en">
-
-    
-        <meta property="article:published_time" content="2021-08-20">
-    
-
-    
-        
-            <meta property="article:tag" content="kotlin">
-        
-            <meta property="article:tag" content="csharp">
-        
-            <meta property="article:tag" content="java">
-        
-            <meta property="article:tag" content="scala">
-        
-            <meta property="article:tag" content="haskell">
-        
-            <meta property="article:tag" content="rust">
-        
-            <meta property="article:tag" content="go">
-        
-            <meta property="article:tag" content="swift">
-        
-    
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta property="twitter:domain" content="blog.ihatereality.space">
-    <meta property="twitter:url" content="https://blog.ihatereality.space/01-why-null-sucks/">
-    <meta name="twitter:title" content="Why null sucks, even if it&#x27;s checked">
-    <meta name="twitter:description" content="We all know that `null` is a &quot;billion-dollar mistake&quot;, that it creates a lot of easy ways to make terrible mistakes. But it&#x27;s only so bad when it&#x27;s not checked by anyone and the compiler doesn&#x27;t force you to check it, right? Well, the title might be a spoiler, but let&#x27;s find out...">
-    <meta name="twitter:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
-    <meta name="twitter:creator" content="maybewaffle">
-
-
-
-    
-    <link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
+    <meta name="theme-color" content="#EE72F1"><link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
     <link rel="stylesheet" href="https://blog.ihatereality.space/color/pink.css">
 
     <link rel="stylesheet" href="https://blog.ihatereality.space/font-hack.css">
 
+    <meta name="description" content="We all know that `null` is a "billion-dollar mistake", that it creates a lot of easy ways to make terrible mistakes. But it's only so bad when it's not checked by anyone and the compiler doesn't force you to check it, right? Well, the title might be a spoiler, but let's find out...">
 
-    
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://blog.ihatereality.space/rss.xml">
-    
-        <link rel="shortcut icon" type="image&#x2F;png" href="/you_cant_escape_from_reality_128x128.png">
+    <meta property="og:description" content="We all know that `null` is a "billion-dollar mistake", that it creates a lot of easy ways to make terrible mistakes. But it's only so bad when it's not checked by anyone and the compiler doesn't force you to check it, right? Well, the title might be a spoiler, but let's find out...">
+    <meta property="og:title" content="I hate reality">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.ihatereality.space/01-why-null-sucks/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="We all know that `null` is a "billion-dollar mistake", that it creates a lot of easy ways to make terrible mistakes. But it's only so bad when it's not checked by anyone and the compiler doesn't force you to check it, right? Well, the title might be a spoiler, but let's find out...">
+    <meta name="twitter:title" content="I hate reality">
+    <meta property="twitter:domain" content="blog.ihatereality.space">
+    <meta property="twitter:url" content="https://blog.ihatereality.space/01-why-null-sucks/">
+
+                <link rel="alternate" type="application/rss+xml" title="I hate reality RSS Feed" href="https://blog.ihatereality.space/rss.xml" />
+                <link rel="alternate" type="application/atom+xml" title="I hate reality Atom Feed" href="https://blog.ihatereality.space/atom.xml" />
+        <link rel="shortcut icon" type="image/png" href="/you_cant_escape_from_reality_128x128.png">
     
     </head>
 
@@ -87,8 +42,10 @@
                     
                 <a href="https://blog.ihatereality.space" style="text-decoration: none;">
                     <div class="logo">
+                      
                             I hate reality
-                        </div>
+                        
+                    </div>
                 </a>
             </div>
         </div>
@@ -101,6 +58,7 @@
                 <li><a href="https://github.com/iloathereality/blog" target="_blank" rel="noopener noreferrer">source</a></li>
             </ul>
         </nav>
+    
     
 
     </header>
@@ -123,20 +81,27 @@
 
             
     <span class="post-read-time">
-        :: 16 min read
+        :: 13 min read
     </span>
 
 
             <!-- TODO: rethink how tags look -->
             <br>
             
-        <span class="post-tags-inline"><a class="post-tag" href="https://blog.ihatereality.space/tags/kotlin/">#kotlin</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/csharp/">#csharp</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/java/">#java</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/scala/">#scala</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/haskell/">#haskell</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/rust/">#rust</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/go/">#go</a> <a class="post-tag" href="https://blog.ihatereality.space/tags/swift/">#swift</a></span>
+        <span class="post-tags-inline">
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/csharp/">#csharp</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/go/">#go</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/haskell/">#haskell</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/java/">#java</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/kotlin/">#kotlin</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/rust/">#rust</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/scala/">#scala</a> 
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/swift/">#swift</a></span>
     
         </div>
     
 
 
-        
         <div class="post-content">
             <p>We all know that <code>null</code> is a <a href="https://en.wikipedia.org/wiki/Null_pointer#History">“billion-dollar mistake”</a>, that it creates a lot of easy ways to make terrible mistakes. But it’s only so bad when it’s not checked by anyone and the compiler doesn’t force you to check it, right? Well, the title might be a spoiler, but let’s find out…</p>
 <span id="continue-reading"></span><h1 id="context-what-are-you-talking-about">Context / What are you talking about?<a class="zola-anchor" href="#context-what-are-you-talking-about" aria-label="Anchor link for: context-what-are-you-talking-about">⌗</a></h1>
@@ -193,7 +158,7 @@
 <h1 id="why-it-s-still-meh">Why it’s still meh<a class="zola-anchor" href="#why-it-s-still-meh" aria-label="Anchor link for: why-it-s-still-meh">⌗</a></h1>
 <p>In my opinion, this comes down to 2 things: generality and extensibility.</p>
 <h2 id="generality">Generality<a class="zola-anchor" href="#generality" aria-label="Anchor link for: generality">⌗</a></h2>
-<p>In modern languages, we have ways to abstract over types. Usually, the mechanism to do so is called generics. For example, a <code>HashMap</code> doesn’t care what the key and value types are, it only cares that the key is comparable and hashable. Thus you can have <code>HashMap&lt;String, i32&gt;</code>, <code>HashMap&lt;User, Settings&gt;</code>, etc while only writing <code>HashMap</code> once. </p>
+<p>In modern languages, we have ways to abstract over types. Usually, the mechanism to do so is called generics. For example, a <code>HashMap</code> doesn’t care what the key and value types are, it only cares that the key is comparable and hashable. Thus you can have <code>HashMap&lt;String, i32&gt;</code>, <code>HashMap&lt;User, Settings&gt;</code>, etc while only writing <code>HashMap</code> once.</p>
 <p>That’s all good and all, but what’s the problem? You may ask. Well… Consider this example: the <code>HashMap</code> has a method <code>get</code> which accepts key and returns the value associated with the key if there is one. But what should it return if there is no value associated with the key? It seems reasonable to return <code>null</code> since there is no value. So something like this:</p>
 <pre data-lang="kotlin" style="background-color:#2b303b;color:#c0c5ce;" class="language-kotlin "><code class="language-kotlin" data-lang="kotlin"><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">HashMap</span><span>&lt;</span><span style="color:#b48ead;">K</span><span>, </span><span style="color:#b48ead;">V</span><span>&gt; {
 </span><span>    </span><span style="color:#65737e;">// If `key` is present in the hash map, 
@@ -202,12 +167,12 @@
 </span><span>    </span><span style="color:#b48ead;">fun </span><span style="color:#8fa1b3;">get</span><span>(key: K): V? { </span><span style="color:#65737e;">/* ... */</span><span> }
 </span><span>}
 </span></code></pre>
-<p>But what happens if we use <code>HashMap&lt;_, T?&gt;</code>? Well, then <code>V</code> is <code>T?</code> and so <code>V?</code> is <code>T??</code> which is the same as <code>T?</code> because there is only one <code>null</code> value. </p>
+<p>But what happens if we use <code>HashMap&lt;_, T?&gt;</code>? Well, then <code>V</code> is <code>T?</code> and so <code>V?</code> is <code>T??</code> which is the same as <code>T?</code> because there is only one <code>null</code> value.</p>
 <p>The crux of the problem is this: you can’t distinguish between “absence of value” (no key in the map) and “presence of absence of value” (value is <code>null</code>). And if you need to distinguish them, then you need to call <code>containsKey</code> or something which is suboptimal.</p>
 <p>This is just a simple example, but in general, you can’t use <code>null</code> in generic code because <code>null</code> is too special and <strong>unique</strong>.</p>
 <h2 id="extensibility">Extensibility<a class="zola-anchor" href="#extensibility" aria-label="Anchor link for: extensibility">⌗</a></h2>
-<p><code>null</code> is not extensible. This mechanism is only useful when you have an optional value: either there is a value, or there isn’t. </p>
-<p>It isn’t useful when you need to express errors (<code>null</code> is used for this anyway, but this is problematic), exclusive or (either you have <code>A</code> or <code>B</code>, but not both and not neither), etc. </p>
+<p><code>null</code> is not extensible. This mechanism is only useful when you have an optional value: either there is a value, or there isn’t.</p>
+<p>It isn’t useful when you need to express errors (<code>null</code> is used for this anyway, but this is problematic), exclusive or (either you have <code>A</code> or <code>B</code>, but not both and not neither), etc.</p>
 <p>It may seem like this isn’t a problem — we were talking about expressing optional values from the very beginning. But bear with me, and for now just understand that <code>null</code> is not extensible and there may be other, more extensible, mechanisms.</p>
 <h1 id="the-saviour">The saviour?<a class="zola-anchor" href="#the-saviour" aria-label="Anchor link for: the-saviour">⌗</a></h1>
 <p>As I said before, there may be a more general and extensible way to handle optional values. And there is! It has a lot of different names — sum types, enumerations, tagged unions, discriminated unions, etc. They’re all conceptually similar, but I like the “sum types” name the most, so that’s what I’ll call it.</p>
@@ -235,11 +200,11 @@
     alt="🐸"
   />
   <div class="callout-body">
-    <p>I’ve shown examples in Rust and Haskell because I’m familiar with them but note that sum types exist in <a href="https://en.wikipedia.org/wiki/Algebraic_data_type#Programming_languages_with_algebraic_data_types">many languages</a>. </p>
+    <p>I’ve shown examples in Rust and Haskell because I’m familiar with them but note that sum types exist in <a href="https://en.wikipedia.org/wiki/Algebraic_data_type#Programming_languages_with_algebraic_data_types">many languages</a>.</p>
 
   </div>
 </div>
-<p><code>Option</code> (<code>Maybe</code>) is exactly what we’re looking for! It can be either <code>None</code> (<code>Nothing</code>) or <code>Some(value)</code> (<code>Just value</code>). So either there is nothing or there is some value, exactly the same as with <code>null</code> so far. </p>
+<p><code>Option</code> (<code>Maybe</code>) is exactly what we’re looking for! It can be either <code>None</code> (<code>Nothing</code>) or <code>Some(value)</code> (<code>Just value</code>). So either there is nothing or there is some value, exactly the same as with <code>null</code> so far.</p>
 <p>But it actually solves all the <code>null</code> problems I’ve mentioned!</p>
  
 
@@ -270,12 +235,12 @@
 </span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">get</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>, </span><span style="color:#bf616a;">key</span><span>: &amp;K) -&gt; Option&lt;V&gt; { </span><span style="color:#65737e;">/* ... */ </span><span>}
 </span><span>}
 </span></code></pre>
-<p>If the key isn’t present in the <code>HashMap&lt;K, Option&lt;V&gt;&gt;</code>, then <code>None</code> is returned. If the key is present but the associated value is <code>None</code>, <code>Some(None)</code> is returned. Otherwise, if the key is present and the value isn’t <code>None</code>, then <code>Some(Some(value))</code> is returned. </p>
+<p>If the key isn’t present in the <code>HashMap&lt;K, Option&lt;V&gt;&gt;</code>, then <code>None</code> is returned. If the key is present but the associated value is <code>None</code>, <code>Some(None)</code> is returned. Otherwise, if the key is present and the value isn’t <code>None</code>, then <code>Some(Some(value))</code> is returned.</p>
 <p>The use of sum types gives us 3 distinct kinds of values that can be distinguished from one another, instead of an ambiguous null.</p>
 <h2 id="extensibility-1">Extensibility<a class="zola-anchor" href="#extensibility-1" aria-label="Anchor link for: extensibility-1">⌗</a></h2>
-<p>Sum types can be used for optional values via <code>Option</code>-like types. But they are not limited to only this. You can define your own sum types. It’s very handy when you need to return errors (See Rust <a href="https://doc.rust-lang.org/std/result/index.html"><code>Result</code></a> for example), define the errors themselves or just in general when you need to hold different kinds (types) of data in one place. </p>
+<p>Sum types can be used for optional values via <code>Option</code>-like types. But they are not limited to only this. You can define your own sum types. It’s very handy when you need to return errors (See Rust <a href="https://doc.rust-lang.org/std/result/index.html"><code>Result</code></a> for example), define the errors themselves or just in general when you need to hold different kinds (types) of data in one place.</p>
 <h2 id="explicitness">Explicitness<a class="zola-anchor" href="#explicitness" aria-label="Anchor link for: explicitness">⌗</a></h2>
-<p>There is one thing you may prefer about <code>null</code> over sum types: <code>T</code> can be <a href="https://en.wikipedia.org/wiki/Type_conversion">coerced</a> to <code>T?</code>.  That means that you don’t need to explicitly wrap values in <code>Some</code> (<code>Just</code>). </p>
+<p>There is one thing you may prefer about <code>null</code> over sum types: <code>T</code> can be <a href="https://en.wikipedia.org/wiki/Type_conversion">coerced</a> to <code>T?</code>.  That means that you don’t need to explicitly wrap values in <code>Some</code> (<code>Just</code>).</p>
 <p>This may be handy, because you need to type ~6 characters less if you want to pass <code>T</code> to a function that accepts <code>T?</code>. However, I don’t think that wrapping inconvenience outweighs the benefits of sum types.</p>
 <pre data-lang="kotlin" style="background-color:#2b303b;color:#c0c5ce;" class="language-kotlin "><code class="language-kotlin" data-lang="kotlin"><span style="color:#b48ead;">fun </span><span style="color:#8fa1b3;">f</span><span>(x: </span><span style="color:#b48ead;">Int</span><span>?): </span><span style="color:#b48ead;">Int</span><span>? = x?.let { it + </span><span style="color:#d08770;">1</span><span> }
 </span><span style="color:#b48ead;">val </span><span>res = f(</span><span style="color:#d08770;">1</span><span>)
@@ -350,7 +315,7 @@
 </span></code></pre>
 <p><em>Edited output of the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=0166b25cd98164e32879456d65a8e9b8">test program</a>.</em></p>
 <h1 id="a-sad-note-kotlin">A sad note: Kotlin<a class="zola-anchor" href="#a-sad-note-kotlin" aria-label="Anchor link for: a-sad-note-kotlin">⌗</a></h1>
-<p>Kotlin <em>does</em> support sum types via <a href="https://kotlinlang.org/docs/sealed-classes.html">sealed classes</a>. Here is an example how you could define and use <code>Option</code> (<a href="https://pl.kotl.in/XZ1fBjith">play</a>): </p>
+<p>Kotlin <em>does</em> support sum types via <a href="https://kotlinlang.org/docs/sealed-classes.html">sealed classes</a>. Here is an example how you could define and use <code>Option</code> (<a href="https://pl.kotl.in/XZ1fBjith">play</a>):</p>
 <pre data-lang="kotlin" style="background-color:#2b303b;color:#c0c5ce;" class="language-kotlin "><code class="language-kotlin" data-lang="kotlin"><span style="color:#b48ead;">sealed class </span><span style="color:#ebcb8b;">Option</span><span>&lt;</span><span style="color:#b48ead;">T</span><span>&gt; {
 </span><span>    </span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">None</span><span>&lt;</span><span style="color:#b48ead;">T</span><span>&gt;() : </span><span style="color:#a3be8c;">Option</span><span>&lt;</span><span style="color:#a3be8c;">T</span><span>&gt;() {}
 </span><span>    </span><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">Some</span><span>&lt;</span><span style="color:#b48ead;">T</span><span>&gt;(</span><span style="color:#b48ead;">val </span><span>value: T) : </span><span style="color:#a3be8c;">Option</span><span>&lt;</span><span style="color:#a3be8c;">T</span><span>&gt;() {}
@@ -438,7 +403,7 @@ The reasoning for wildcards and path-dependent types would be perfectly valid if
 </span><span style="color:#b48ead;">type </span><span>Either</span><span style="color:#b48ead;">&lt;</span><span>&#39;a</span><span style="color:#b48ead;">, </span><span>&#39;b</span><span style="color:#b48ead;">&gt; =</span><span> Left </span><span style="color:#b48ead;">of </span><span>&#39;a </span><span style="color:#b48ead;">|</span><span> Right </span><span style="color:#b48ead;">of </span><span>&#39;b
 </span></code></pre>
 <h1 id="a-sad-note-go">A sad note: Go<a class="zola-anchor" href="#a-sad-note-go" aria-label="Anchor link for: a-sad-note-go">⌗</a></h1>
-<p>Go doesn’t support sum types. It’s a little sad on its own, but Go also doesn’t have exceptions and all reference types are implicitly nullable. This means that if a function wants to return an error, it needs to return a tuple of success and error values. This not only makes checking which is <code>null</code> (actually <code>nil</code>, but it’s the same thing) pretty annoying, but also leaves the possibility for an invalid state where neither success nor error values are <code>null</code>. </p>
+<p>Go doesn’t support sum types. It’s a little sad on its own, but Go also doesn’t have exceptions and all reference types are implicitly nullable. This means that if a function wants to return an error, it needs to return a tuple of success and error values. This not only makes checking which is <code>null</code> (actually <code>nil</code>, but it’s the same thing) pretty annoying, but also leaves the possibility for an invalid state where neither success nor error values are <code>null</code>.</p>
 <p>I think it’s inexcusable to have such error-prone design flaws for a language created in 2012.</p>
 <h1 id="a-happy-note-swift">A happy note: Swift<a class="zola-anchor" href="#a-happy-note-swift" aria-label="Anchor link for: a-happy-note-swift">⌗</a></h1>
 <p>I’m not very familiar with Swift, however I often hear that it has some interesting/ergonomic/nice features.
@@ -503,6 +468,22 @@ I wish more languages went in direction “make <code>Optional</code> nicer” i
         </div>
 
         
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Thanks for reading! Read other posts?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                    
+                        <span class="button next">
+                            <a href="https://blog.ihatereality.space/02-you-would-not-use-filter-map/">
+                                <span class="button__text">You wouldn&#x27;t use `filter_map`, right?</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
     </div>
 
     </div>
@@ -510,15 +491,14 @@ I wish more languages went in direction “make <code>Optional</code> nicer” i
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2024 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">:: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep">:: </span><a href="/rss.xml">rss</a></div></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2024 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     
 
 </div>
-
-<!-- Tracking via https://www.goatcounter.com/ -->
-<script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    <!-- Tracking via https://www.goatcounter.com/ -->
+    <script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 
 </html>
