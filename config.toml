@@ -53,7 +53,7 @@ menu_items = [
     #{name = "tags", url = "$BASE_URL/tags"},
 
     { name = "about", url = "$BASE_URL/about" },
-    { name = "source", url = "https://github.com/iloathereality/blog", newtab = true },
+    { name = "source", url = "https://github.com/i-hate-reality/blog", newtab = true },
 ]
 
 # Whether to show links to earlier and later posts
