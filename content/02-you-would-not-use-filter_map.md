@@ -147,7 +147,7 @@ This article received some criticism that needed to be addressed.
 
 In response to it this paragraph was added in [2021-09-21 update].
 
-[2021-09-21 update]: https://github.com/iloathereality/blog/pull/30
+[2021-09-21 update]: https://github.com/i-hate-reality/blog/pull/30
 {% end %}
 
 Turns out `filter_map` has one advantage over `flat_map` --- it can know its own size better. Since `filter_map` can't ever add more elements than there were previously, its [`size_hint`] is `(0, upper)` (where `upper` is the upper bound of the inner iterator). `flat_map`'s `size_hint` on the other hand returns `(0, None)` in most cases (it's a bit more complicated than that since `flat_map` stores iterators it can _sometimes_ know _a bit_ more).
