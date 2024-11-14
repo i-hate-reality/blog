@@ -1,5 +1,5 @@
 +++
-title = "Terminimal Theme for Zola"
+title = "Welcome to Terminimal Theme for Zola"
 date = 2019-02-04
 
 [taxonomies]
@@ -49,6 +49,9 @@ Lists:
 - A
 - B
 - CDEF
+  - Nested Item
+    - And more nesting
+  - GHIJ
 
 
 1. One
@@ -72,9 +75,9 @@ The second part follows here.
 ```
 figure(src="http://rustacean.net/assets/rustacean-flat-gesture.png",
        style="width: 25%;",
-       position="center"
+       position="center",
        caption_position="left",
-       caption="Ferris, the (unofficial) Rust mascot"
+       caption="**Ferris**, the (unofficial) Rust mascot",
        caption_style="font-weight: bold; font-style: italic;")
 ```
 
@@ -82,8 +85,8 @@ figure(src="http://rustacean.net/assets/rustacean-flat-gesture.png",
           style="width: 25%;",
           position="center",
           caption_position="left",
-          caption="Ferris, the (unofficial) Rust mascot",
-          caption_style="font-weight: bold; font-style: italic;") }}
+          caption="**Ferris**, the (unofficial) Rust mascot",
+          caption_style="font-style: italic;") }}
 
 ---
 

@@ -1,13 +1,16 @@
 # Terminimal
 
-[![Build Status](https://travis-ci.org/pawroman/zola-theme-terminimal.svg?branch=master)](https://travis-ci.org/pawroman/zola-theme-terminimal)
+[![Build Status](https://github.com/pawroman/zola-theme-terminimal/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/pawroman/zola-theme-terminimal/actions/workflows/pages/pages-build-deployment)
 ![No JavaScript](https://img.shields.io/badge/JavaScript-none-brightgreen.svg)
 
-![Screenshot](../master/screenshot/screenshot.png?raw=true)
+![Screenshot](../master/screenshot.png?raw=true)
 
-Live demo here: https://pawroman.github.io/zola-theme-terminimal/
+See the live demo (of the default configuration) here:
+https://pawroman.github.io/zola-theme-terminimal/
 
-Tested with Zola v0.11.0.
+Tested with Zola v0.19.2.
+
+Please note that earlier (and older) versions might not work because of breaking changes across Zola versions.
 
 #### Fork disclaimer
 
@@ -17,49 +20,18 @@ https://github.com/panr/hugo-theme-terminal
 
 Many thanks for that outstanding original theme, Radek!
 
-## Changes compared to the original theme
+For more information about this fork and the differences to the original theme, please see:
+[Changes compared to the original theme](#changes-compared-to-the-original-theme) below.
 
-- Slight changes in the layout and styling.
-    - Content has been centered (instead of left-aligned).
-    - The header stripes have been spaced out.
-    - Tweaks to pagination, especially on mobile (small screens).
-    - The post title underline is dashed instead of doubly-dotted.
-    - All links are underlined, as per
-      [Brutalist Web Design Guidelines](https://www.brutalist-web.design/).
-    - Tweaks to header font sizes.
-    - Minor footer tweaks.
+## Versioning
 
-- Absolutely **no JavaScript**.
-    - No JavaScript needed to pre-process anything.
-      Zola with its Sass pre-processor is the only dependency.
-    - There's no menu trigger.
-    - Things load crazy fast, as it's all static content.
-    - Prism.js syntax highlighting is not supported (you can use
-      [Zola's](https://www.getzola.org/documentation/content/syntax-highlighting/)).
-      
-- All references to social media (e.g. Twitter, OpenGraph) have been removed.
+This theme used to be non-versioned, e.g. you'd pull the master branch, and occasionally new features or fixes would
+be released.
 
-- All references to external URLs (e.g. Google CDN) have been removed.
-  This theme's static assets are meant to be served from where it's hosted.
-  
-- [Hack](https://github.com/source-foundry/Hack) is the default font.
-  
-- The default color theme is blue (original uses orange).
+Starting from version v1.0.0, the project adopted [Semantic Versioning](https://semver.org/).
 
-### New features
-
-- You can pick the accent color as well as background color.
-  There's a new `dark` background. See [Configuration](#configuration)
-  below for details.
-- Active "section" links will change color indicating the
-  active section. This is all static, done at template level. 
-
-## Features retained from the original
-
-- 5 color themes, depending on your preference:
-  blue (default), green, orange, pink, red.
-- The shortcodes `image` and `figure` (See [Shortcodes](#shortcodes)).
-- Fully responsive.
+Please check the [GitHub releases](https://github.com/pawroman/zola-theme-terminimal/releases) to see a change log
+and work out if there's any breaking changes.
 
 ## How to start
 
@@ -116,7 +88,7 @@ Example:
 
 Same as `image`, but with a few extra optional arguments:
 
-- **`caption`**
+- **`caption`** (supports markdown)
 - **`caption_position`** (center \[default\] | left | right)
 - **`caption_style`**
 
@@ -125,13 +97,45 @@ Example:
 ```
 {{ figure(src="http://rustacean.net/assets/rustacean-flat-gesture.png",
           style="width: 25%;",
-          position="right"
+          position="right",
           caption_position="left",
-          caption="Ferris, the (unofficial) Rust mascot",
-          caption_style="font-weight: bold; font-style: italic;") }}
+          caption="**Ferris**, the (unofficial) Rust mascot",
+          caption_style="font-style: italic;") }}
+```
+
+## OpenGraph
+
+To add an image to a post, set the `og_image` extra option to the desired image
+in the same directory of the markdown file:
+
+```toml
+[extra]
+og_image = "colocated_image.png"
+```
+
+Additionally, for the section pages and for posts to have a fallback image, add
+`default_og_image` to the `[extra]` section:
+
+```toml
+[extra]
+default_og_image = "static/ocean.jpg"
 ```
 
 ## Configuration
+
+### Only show the post's description
+
+On each post you can specify the following:
+
+```toml
+description = "test description"
+
+[extra]
+show_only_description = true
+```
+
+This will render `test description` under this
+particular post on the homepage instead of a summary.
 
 ### Colors
 
@@ -148,13 +152,14 @@ of your `config.toml`:
 [extra]
 
 # One of: blue, green, orange, pink, red.
-# Defaults to blue. 
+# Defaults to blue.
+# Append -light for light themes, e.g. blue-light
+# Or append -auto, e.g. blue-auto
 accent_color = "green"
 
-# One of: blue, dark, green, orange, pink, red.
-# Enabling dark background will also modify primary font color
-# to be darker.
-# Defaults to accent color (or, if not accent color specified, to blue). 
+# One of: blue, dark, green, orange, pink, red, light, auto
+# Enabling dark background will also modify primary font color to be darker.
+# Defaults to accent color (or, if not accent color specified, to blue).
 background_color = "dark"
 ```
 
@@ -321,6 +326,25 @@ favicon = "/favicon.png"
 favicon_mimetype = "image/png"
 ```
 
+### Page titles
+
+The theme allows you to configure how the page titles (the `<title>` elements) are rendered.
+
+Use `"combined"` to render titles as `"Page title | Main title"`.
+
+```toml
+# Optional: Set how <title> elements are rendered.
+# Values:
+# - "main_only" -- only the main title (`config.title`) is rendered.
+# - "page_only" -- only the page title (if defined) is rendered,
+#                  falling back to `config.title` if not defined or empty.
+# - "combined" -- combine like so: "page_title | main_title",
+#                 or if page_title is not defined or empty, fall back to `main_title`
+#
+# Note that the main (index) page only has the main title.
+page_titles = "combined"
+```
+
 All the configuration options are also described in
 [`config.toml`](../master/config.toml).
 
@@ -345,6 +369,52 @@ base template, `index.html`, create file like this in `templates/index.html`:
 
 If you spot any bugs or wish to contribute new features, please create a new
 [Pull Request](https://github.com/pawroman/zola-theme-terminimal/pulls).
+
+## Changes compared to the original theme
+
+This theme has been forked from https://github.com/panr/hugo-theme-terminal
+
+- Slight changes in the layout and styling.
+  - Content has been centered (instead of left-aligned).
+  - The header stripes have been spaced out.
+  - Tweaks to pagination, especially on mobile (small screens).
+  - The post title underline is dashed instead of doubly-dotted.
+  - All links are underlined, as per
+    [Brutalist Web Design Guidelines](https://www.brutalist-web.design/).
+  - Tweaks to header font sizes.
+  - Minor footer tweaks.
+
+- Absolutely **no JavaScript**.
+  - No JavaScript needed to pre-process anything.
+    Zola with its Sass pre-processor is the only dependency.
+  - There's no menu trigger.
+  - Things load crazy fast, as it's all static content.
+  - Prism.js syntax highlighting is not supported (you can use
+    [Zola's](https://www.getzola.org/documentation/content/syntax-highlighting/)).
+
+- All references to social media (e.g. Twitter) have been removed.
+
+- All references to external URLs (e.g. Google CDN) have been removed.
+  This theme's static assets are meant to be served from where it's hosted.
+
+- [Hack](https://github.com/source-foundry/Hack) is the default font.
+
+- The default color theme is blue (original uses orange).
+
+### New features
+
+- You can pick the accent color as well as background color.
+  There's a new `dark` background. See [Configuration](#configuration)
+  below for details.
+- Active "section" links will change color indicating the
+  active section. This is all static, done at template level.
+
+### Features retained from the original
+
+- 5 color themes, depending on your preference:
+  blue (default), green, orange, pink, red.
+- The shortcodes `image` and `figure` (See [Shortcodes](#shortcodes)).
+- Fully responsive.
 
 ## License
 

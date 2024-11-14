@@ -5,12 +5,19 @@ title = "Zola Terminimal theme"
 # Sass compilation is required
 compile_sass = true
 
+# The theme supports feeds (RSS and ATOM)
+generate_feeds = true
+
+# Use `rss.xml` for RSS feeds and `atom.xml` for ATOM.
+feed_filenames = ["rss.xml", "atom.xml"]
+
 # Optional: enable tags
 taxonomies = [
     {name = "tags"}
 ]
 
 # Code highlighting
+[markdown]
 highlight_code = true
 highlight_theme = "boron"
 
@@ -18,11 +25,12 @@ highlight_theme = "boron"
 
 # One of: blue, green, orange, pink, red.
 # Defaults to blue.
+# Append -light for light themes, e.g. blue-light
+# Or append -auto, e.g. blue-auto
 accent_color = "blue"
 
-# One of: blue, dark, green, orange, pink, red.
-# Enabling dark background will also modify primary font color
-# to be darker.
+# One of: blue, dark, green, orange, pink, red, light, auto
+# Enabling dark background will also modify primary font color to be darker.
 # Defaults to accent color (or, if not accent color specified, to blue).
 background_color = "blue"
 
@@ -57,7 +65,7 @@ menu_items = [
     {name = "github", url = "https://github.com/pawroman/zola-theme-terminimal", newtab = true},
 ]
 
-# Whether to show links to earlier and later posts
+# Whether to show links to earlier and later (aka. higher/lower) posts
 # on each post page (defaults to true).
 enable_post_view_navigation = true
 
@@ -77,3 +85,19 @@ use_full_hack_font = false
 #           in your site's "static" directory.
 # favicon = "/favicon.png"
 # favicon_mimetype = "image/png"
+
+# Optional: Set how <title> elements are rendered.
+# Values:
+# - "main_only" -- only the main title (`config.title`) is rendered.
+# - "page_only" -- only the page title (if defined) is rendered,
+#                  falling back to `config.title` if not defined or empty.
+# - "combined" -- combine like so: "page_title | main_title",
+#                 or if page_title is not defined or empty, fall back to `main_title`
+#
+# Note that the main (index) page only has the main title.
+page_titles = "main_only"
+
+# Optional: default image to use for OpenGraph.
+#           If the page doesnt set og_image, use this one as fallback. Usefull
+#           for indexes and taxonomies' pages.
+#default_og_image = "static/ocean.jpg"
