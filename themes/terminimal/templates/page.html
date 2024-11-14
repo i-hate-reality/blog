@@ -1,7 +1,6 @@
 {% extends "index.html" %}
 
-{% block title %}{{ page.title }}{% endblock title %}
-
+<!-- FIXME: do we still need these metatags? -->
 {% block social_metatags %}
     {% set image = config.base_url ~ config.extra.preview_image %}
     <meta name="title" content="{{page.title}}">
@@ -40,14 +39,18 @@
     <meta name="twitter:creator" content="{{config.extra.twitter_creator_username}}">
 {% endblock social_metatags %}
 
-{% block menu %}
+{% block header_menu %}
     {{ menu_macros::menu(config=config, current_path=current_path, show_show_devlog_checkbox=false) }}
-{% endblock menu %}
+{% endblock header_menu %}
+
+{%- block title -%}
+{{ title_macros::title(page_title=page.title, main_title=config.title) }}
+{%- endblock -%}
 
 {% block content %}
     <div class="post">
         {{ post_macros::header(page=page) }}
-        {{ post_macros::content(page=page, summary=false) }}
+        {{ post_macros::content(page=page, summary=false, show_only_description=false) }}
         {{ post_macros::earlier_later(page=page) }}
     </div>
 {% endblock content %}
