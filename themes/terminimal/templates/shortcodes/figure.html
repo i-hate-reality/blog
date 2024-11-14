@@ -40,11 +40,13 @@
       alt="{{ alt }}"
       class="{% if position %}{{ position }}{% else -%} center {%- endif %}" 
       {%- if style %} style="{{ style | safe }}" {%- endif %} 
+      decoding="async"
+      loading="lazy"
     />
   </a>
 
   {% if caption %}
   <figcaption class="{% if caption_position %}{{ caption_position }}{% else -%} center {%- endif %}" {% if caption_style
-    %} style="{{ caption_style | safe }}" {% endif %}>{{ caption }}</figcaption>
+    %} style="{{ caption_style | safe }}" {% endif %}>{{ caption | markdown() | safe }}</figcaption>
   {% endif %}
 </figure>

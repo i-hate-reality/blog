@@ -14,8 +14,8 @@ theme = "terminimal"
 
 taxonomies = [{ name = "tags" }]
 
-generate_feed = true
-feed_filename = "rss.xml"
+generate_feeds = true
+feed_filenames = ["rss.xml", "atom.xml"]
 
 [markdown]
 # Whether to do syntax highlighting
@@ -32,7 +32,7 @@ logo_text = "I hate reality"
 author = "Maybe Waffle"
 
 # TODO: make footer less weird
-copyright_html = "<div class=\"copyright\"><span>© 2021-2024 Waffle Lapkin</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">:: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\">:: </span><a href=\"/rss.xml\">rss</a></div>"
+copyright_html = "<div class=\"copyright\"><span>© 2021-2024 Waffle Lapkin</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">  :: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\"> :: </span><a href=\"/rss.xml\">rss</a></div><span class=\"copyright-theme-sep\"> :: </span><a href=\"/atom.xml\">atom</a>"
 
 # One of: blue, green, orange, pink, red.
 # Defaults to blue. 
@@ -72,4 +72,4 @@ use_full_hack_font = true
 
 favicon = "/you_cant_escape_from_reality_128x128.png"
 favicon_mimetype = "image/png"
-preview_image = "/you_cant_escape_from_reality_450x450.png"
+og_image = "/you_cant_escape_from_reality_450x450.png"

@@ -1,6 +1,12 @@
 {% extends "index.html" %}
 
+<!-- FIXME: do we need this? -->
 {% block social_metatags %}{% endblock social_metatags %}
+
+{%- block title -%}
+{% set title = "Tag: " ~ term.name %}
+{{ title_macros::title(page_title=title, main_title=config.title) }}
+{%- endblock -%}
 
 {% block content %}
     <div class="post">
@@ -9,7 +15,7 @@
             ({{ term.pages | length }})
         </h1>
 
-        <a href="{{ config.base_url | safe }}/tags">
+        <a href="{{ config.base_url | safe }}/tags/">
             Show all tags
         </a>
 
