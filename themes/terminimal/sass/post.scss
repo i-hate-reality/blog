@@ -101,7 +101,7 @@
       color: var(--accent);
     }
   }  
-  
+ 
   ol {
     list-style: none;
     counter-reset: li;
@@ -122,7 +122,8 @@
      content: counter(li, katakana);
   }
   
-  ol li ol li ol>li::before {
+  ol li ol li ol>li::before,
+  .footnotes-list li::before {
      content: counter(li);
   }
 
@@ -157,5 +158,11 @@
 }
 
 ul li.tag-list a {
+  text-decoration: none;
+}
+
+.footnote-reference a {
+  color: var(--color);
+  opacity: .5;
   text-decoration: none;
 }
