@@ -25,6 +25,10 @@ highlight_theme = "base16-ocean-dark"
 
 smart_punctuation = true
 
+# Make footnotes actually work
+# Thanks, totikom, for working on <https://github.com/getzola/zola/pull/2480>
+bottom_footnotes = true
+
 [extra]
 # Put all your custom variables here
 
