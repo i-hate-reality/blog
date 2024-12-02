@@ -7,7 +7,16 @@
       <generator>Zola</generator>
       <language>en</language>
       <atom:link href="https://blog.ihatereality.space/rss.xml" rel="self" type="application/rss+xml"/>
-      <lastBuildDate>Mon, 11 Dec 2023 00:00:00 +0000</lastBuildDate>
+      <lastBuildDate>Mon, 02 Dec 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>preferred pronouns</title>
+          <pubDate>Mon, 02 Dec 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://blog.ihatereality.space/09-preferred-pronouns/</link>
+          <guid>https://blog.ihatereality.space/09-preferred-pronouns/</guid>
+          <description xml:base="https://blog.ihatereality.space/09-preferred-pronouns/">&lt;p&gt;i recently saw the term “preferred pronouns” being used, which reminded i wanted to rant about it.&lt;&#x2F;p&gt;
+</description>
+      </item>
       <item>
           <title>Waffle Devlog 9</title>
           <pubDate>Mon, 11 Dec 2023 00:00:00 +0000</pubDate>
