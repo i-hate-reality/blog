@@ -30,9 +30,15 @@ are *trans* you are *forced* to ask them for their *preferred* ones.
 
 to draw an analogy, you wouldn't ask anyone for their "*preferred* name".
 you would just ask them for their name, it's already assumed that they'll tell you a name
-that they want you to call them[^2].
+that they want you to call them[^2], so "preferred" would be meaningless[^4].
 
 [^2]: or they can always say something like "my name is xyz, but please call me asteroid destroyer"
+
+[^4]: there is one case where "preferred pronouns" is meaningful -- when people have
+      multiple sets of pronouns (for example it/she/they -- meaning "it/its or she/her or
+      they/them"), they might have a preferred set (usually pronouns are listed in order
+      of desceding preferrence). however, this is not what people mean when they ask for
+      "preferred pronouns".
 
 similarly, i think you should just ask people "what are your pronouns?" -- drop "preferred".
 it's shorter, it's easier, it's nicer.
