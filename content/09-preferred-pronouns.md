@@ -25,7 +25,7 @@ in a deragatory way[^1]. like they have the pronouns you've assumed, but because
 are *trans* you are *forced* to ask them for their *preferred* ones.
 
 [^1]: i know that most people don't mean it that way.
-      at least not contiously anyway.
+      at least not consciously anyway.
       yet it does feel this way (at least for me)?
 
 to draw an analogy, you wouldn't ask anyone for their "*preferred* name".
