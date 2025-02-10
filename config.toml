@@ -77,4 +77,4 @@ use_full_hack_font = true
 
 favicon = "/you_cant_escape_from_reality_128x128.png"
 favicon_mimetype = "image/png"
-og_image = "/you_cant_escape_from_reality_450x450.png"
+default_og_image = "/you_cant_escape_from_reality_450x450.png"
