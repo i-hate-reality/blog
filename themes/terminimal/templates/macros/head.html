@@ -44,7 +44,7 @@
 
 {% endmacro head %}
 
-{# Extra Meta tags for OpenGraph and Twitter cards #}
+{# Extra Meta tags for OpenGraph #}
 {% macro open_graph(config) %}
 {%- if page %}
     {%- set permalink = page.permalink %}
@@ -100,11 +100,5 @@
     <meta property="og:url" content="{{ permalink | safe }}">
 {% if og_image %}
     <meta property="og:image" content="{{ get_url(path=og_image) }}">
-    <meta name="twitter:image" content="{{ get_url(path=og_image) }}">
 {% endif %}
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:description" content="{{ description | safe }}">
-    <meta name="twitter:title" content="{{ title | safe }}">
-    <meta property="twitter:domain" content="{{ config.base_url | replace(from="https://", to="") }}">
-    <meta property="twitter:url" content="{{ permalink | safe }}">
 {% endmacro open_graph %}
