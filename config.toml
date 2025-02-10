@@ -36,7 +36,7 @@ logo_text = "I hate reality"
 author = "Waffle Lapkin"
 
 # TODO: make footer less weird
-copyright_html = "<div class=\"copyright\"><span>© 2021-2024 Waffle Lapkin</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">  :: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\"> :: </span><a href=\"/rss.xml\">rss</a></div><span class=\"copyright-theme-sep\"> :: </span><a href=\"/atom.xml\">atom</a>"
+copyright_html = "<div class=\"copyright\"><span>© 2021-2025 Waffle Lapkin</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">  :: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\"> :: </span><a href=\"/rss.xml\">rss</a></div><span class=\"copyright-theme-sep\"> :: </span><a href=\"/atom.xml\">atom</a>"
 
 # One of: blue, green, orange, pink, red.
 # Defaults to blue. 
