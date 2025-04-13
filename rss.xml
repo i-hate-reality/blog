@@ -7,7 +7,16 @@
       <generator>Zola</generator>
       <language>en</language>
       <atom:link href="https://blog.ihatereality.space/rss.xml" rel="self" type="application/rss+xml"/>
-      <lastBuildDate>Mon, 02 Dec 2024 00:00:00 +0000</lastBuildDate>
+      <lastBuildDate>Sun, 13 Apr 2025 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>(null), data= [ 0x06 ]</title>
+          <pubDate>Sun, 13 Apr 2025 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://blog.ihatereality.space/0a-null-data-0x06/</link>
+          <guid>https://blog.ihatereality.space/0a-null-data-0x06/</guid>
+          <description xml:base="https://blog.ihatereality.space/0a-null-data-0x06/">&lt;p&gt;so, recently i’ve been “working” a lot with usb. both as-in trying to make a usb device and as-in trying to make an existing usb device work. (let’s all pray that i’ll write more about both of these projects later). and, well, this journey is one made of pain…&lt;&#x2F;p&gt;
+</description>
+      </item>
       <item>
           <title>preferred pronouns</title>
           <pubDate>Mon, 02 Dec 2024 00:00:00 +0000</pubDate>

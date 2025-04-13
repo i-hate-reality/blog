@@ -40,6 +40,10 @@
         <lastmod>2024-12-02</lastmod>
     </url>
     <url>
+        <loc>https://blog.ihatereality.space/0a-null-data-0x06/</loc>
+        <lastmod>2025-04-13</lastmod>
+    </url>
+    <url>
         <loc>https://blog.ihatereality.space/about/</loc>
     </url>
     <url>
@@ -107,6 +111,9 @@
         <loc>https://blog.ihatereality.space/tags/lowercase/</loc>
     </url>
     <url>
+        <loc>https://blog.ihatereality.space/tags/programming/</loc>
+    </url>
+    <url>
         <loc>https://blog.ihatereality.space/tags/rant/</loc>
     </url>
     <url>
@@ -123,5 +130,8 @@
     </url>
     <url>
         <loc>https://blog.ihatereality.space/tags/trans/</loc>
+    </url>
+    <url>
+        <loc>https://blog.ihatereality.space/tags/usb/</loc>
     </url>
 </urlset>
