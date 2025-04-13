@@ -29,6 +29,13 @@ smart_punctuation = true
 # Thanks, totikom, for working on <https://github.com/getzola/zola/pull/2480>
 bottom_footnotes = true
 
+[slugify]
+# My paths are already basically slugs;
+# "on" makes everything lowercase, which looks off for hex post prefix
+# (i.e. 0A-blah turns into 0a-blah which doesn't look good, because
+# 0-9 numbers are basically always uppercase)
+paths = "off"
+
 [extra]
 # Put all your custom variables here
 

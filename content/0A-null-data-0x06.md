@@ -3,6 +3,10 @@ title = "(null), data= [ 0x06 ]"
 date = 2025-04-13
 description = "debugging lsusb"
 
+# redirect from lowercase hex url,
+# which was used before I turned off slugification of paths.
+aliases = ["0a-null-data-0x06"]
+
 [taxonomies] 
 tags = ["usb", "programming", "lowercase"]
 +++
