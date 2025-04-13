@@ -95,7 +95,7 @@
         <div class="post-content">
             <p>so, recently i’ve been “working” a lot with usb. both as-in trying to make a usb device and as-in trying to make an existing usb device work. (let’s all pray that i’ll write more about both of these projects later). and, well, this journey is one made of pain…</p>
 <span id="continue-reading"></span>
-<p>it’s hard to pinpoint thew exact problem, but for some reason the intersection of “usb”, “linux permission management”, “nixos”, and some non-standard things is just so painful. the errors are entirely opaque, information online is sparse, problems are confusing, debugging tools non-existent or hard to find, […].</p>
+<p>it’s hard to pinpoint the exact problem, but for some reason the intersection of “usb”, “linux permission management”, “nixos”, and some non-standard things is just so painful. the errors are entirely opaque, information online is sparse, problems are confusing, debugging tools non-existent or hard to find, […].</p>
 <p>today i successfully debugged one issue that turned out to be quite funny, let me share the story.</p>
 <p>i’m mainly working with usb-hid devices (universal serial bus human interface devices devices), i.e. things like keyboards and mice – peripherals. one thing that is very helpful when debugging issues with them is getting “hid-descriptor” – description of the device and what it says it’ll communicate.</p>
 <p>on paper <code>lsusb</code> should be able to list this information, buuuut…</p>
@@ -176,7 +176,7 @@
 <li>why does it say <code>(null)</code> everywhere???</li>
 </ol>
 <p>somehow <code>lsusb</code>’s parser must be broken ig?… but how and why… googling <code>lsusb descriptor "(null)"</code> of course yielded nothing.</p>
-<p>one suspicion I had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a <a href="https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch">suspicious patch</a>:</p>
+<p>one suspicion i had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a <a href="https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch">suspicious patch</a>:</p>
 <pre data-lang="patch" style="background-color:#2b303b;color:#c0c5ce;" class="language-patch "><code class="language-patch" data-lang="patch"><span>diff --git a/lsusb.py b/lsusb.py
 </span><span>index bbc4dbb..8af1b1f 100755
 </span><span>--- a/lsusb.py
