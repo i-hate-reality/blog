@@ -11,7 +11,7 @@ so, recently i've been "working" a lot with usb. both as-in trying to make a usb
 
 <!-- more -->
 
-it's hard to pinpoint thew exact problem, but for some reason the intersection of "usb", "linux permission management", "nixos", and some non-standard things is just so painful. the errors are entirely opaque, information online is sparse, problems are confusing, debugging tools non-existent or hard to find, \[...\].
+it's hard to pinpoint the exact problem, but for some reason the intersection of "usb", "linux permission management", "nixos", and some non-standard things is just so painful. the errors are entirely opaque, information online is sparse, problems are confusing, debugging tools non-existent or hard to find, \[...\].
 
 today i successfully debugged one issue that turned out to be quite funny, let me share the story.
 
@@ -91,7 +91,7 @@ so, multiple things:
 
 somehow `lsusb`'s parser must be broken ig?... but how and why... googling `lsusb descriptor "(null)"` of course yielded nothing.
 
-one suspicion I had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a [suspicious patch](https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch): 
+one suspicion i had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a [suspicious patch](https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch):
 
 ```patch
 diff --git a/lsusb.py b/lsusb.py
