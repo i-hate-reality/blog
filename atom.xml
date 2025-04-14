@@ -19,8 +19,8 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/0a-null-data-0x06/"/>
-        <id>https://blog.ihatereality.space/0a-null-data-0x06/</id>
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/0A-null-data-0x06/"/>
+        <id>https://blog.ihatereality.space/0A-null-data-0x06/</id>
         
         <summary type="html">&lt;p&gt;so, recently i’ve been “working” a lot with usb. both as-in trying to make a usb device and as-in trying to make an existing usb device work. (let’s all pray that i’ll write more about both of these projects later). and, well, this journey is one made of pain…&lt;&#x2F;p&gt;
 </summary>
@@ -384,8 +384,8 @@ The solution was found quite fast by &lt;a href=&quot;https:&#x2F;&#x2F;twitter.
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/02-you-would-not-use-filter-map/"/>
-        <id>https://blog.ihatereality.space/02-you-would-not-use-filter-map/</id>
+        <link rel="alternate" type="text/html" href="https://blog.ihatereality.space/02-you-would-not-use-filter_map/"/>
+        <id>https://blog.ihatereality.space/02-you-would-not-use-filter_map/</id>
         
         <summary type="html">&lt;p&gt;There is a function &lt;code&gt;Iterator::filter_map&lt;&#x2F;code&gt;. I want to argue that it’s useless and Rust provides more powerful tools to replace it.&lt;&#x2F;p&gt;
 </summary>
