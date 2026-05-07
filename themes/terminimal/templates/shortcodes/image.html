@@ -23,7 +23,8 @@
   {% endif %}
 
   {% set new_image = resize_image(path=path, width=1280, height=1280, op="fit", format=format, quality=quality) %}
-  {% set_global src = new_image.static_path | trim_start_matches(pat="static") %}  
+  {# find a better way to deal with 0B-tricking-cargo-into-generating-lock-files-for-old-msrv picture than this poor man's urlencode... #}
+  {% set_global src = new_image.static_path | trim_start_matches(pat="static") | regex_replace(pattern=`\?`, rep=`%3F`) | regex_replace(pattern=` `, rep=`%20`) %}  
 {% elif url %}
   {% set_global src = url %}
   {% if full is not defined %}
