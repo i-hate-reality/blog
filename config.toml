@@ -18,16 +18,18 @@ generate_feeds = true
 feed_filenames = ["rss.xml", "atom.xml"]
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
-highlight_theme = "base16-ocean-dark"
 
 smart_punctuation = true
 
 # Make footnotes actually work
 # Thanks, totikom, for working on <https://github.com/getzola/zola/pull/2480>
 bottom_footnotes = true
+
+[markdown.highlighting]
+error_on_missing_language = true
+style = "inline" # everything breaks if I use classes...
+theme = "catppuccin-macchiato"
+# theme = "base16-ocean-dark" # not available anymore :(
 
 [slugify]
 # My paths are already basically slugs;
