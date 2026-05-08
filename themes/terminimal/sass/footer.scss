@@ -62,3 +62,23 @@
     }
   }
 }
+
+ol.footnotes-list li {
+  > p, > div {
+      margin-top: 6px;
+      margin-bottom: 6px;
+  }
+
+  > p:first-child, > div:first-child {
+    margin-top: 2px;
+
+    // awkwardly workaround an empty paragraph before a callout case in 0B...
+    &:has(+ .callout) {
+        margin: 2px;
+    }
+  }
+
+  > p:last-child, >div:last-child {
+    margin-bottom: 2px;
+  }
+}
