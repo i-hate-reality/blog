@@ -96,7 +96,7 @@ Anyway, things I’ve done this week (2023-04-03—2023-04-07).
 This is mostly a log for <em>myself</em> so that I remember that I did things™,
 but you may be interested in reading it too, for whatever reason.</p>
 <span id="continue-reading"></span><h1 id="yeet-owningref">Yeet <code>OwningRef</code><a class="zola-anchor" href="#yeet-owningref" aria-label="Anchor link for: yeet-owningref">⌗</a></h1>
-<p>Originally I wanted to cleanup documentation of <code>OwningRef</code> inside <code>rustc_data_structures</code> (filling <a href="https://github.com/rust-lang/rust/pull/109948">#109948</a>).
+<p>Originally I wanted to cleanup documentation of <code>OwningRef</code> inside <code>rustc_data_structures</code> (filling <a rel="external" href="https://github.com/rust-lang/rust/pull/109948">#109948</a>).
 But later I was informed that <code>OwningRef</code> is actually unsound and is even used unsoundly in the compiler…
 So I tried fixing that instead.</p>
  
@@ -121,20 +121,18 @@ So I tried fixing that instead.</p>
   </div>
 </div>
 <p><code>OwningRef</code> is the “solution” to the problem of returning data borrowed from the current function:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">f</span><span>() -&gt; (Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;, &amp;&#39;??? [</span><span style="color:#b48ead;">u8</span><span>]) {
-</span><span>    </span><span style="color:#b48ead;">let</span><span> vec = vec![</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">2</span><span>, </span><span style="color:#d08770;">3</span><span>, </span><span style="color:#d08770;">4</span><span>];
-</span><span>    (vec, &amp;vec[</span><span style="color:#d08770;">1</span><span>..][..</span><span style="color:#d08770;">3</span><span>]) 
-</span><span>    </span><span style="color:#65737e;">//    ^-- error: cannot return value referencing local variable `vec`
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">fn</span><span style="color: #8AADF4;font-style: italic;"> f</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #939AB7;"> (</span><span style="color: #EED49F;font-style: italic;">Vec</span><span style="color: #91D7E3;">&lt;</span><span style="color: #C6A0F6;">u8</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">,</span><span style="color: #8BD5CA;"> &amp;</span><span style="color: #939AB7;">&#39;</span><span style="color: #A6DA95;">??? [u8]) {</span></span>
+<span class="giallo-l"><span style="color: #A6DA95;">    let vec = vec![0, 1, 2, 3, 4];</span></span>
+<span class="giallo-l"><span style="color: #A6DA95;">    (vec, &amp;vec[1..][..3]) </span></span>
+<span class="giallo-l"><span style="color: #A6DA95;">    //    ^-- error: cannot return value referencing local variable `vec`</span></span>
+<span class="giallo-l"><span style="color: #A6DA95;">}</span></span></code></pre>
 <p>With owning ref you can do something like this:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">a</span><span>() -&gt; OwningRef&lt;Vec&lt;</span><span style="color:#b48ead;">u8</span><span>&gt;, [</span><span style="color:#b48ead;">u8</span><span>]&gt; {
-</span><span>    </span><span style="color:#b48ead;">let</span><span> vec = vec![</span><span style="color:#d08770;">0</span><span>, </span><span style="color:#d08770;">1</span><span>, </span><span style="color:#d08770;">2</span><span>, </span><span style="color:#d08770;">3</span><span>, </span><span style="color:#d08770;">4</span><span>];
-</span><span>    </span><span style="color:#b48ead;">let</span><span> or = OwningRef::new(vec);
-</span><span>    </span><span style="color:#b48ead;">let</span><span> or = or.</span><span style="color:#96b5b4;">map</span><span>(|</span><span style="color:#bf616a;">v</span><span>| &amp;v[</span><span style="color:#d08770;">1</span><span>..</span><span style="color:#d08770;">3</span><span>]);
-</span><span>    or
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">fn</span><span style="color: #8AADF4;font-style: italic;"> a</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #EED49F;font-style: italic;"> OwningRef</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">Vec</span><span style="color: #91D7E3;">&lt;</span><span style="color: #C6A0F6;">u8</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">, [</span><span style="color: #C6A0F6;">u8</span><span style="color: #939AB7;">]</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> vec</span><span style="color: #8BD5CA;"> =</span><span style="color: #8AADF4;font-style: italic;"> vec!</span><span style="color: #939AB7;">[</span><span style="color: #F5A97F;">0</span><span style="color: #939AB7;">,</span><span style="color: #F5A97F;"> 1</span><span style="color: #939AB7;">,</span><span style="color: #F5A97F;"> 2</span><span style="color: #939AB7;">,</span><span style="color: #F5A97F;"> 3</span><span style="color: #939AB7;">,</span><span style="color: #F5A97F;"> 4</span><span style="color: #939AB7;">];</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> or</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> OwningRef</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">(</span><span>vec</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> or</span><span style="color: #8BD5CA;"> =</span><span> or</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">map</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">|</span><span>v</span><span style="color: #8BD5CA;">| &amp;</span><span>v</span><span style="color: #939AB7;">[</span><span style="color: #F5A97F;">1</span><span style="color: #8BD5CA;">..</span><span style="color: #F5A97F;">3</span><span style="color: #939AB7;">]);</span></span>
+<span class="giallo-l"><span>    or</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>Under the hood <code>OwningRef&lt;Owner, View&gt;</code> asserts that <code>Owner</code>’s <code>Deref</code> implementation is “stable”
 (meaning it returns a reference with the same address if the owner value does not change)
 and stores a pointer alongside with the owner (basically the same <code>Vec&lt;u8&gt;, &amp;'??? [u8]</code> tuple).
@@ -162,71 +160,68 @@ you can’t invalidate the pointer, so it’s fine to use it.</p>
 
   </div>
 </div>
-<p>Well… Under the current understanding of Rust semantics, <code>Box</code> is a <strong>unique</strong> owning pointer, which means that it can’t be aliased. Moving the <code>Box</code> asserts this invariant, <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=50ba5fb85fbc7f7033665247f8b44087">invalidating the pointer</a>:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> owner = Box::new(</span><span style="color:#d08770;">1</span><span>);
-</span><span style="color:#b48ead;">let</span><span> ptr: </span><span style="color:#b48ead;">*const u32 </span><span>= &amp;*owner;
-</span><span>
-</span><span style="color:#65737e;">// move of `owner` (similarly to a move inside `OwningRef::new`)
-</span><span style="color:#65737e;">// this invalidates `ptr`
-</span><span style="color:#b48ead;">let</span><span> owning = (owner, ptr);
-</span><span>
-</span><span style="color:#65737e;">// Observe the pointer being invalid (miri reports UB)
-</span><span style="color:#b48ead;">unsafe </span><span>{ dbg!(*owning.</span><span style="color:#d08770;">1</span><span>) };
-</span></code></pre>
+<p>Well… Under the current understanding of Rust semantics, <code>Box</code> is a <strong>unique</strong> owning pointer, which means that it can’t be aliased. Moving the <code>Box</code> asserts this invariant, <a rel="external" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=50ba5fb85fbc7f7033665247f8b44087">invalidating the pointer</a>:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> owner</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> Box</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">(</span><span style="color: #F5A97F;">1</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> ptr</span><span style="color: #8BD5CA;">: *</span><span style="color: #C6A0F6;">const u32</span><span style="color: #8BD5CA;"> = &amp;*</span><span>owner</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// move of `owner` (similarly to a move inside `OwningRef::new`)</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// this invalidates `ptr`</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> owning</span><span style="color: #8BD5CA;"> =</span><span style="color: #939AB7;"> (</span><span>owner</span><span style="color: #939AB7;">,</span><span> ptr</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// Observe the pointer being invalid (miri reports UB)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">unsafe</span><span style="color: #939AB7;"> {</span><span style="color: #8AADF4;font-style: italic;"> dbg!</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">*</span><span>owning</span><span style="color: #8BD5CA;">.</span><span style="color: #F5A97F;">1</span><span style="color: #939AB7;">) };</span></span></code></pre>
 <p>So, while <code>Box</code> has a stable <code>Deref</code>, it turns out that this is not sufficient for <code>OwningRef</code> soundness.
 Moreover it turns out that all rustc’s uses of <code>OwningRef</code> use <code>Box</code> (to erase the owner type).</p>
 <p>There are a few possible solutions,
 but in the end I decided to implement a different specialized abstraction instead of trying to fix <code>OwningRef</code>.</p>
-<p>To fix the box issue, I box the owner <em>again</em> first, so that the box I’m getting the pointer from, doesn’t move and <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=a399f56dd98a2ce36a241b631c274d42">doesn’t invalidate the pointer</a>:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> owner = Box::new(</span><span style="color:#d08770;">1</span><span>);
-</span><span>
-</span><span style="color:#b48ead;">let</span><span> boxed: Box&lt;Box&lt;</span><span style="color:#b48ead;">u32</span><span>&gt;&gt; = Box::new(owner);
-</span><span>
-</span><span style="color:#b48ead;">let</span><span> ptr: </span><span style="color:#b48ead;">*const u32 </span><span>= &amp;**boxed;
-</span><span>
-</span><span style="color:#65737e;">// move of `boxed` doesn&#39;t move the owner,
-</span><span style="color:#65737e;">// so it doesn&#39;t invalidate the pointer
-</span><span style="color:#b48ead;">let</span><span> owning = (boxed, ptr);
-</span><span>
-</span><span style="color:#65737e;">// Observe the pointer being valid (miri does not report UB)
-</span><span style="color:#b48ead;">unsafe </span><span>{ dbg!(*owning.</span><span style="color:#d08770;">1</span><span>) };
-</span></code></pre>
+<p>To fix the box issue, I box the owner <em>again</em> first, so that the box I’m getting the pointer from, doesn’t move and <a rel="external" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2021&amp;gist=a399f56dd98a2ce36a241b631c274d42">doesn’t invalidate the pointer</a>:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> owner</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> Box</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">(</span><span style="color: #F5A97F;">1</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> boxed</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> Box</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">Box</span><span style="color: #91D7E3;">&lt;</span><span style="color: #C6A0F6;">u32</span><span style="color: #91D7E3;">&gt;&gt;</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> Box</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">(</span><span>owner</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> ptr</span><span style="color: #8BD5CA;">: *</span><span style="color: #C6A0F6;">const u32</span><span style="color: #8BD5CA;"> = &amp;**</span><span>boxed</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// move of `boxed` doesn&#39;t move the owner,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// so it doesn&#39;t invalidate the pointer</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> owning</span><span style="color: #8BD5CA;"> =</span><span style="color: #939AB7;"> (</span><span>boxed</span><span style="color: #939AB7;">,</span><span> ptr</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// Observe the pointer being valid (miri does not report UB)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">unsafe</span><span style="color: #939AB7;"> {</span><span style="color: #8AADF4;font-style: italic;"> dbg!</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">*</span><span>owning</span><span style="color: #8BD5CA;">.</span><span style="color: #F5A97F;">1</span><span style="color: #939AB7;">) };</span></span></code></pre>
 <p>This design doesn’t even require stable <code>Deref</code>!
 By using HRTB bound for the function that gets the reference from the owner,
 we can pretend that we are giving it a reference that lives as long as the <code>OwnedSlice</code>:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">pub fn </span><span style="color:#8fa1b3;">slice_owned</span><span>&lt;O, F&gt;(</span><span style="color:#bf616a;">owner</span><span>: O, </span><span style="color:#bf616a;">slicer</span><span>: F) -&gt; OwnedSlice
-</span><span style="color:#b48ead;">where
-</span><span>    </span><span style="color:#65737e;">// This is the magic bound,
-</span><span>    </span><span style="color:#65737e;">// this function must be valid for all lifetimes,
-</span><span>    </span><span style="color:#65737e;">// so it can only return borrows from the argument,
-</span><span>    </span><span style="color:#65737e;">// or &#39;static data (which is also fine)
-</span><span>    F: </span><span style="color:#b48ead;">for</span><span>&lt;</span><span style="color:#b48ead;">&#39;a</span><span>&gt; FnOnce(&amp;</span><span style="color:#b48ead;">&#39;a</span><span> O) -&gt; &amp;</span><span style="color:#b48ead;">&#39;a</span><span> [</span><span style="color:#b48ead;">u8</span><span>],
-</span><span>
-</span><span>    </span><span style="color:#65737e;">// `OwnedSlice` has `Box&lt;dyn Send + Sync&gt;` internally
-</span><span>    </span><span style="color:#65737e;">// to erase types and stay thread-safe
-</span><span>    O: Send + Sync + </span><span style="color:#b48ead;">&#39;static</span><span>,
-</span></code></pre>
-<p>This is perfectly valid, unless we access the owner somehow. The result can be seen in this PR: <a href="https://github.com/rust-lang/rust/pull/109971">#109971</a>.</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">pub fn</span><span style="color: #8AADF4;font-style: italic;"> slice_owned</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">O</span><span style="color: #939AB7;">,</span><span style="color: #EED49F;font-style: italic;"> F</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">(</span><span style="color: #EE99A0;">owner</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> O</span><span style="color: #939AB7;">,</span><span style="color: #EE99A0;"> slicer</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> F</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #EED49F;font-style: italic;"> OwnedSlice</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">where</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // This is the magic bound,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // this function must be valid for all lifetimes,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // so it can only return borrows from the argument,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // or &#39;static data (which is also fine)</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">    F</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> for</span><span style="color: #91D7E3;">&lt;</span><span style="color: #939AB7;">&#39;</span><span style="color: #8AADF4;font-style: italic;">a</span><span style="color: #91D7E3;">&gt;</span><span style="color: #8AADF4;font-style: italic;"> FnOnce</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #939AB7;">&#39;</span><span style="color: #8AADF4;font-style: italic;">a</span><span style="color: #EED49F;font-style: italic;"> O</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> -&gt; &amp;</span><span style="color: #939AB7;">&#39;</span><span style="color: #8AADF4;font-style: italic;">a</span><span style="color: #939AB7;"> [</span><span style="color: #C6A0F6;">u8</span><span style="color: #939AB7;">],</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // `OwnedSlice` has `Box&lt;dyn Send + Sync&gt;` internally</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // to erase types and stay thread-safe</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">    O</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> Send</span><span style="color: #8BD5CA;"> +</span><span style="color: #EED49F;font-style: italic;"> Sync</span><span style="color: #8BD5CA;"> +</span><span style="color: #939AB7;"> &#39;</span><span style="color: #8AADF4;font-style: italic;">static</span><span style="color: #939AB7;">,</span></span></code></pre>
+<p>This is perfectly valid, unless we access the owner somehow. The result can be seen in this PR: <a rel="external" href="https://github.com/rust-lang/rust/pull/109971">#109971</a>.</p>
 <h1 id="sync-in-reference-docs"><code>Sync</code> in <code>reference</code> docs<a class="zola-anchor" href="#sync-in-reference-docs" aria-label="Anchor link for: sync-in-reference-docs">⌗</a></h1>
-<p>Turns out we forgot to document that references implement <code>Sync</code> if their pointee implements <code>Sync</code>. <a href="https://github.com/rust-lang/rust/pull/110060">Oops</a>.</p>
+<p>Turns out we forgot to document that references implement <code>Sync</code> if their pointee implements <code>Sync</code>. <a rel="external" href="https://github.com/rust-lang/rust/pull/110060">Oops</a>.</p>
 <h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
 <p>Pull requests I’ve reviewed in this week:</p>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pull/109843">rust/109843</a> — Improve <code>transmute</code> codegen</li>
-<li><a href="https://github.com/rust-lang/rust/pull/109819">rust/109819</a> — Use <code>&amp;IndexSlice</code> in place of <code>&amp;IndexVec</code> (similarly to normal slices/vecs)</li>
-<li><a href="https://github.com/rust-lang/rust/pull/109913">rust/109913</a> — Document <code>IndexVec::from_elem</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/110013">rust/110013</a> — Label <code>non_exhaustive</code> attribute on privacy errors from non-local items
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109843">rust/109843</a> — Improve <code>transmute</code> codegen</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109819">rust/109819</a> — Use <code>&amp;IndexSlice</code> in place of <code>&amp;IndexVec</code> (similarly to normal slices/vecs)</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109913">rust/109913</a> — Document <code>IndexVec::from_elem</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110013">rust/110013</a> — Label <code>non_exhaustive</code> attribute on privacy errors from non-local items
 <ul>
 <li>A funny thing happened here, actually. Mark started a perf run (even though this PR only edits error path, so it can’t change perf…), I then approved with   <code>r=me</code> and Estedan did <code>@bors r=WaffleLapkin</code>, forgetting about a bug in bors… Which makes it so PR approved while a try build is building (which is required for perf run) is insta-merged, without running tests. Good thing compiler-errors noticed this and un-approved PR in time, before the insta-merge :’)</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/110021">rust/110021</a> — Fixes for ICEs (Internal Compiler Errors) introduced by the first PR in this list</li>
-<li><a href="https://github.com/rust-lang/rfcs/pull/3407">rust-lang/rfcs/3407</a> — RFC that proposes introducing explicit tail calls to Rust (I’m a big fun of tail calls…), I’ve written some feedback</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110021">rust/110021</a> — Fixes for ICEs (Internal Compiler Errors) introduced by the first PR in this list</li>
+<li><a rel="external" href="https://github.com/rust-lang/rfcs/pull/3407">rust-lang/rfcs/3407</a> — RFC that proposes introducing explicit tail calls to Rust (I’m a big fun of tail calls…), I’ve written some feedback</li>
 </ul>
 <h1 id="stream">Stream<a class="zola-anchor" href="#stream" aria-label="Anchor link for: stream">⌗</a></h1>
 <p>I did another stream on Wednesday.
 This time it went fine and I was able to finish (well, almost finish) the work from the previous stream,
-resulting in a small commit for <a href="https://github.com/rust-lang/rust/pull/109782">#109782</a> and  almost finishing the PR that adds suggestion to use closure argument instead of capturing.</p>
+resulting in a small commit for <a rel="external" href="https://github.com/rust-lang/rust/pull/109782">#109782</a> and  almost finishing the PR that adds suggestion to use closure argument instead of capturing.</p>
  
 
 
@@ -249,24 +244,22 @@ resulting in a small commit for <a href="https://github.com/rust-lang/rust/pull/
   </div>
 </div>
 <p>Basically there is a common pattern, where you have a method, that takes a <code>&amp;mut self</code> and then passes it to a closure argument:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>S;
-</span><span>
-</span><span style="color:#b48ead;">impl </span><span>S {
-</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">call</span><span>(&amp;</span><span style="color:#b48ead;">mut </span><span style="color:#bf616a;">self</span><span>, </span><span style="color:#bf616a;">f</span><span>: impl FnOnce(&amp;</span><span style="color:#bf616a;">mut Self</span><span>)) {
-</span><span>        </span><span style="color:#65737e;">// change state or something ... 
-</span><span>        </span><span style="color:#96b5b4;">f</span><span>(</span><span style="color:#bf616a;">self</span><span>);
-</span><span>        </span><span style="color:#65737e;">// change state or something ... 
-</span><span>    }
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">get</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {}
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">struct</span><span style="color: #EED49F;font-style: italic;"> S</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">impl</span><span style="color: #EED49F;font-style: italic;"> S</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    fn</span><span style="color: #8AADF4;font-style: italic;"> call</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #C6A0F6;">mut</span><span style="color: #ED8796;"> self</span><span style="color: #939AB7;">,</span><span style="color: #EE99A0;"> f</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> impl</span><span style="color: #8AADF4;font-style: italic;"> FnOnce</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #C6A0F6;">mut</span><span style="color: #ED8796;"> Self</span><span style="color: #939AB7;">)) {</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">        // change state or something ... </span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        f</span><span style="color: #939AB7;">(</span><span style="color: #ED8796;">self</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">        // change state or something ... </span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    fn</span><span style="color: #8AADF4;font-style: italic;"> get</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #ED8796;">self</span><span style="color: #939AB7;">) {}</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>It is then very easy to accidentally use the old variable, instead of the argument passed to the closure:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>    </span><span style="color:#b48ead;">let mut</span><span> v = S;
-</span><span>    v.</span><span style="color:#96b5b4;">call</span><span>(|</span><span style="color:#bf616a;">this</span><span>: &amp;</span><span style="color:#b48ead;">mut</span><span> S| v.</span><span style="color:#96b5b4;">get</span><span>());
-</span><span style="color:#65737e;">//  ^-- error: cannot borrow `v` as mutable
-</span><span style="color:#65737e;">//             because it is also borrowed as immutable
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">    let mut</span><span> v</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> S</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span>    v</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">call</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">|</span><span>this</span><span style="color: #8BD5CA;">: &amp;</span><span style="color: #C6A0F6;">mut</span><span style="color: #EED49F;font-style: italic;"> S</span><span style="color: #8BD5CA;">|</span><span> v</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">get</span><span style="color: #939AB7;">());</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//  ^-- error: cannot borrow `v` as mutable</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//             because it is also borrowed as immutable</span></span></code></pre>
 <p>I was trying to add a suggestion to change <code>v.get()</code> to <code>this.get()</code>, fixing the error.</p>
  
 
@@ -289,7 +282,7 @@ resulting in a small commit for <a href="https://github.com/rust-lang/rust/pull/
 
   </div>
 </div>
-<p>I ended up cleaning the code off-stream (and almost deleting everything while rebasing, oops (thanks to <code>git reflog</code> for restoring everything back…)) a little and opened <a href="https://github.com/rust-lang/rust/pull/110061">#110061</a>.</p>
+<p>I ended up cleaning the code off-stream (and almost deleting everything while rebasing, oops (thanks to <code>git reflog</code> for restoring everything back…)) a little and opened <a rel="external" href="https://github.com/rust-lang/rust/pull/110061">#110061</a>.</p>
 <h1 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">⌗</a></h1>
 <p>Overall I’m feeling a lot better this week!
 I had a lot of fun with removing <code>OwningRef</code> from the compiler (the resulting code is very cute, imo,,,) and looking closely at the tail call proposal.
@@ -305,7 +298,7 @@ I had a lot of fun with removing <code>OwningRef</code> from the compiler (the r
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tricking cargo into generating lock files for an old MSRV (for fun?? and profit??) | I hate reality</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+    <meta name="author" content="Waffle Lapkin">
+
+    <meta name="theme-color" content="#EE72F1"><link rel="stylesheet" href="https://blog.ihatereality.space/style.css">
+    <link rel="stylesheet" href="https://blog.ihatereality.space/color/pink.css">
+
+    <link rel="stylesheet" href="https://blog.ihatereality.space/font-hack.css">
+
+    <meta name="description" content="im not going insane you are going insane">
+
+    <meta property="og:description" content="im not going insane you are going insane">
+    <meta property="og:title" content="Tricking cargo into generating lock files for an old MSRV (for fun?? and profit??) | I hate reality">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://blog.ihatereality.space/0B-tricking-cargo-into-generating-lock-files-for-an-old-msrv/">
+
+    <meta property="og:image" content="https://blog.ihatereality.space/you_cant_escape_from_reality_450x450.png">
+
+
+                <link rel="alternate" type="application/rss+xml" title="I hate reality RSS Feed" href="https://blog.ihatereality.space/rss.xml" />
+                <link rel="alternate" type="application/atom+xml" title="I hate reality Atom Feed" href="https://blog.ihatereality.space/atom.xml" />
+        <link rel="shortcut icon" type="image/png" href="/you_cant_escape_from_reality_128x128.png">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://blog.ihatereality.space" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            I hate reality
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+    <nav class="menu">
+            <ul class="menu__inner">
+                <li><a href="https://blog.ihatereality.space/about">about</a></li>
+            
+                <li><a href="https://github.com/i-hate-reality/blog" target="_blank" rel="noopener noreferrer">source</a></li>
+            </ul>
+        </nav>
+    
+    
+
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://blog.ihatereality.space/0B-tricking-cargo-into-generating-lock-files-for-an-old-msrv/">Tricking cargo into generating lock files for an old MSRV (for fun?? and profit??)</a></h1>
+    
+        <div class="post-meta-inline">
+            
+    <span class="post-date">
+            2026-05-10
+        
+    </span>
+
+            
+    <span class="post-read-time">
+        :: 5 min read
+    </span>
+
+
+            <!-- TODO: rethink how tags look -->
+            <br>
+            
+        <span class="post-tags-inline">
+                <a class="post-tag" href="https://blog.ihatereality.space/tags/rust/">#rust</a></span>
+    
+        </div>
+    
+
+
+        <div class="post-content">
+            <p>So uh. For /<em>reasons</em>/ that I might expand on in future blog posts<sup class="footnote-reference" id="fr-1-1"><a href="#fn-1">1</a></sup> I needed to work on an old (~4y old) library… Without a commited lock file… With some dependencies being yanked… And some dependencies requiring much newer <abbr title="Minimal Supported Rust Version">MSRV</abbr>…</p>
+<span id="continue-reading"></span>
+<p>How it started:</p>
+<ol>
+<li><code>{library}</code> depends on <code>ahash ^0.7.6</code><sup class="footnote-reference" id="fr-2-1"><a href="#fn-2">2</a></sup></li>
+<li><code>ahash &gt;= 0.6.0, &lt;=0.7.6</code> is yanked</li>
+<li><code>ahash ^0.7.7</code> has <abbr title="Minimal Supported Rust Version">MSRV</abbr> <code>1.60.0</code></li>
+<li><code>{library}</code> has <abbr title="Minimal Supported Rust Version">MSRV</abbr> <code>1.59.0</code><sup class="footnote-reference" id="fr-3-1"><a href="#fn-3">3</a></sup></li>
+<li>uhhhhhhmmmmmmmmmm</li>
+</ol>
+<p>So, I can’t update <code>ahash</code> to a newer version, because it would not be supported by rust <code>1.59.0</code>. And I can’t keep it at <code>0.7.6</code>, because the <abbr title="Minimal Supported Rust Version">MSRV</abbr> CI will not pass and thus I can’t merge the PR…</p>
+ 
+
+
+  
+
+  
+    
+  
+
+
+<div class="callout">
+  <img 
+    class="callout-icon"
+    src="/twemoji/assets/svg/1f438.svg"
+    alt="🐸"
+  />
+  <div class="callout-body">
+    <p>can’t you just raise the <abbr title="Minimal Supported Rust Version">MSRV</abbr>?</p>
+
+  </div>
+</div>
+<p>I- look-</p>
+ 
+
+
+  
+
+  
+    
+  
+
+
+<div class="callout">
+  <img 
+    class="callout-icon"
+    src="/twemoji/assets/svg/1f438.svg"
+    alt="🐸"
+  />
+  <div class="callout-body">
+    <p>uhuh?</p>
+
+  </div>
+</div>
+<p>Yes, I /<em>could</em>/<sup class="footnote-reference" id="fr-5-1"><a href="#fn-5">4</a></sup> but a) I didn’t think of that originally b) I never search for easy ways out c) it’s nice to keep <abbr title="Minimal Supported Rust Version">MSRV</abbr> as is d) :(</p>
+<p>Anyway-</p>
+<p>What I’m looking for is a way to get a <code>Cargo.lock</code> file which would</p>
+<ul>
+<li>contain <code>ahash =0.7.6</code> (so that <code>cargo</code> actually allows me to get it), and</li>
+<li>only contain versions of libraries with <abbr title="Minimal Supported Rust Version">MSRV</abbr> &lt;= <code>1.59.0</code></li>
+</ul>
+<hr />
+<p>My first idea was to generate a lock file with a new version of <code>cargo</code>, and then manually downgrade <code>ahash</code> to <code>0.7.6</code>. At first I couldn’t find how to downgrade things with <code>cargo</code> at all, but then a friend of mine, <a rel="external" href="https://github.com/JonathanBrouwer">Jonathan Brouwer</a><sup class="footnote-reference" id="fr-6-1"><a href="#fn-6">5</a></sup>, helped me find that the way to downgrade a dependency is <code>cargo update {dependency} --precise {version}</code><sup class="footnote-reference" id="fr-7-1"><a href="#fn-7">6</a></sup>.</p>
+<p>However… That did not help much…</p>
+
+  
+
+  
+    
+  
+  
+  
+    
+  
+  
+  
+  
+  
+    
+    
+  
+
+  
+  
+    
+
+
+<a href="https:&#x2F;&#x2F;blog.ihatereality.space&#x2F;cargo update tonight? :eyes: cargo update tonight queen? cargo update tonight? :eyes:.png" target="_blank">
+  <img 
+    src="&#x2F;processed_images&#x2F;cargo%20update%20tonight%3F%20:eyes:%20cargo%20update%20tonight%20queen%3F%20cargo%20update%20tonight%3F%20:eyes:.66e388845eb42cb6.webp" 
+    alt="Atuin command run history. Every of the 36 commands is in the form of `rustup run nightly cargo update --precise` and then a version and a name of a crate. Some crates like regex and serde_json are repeated multiple times."
+    class="center" style="border-radius: 8px; width: 90%;" 
+  />
+</a>
+<p>(this is not even a half of ithn…)</p>
+<p>There are two problems with this approach:</p>
+<ul>
+<li>There are /<em>so</em>/ many dependencies that need to be downgraded</li>
+<li>Some dependencies are interconnected and hard to downgrade
+<ul>
+<li>Crates with exact dependencies, like <code>serde x.y.z</code> depending on <code>serde_code =x.y.z</code> are /<em>especially</em>/ annoying</li>
+<li>But even just “downgrading A requires downgrading B first because B depends on newer A than I want to downgrade to” can be tiring for popular crates</li>
+</ul>
+</li>
+</ul>
+<p>This is just completely impractical and I had to give up on this idea<sup class="footnote-reference" id="fr-8-1"><a href="#fn-8">7</a></sup>.</p>
+<hr />
+<p>When my idea did not work, I went to the <a rel="external" href="https://discord.gg/rust-lang-community">rust community discord</a> and asked how I could generate the lock file. To my surprise I got a response the same day from <a rel="external" href="https://konnorandrews.gitlab.io/descent-into-madness/">synapturanus zombie 𓆏 (frog)</a>, who recently helped someone else with a similar issue.</p>
+<p>All that’s needed to generate an <abbr title="Minimal Supported Rust Version">MSRV</abbr>-compatible <code>Cargo.lock</code> is</p>
+<ol>
+<li>Make sure <code>package.rust-version</code> is set in the <code>Cargo.toml</code> to the <abbr title="Minimal Supported Rust Version">MSRV</abbr></li>
+<li>Remove existing <code>Cargo.lock</code> (if it exists)</li>
+<li><code>CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS="fallback" cargo +nightly check</code>
+<ul>
+<li>You can also set <code>resolver.incompatible-rust-version = "fallback"</code> in the cargo <em>config</em>, but that’s mildly more annoying</li>
+</ul>
+</li>
+<li>profit!</li>
+</ol>
+<p><em><strong>It’s that shrimple folks!</strong></em></p>
+<p>One caveat is that for this to work your dependencies need to set <code>rust-version</code> too. And since it only got introduced in Rust <code>1.56.0</code>, this might not work very well for <code>1.56.0</code> and a few succeeding versions. Still, you can use this method as a start, and then downgrade the dependencies that don’t accurately set <code>rust-version</code>. As a data point, this method worked for me successfully on <code>1.65.0</code>, but not on <code>1.59.0</code>.</p>
+<p>Moral of the story: commit your lock files. Also, asking for help leads to being helped. Crazy how that happens.</p>
+<p>Thanks again to synapturanus zombie 𓆏 (frog) for helping with this; and thank you to Jonathan and Arya for reviewing this post &lt;3</p>
+<hr />
+<p>okmeowbye :3</p>
+<hr />
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn-1">
+<p>me when i lie <a href="#fr-1-1">↩</a></p>
+</li>
+<li id="fn-2">
+<p>see <a rel="external" href="https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html">The Cargo Book: Version requirement syntax</a> <a href="#fr-2-1">↩</a></p>
+</li>
+<li id="fn-3">
+<p>yes, it’s off by 1 version .-. <a href="#fr-3-1">↩</a></p>
+</li>
+<li id="fn-5">
+<p>and i actually ended up raising the <abbr title="Minimal Supported Rust Version">MSRV</abbr> in a case, before i found other ways to solve this <a href="#fr-5-1">↩</a></p>
+</li>
+<li id="fn-6">
+<p>nya :3 <a href="#fr-6-1">↩</a></p>
+</li>
+<li id="fn-7"> 
+
+
+  
+
+  
+    
+  
+
+
+<div class="callout">
+  <img 
+    class="callout-icon"
+    src="/twemoji/assets/svg/1f438.svg"
+    alt="🐸"
+  />
+  <div class="callout-body">
+    <p>downgrading a dependency requires using <code>update</code> subcommand?..</p>
+
+  </div>
+</div>
+<p>shush</p>
+<p>it makes sense, why would have a separate command for that?</p>
+<p>also how are you in the footnotes??</p>
+ 
+
+
+  
+
+  
+    
+  
+
+
+<div class="callout">
+  <img 
+    class="callout-icon"
+    src="/twemoji/assets/svg/1f438.svg"
+    alt="🐸"
+  />
+  <div class="callout-body">
+    <p>:)</p>
+
+  </div>
+</div> <a href="#fr-7-1">↩</a></li>
+<li id="fn-8">
+<p>turns out i make a pretty bad dependency resolver <a href="#fr-8-1">↩</a></p>
+</li>
+</ol>
+</section>
+
+        </div>
+
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+            </div>
+    </footer>
+    
+
+</div>
+    <!-- Tracking via https://www.goatcounter.com/ -->
+    <script data-goatcounter="https://ihr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+
+</html>

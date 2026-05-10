@@ -94,18 +94,17 @@
             <p>As always, I have some strong opinions on things I probably shouldn’t have opinions on. This time I want to tell you why I think <code>if</code>-<code>else</code> chains are syntactically harmful.</p>
 <span id="continue-reading"></span>
 <p>I think that the syntax for if-else chains that are used in most imperative languages, including Rust, is bad.</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">if</span><span> something.</span><span style="color:#96b5b4;">something</span><span>() {
-</span><span>    </span><span style="color:#96b5b4;">do_something</span><span>()
-</span><span>} </span><span style="color:#b48ead;">else if let </span><span>Some(x) = </span><span style="color:#96b5b4;">get_x</span><span>() {
-</span><span>    </span><span style="color:#96b5b4;">use_x</span><span>(x);
-</span><span>} </span><span style="color:#b48ead;">else if</span><span> mutliline {
-</span><span>    </span><span style="color:#96b5b4;">a</span><span>();
-</span><span>    </span><span style="color:#96b5b4;">b</span><span>();
-</span><span>    </span><span style="color:#96b5b4;">c</span><span>();
-</span><span>} </span><span style="color:#b48ead;">else </span><span>{
-</span><span>    </span><span style="color:#96b5b4;">scream</span><span>(&quot;</span><span style="color:#a3be8c;">aaaaaaaaaaaaaaaaaaaaaaa</span><span>&quot;)?;
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">if</span><span> something</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">something</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    do_something</span><span style="color: #939AB7;">()</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span><span style="color: #C6A0F6;"> else if let</span><span style="color: #EED49F;font-style: italic;"> Some</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span style="color: #8AADF4;font-style: italic;"> get_x</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    use_x</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span><span style="color: #C6A0F6;"> else if</span><span> mutliline</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    a</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    b</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    c</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span><span style="color: #C6A0F6;"> else</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    scream</span><span style="color: #939AB7;">(</span><span style="color: #A6DA95;">&quot;aaaaaaaaaaaaaaaaaaaaaaa&quot;</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">?</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>It’s hard to read:</p>
 <ul>
 <li>
@@ -165,54 +164,47 @@
 
   </div>
 </div>
-<p>I think that a much better way to model the same thing is <a href="https://kotlinlang.org/docs/control-flow.html#when-expression"><code>when</code> from Kotlin</a> or pattern guards/<a href="https://wiki.haskell.org/Case#MultiWayIf">multi-way-if</a> from Haskell.</p>
+<p>I think that a much better way to model the same thing is <a rel="external" href="https://kotlinlang.org/docs/control-flow.html#when-expression"><code>when</code> from Kotlin</a> or pattern guards/<a rel="external" href="https://wiki.haskell.org/Case#MultiWayIf">multi-way-if</a> from Haskell.</p>
 <details><summary>Kotlin and Haskell examples</summary>
 <p>
-<pre data-lang="kotlin" style="background-color:#2b303b;color:#c0c5ce;" class="language-kotlin "><code class="language-kotlin" data-lang="kotlin"><span style="color:#b48ead;">when</span><span> {
-</span><span>    x.isOdd() -&gt; print(&quot;</span><span style="color:#a3be8c;">x is odd</span><span>&quot;)
-</span><span>    y.isEven() -&gt; print(&quot;</span><span style="color:#a3be8c;">y is even</span><span>&quot;)
-</span><span>    </span><span style="color:#b48ead;">else </span><span>-&gt; print(&quot;</span><span style="color:#a3be8c;">x+y is odd</span><span>&quot;)
-</span><span>}
-</span></code></pre>
-<pre data-lang="haskell" style="background-color:#2b303b;color:#c0c5ce;" class="language-haskell "><code class="language-haskell" data-lang="haskell"><span style="color:#b48ead;">case </span><span style="color:#d08770;">() </span><span style="color:#b48ead;">of</span><span> _
-</span><span>    | condition1 -&gt; expr1
-</span><span>    | condition2 -&gt; expr2
-</span><span>    | condition3 -&gt; expr3
-</span><span>    | otherwise  -&gt; </span><span style="color:#b48ead;">default
-</span><span>
-</span><span style="color:#b48ead;">if </span><span>| condition1 -&gt; expr1
-</span><span>    | condition2 -&gt; expr2
-</span><span>    | condition3 -&gt; expr3
-</span><span>    | otherwise  -&gt; </span><span style="color:#b48ead;">default
-</span></code></pre>
-</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="kotlin"><span class="giallo-l"><span style="color: #C6A0F6;">when</span><span> {</span></span>
+<span class="giallo-l"><span>    x.</span><span style="color: #8AADF4;font-style: italic;">isOdd</span><span>() </span><span style="color: #C6A0F6;">-&gt;</span><span style="color: #8AADF4;font-style: italic;"> print</span><span>(</span><span style="color: #A6DA95;">&quot;x is odd&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>    y.</span><span style="color: #8AADF4;font-style: italic;">isEven</span><span>() </span><span style="color: #C6A0F6;">-&gt;</span><span style="color: #8AADF4;font-style: italic;"> print</span><span>(</span><span style="color: #A6DA95;">&quot;y is even&quot;</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    else -&gt;</span><span style="color: #8AADF4;font-style: italic;"> print</span><span>(</span><span style="color: #A6DA95;">&quot;x+y is odd&quot;</span><span>)</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre><pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="haskell"><span class="giallo-l"><span style="color: #C6A0F6;">case</span><span style="color: #939AB7;"> ()</span><span style="color: #C6A0F6;"> of</span><span> _</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> condition1 </span><span style="color: #8BD5CA;">-&gt;</span><span> expr1</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> condition2 </span><span style="color: #8BD5CA;">-&gt;</span><span> expr2</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> condition3 </span><span style="color: #8BD5CA;">-&gt;</span><span> expr3</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> otherwise  </span><span style="color: #8BD5CA;">-&gt;</span><span style="color: #C6A0F6;"> default</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">if</span><span style="color: #8BD5CA;"> |</span><span> condition1 </span><span style="color: #8BD5CA;">-&gt;</span><span> expr1</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> condition2 </span><span style="color: #8BD5CA;">-&gt;</span><span> expr2</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> condition3 </span><span style="color: #8BD5CA;">-&gt;</span><span> expr3</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">    |</span><span> otherwise  </span><span style="color: #8BD5CA;">-&gt;</span><span style="color: #C6A0F6;"> default</span></span></code></pre></p>
 </details>
-<p>In Rust this can be simulated via <code>match</code> on unit with pattern guards (<a href="https://twitter.com/EllenNyan0214/status/1356792709391015937">Boxy style</a>):</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">match </span><span>() {
-</span><span>    _ </span><span style="color:#b48ead;">if</span><span> something.</span><span style="color:#96b5b4;">something</span><span>() =&gt; </span><span style="color:#96b5b4;">do_something</span><span>(),
-</span><span>    _ </span><span style="color:#b48ead;">if let </span><span>Some(x) = </span><span style="color:#96b5b4;">get_x</span><span>() =&gt; </span><span style="color:#96b5b4;">use_x</span><span>(x),
-</span><span>    _ </span><span style="color:#b48ead;">if</span><span> multiline =&gt; {
-</span><span>        </span><span style="color:#96b5b4;">a</span><span>();
-</span><span>        </span><span style="color:#96b5b4;">b</span><span>();
-</span><span>        </span><span style="color:#96b5b4;">c</span><span>();
-</span><span>    }
-</span><span>    _ =&gt; </span><span style="color:#96b5b4;">scream</span><span>(&quot;</span><span style="color:#a3be8c;">aaaaaaaaaaaaaaaaaaaaaaa</span><span>&quot;)?,
-</span><span>}
-</span></code></pre>
-<p>But this is still messy, <code>if let</code> guards are <a href="https://github.com/rust-lang/rust/issues/51114">unstable</a> and the repeated <code>if</code>s are still there.</p>
-<p>This is why I created <a href="https://docs.rs/kiam/0.1.0/kiam/index.html"><code>kiam</code></a> (#shamelessplug?) — a crate that provides a simple macro that makes these chains a lot nicer:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>when! {
-</span><span>    something.</span><span style="color:#96b5b4;">something</span><span>() =&gt; </span><span style="color:#96b5b4;">do_something</span><span>(),
-</span><span>    </span><span style="color:#b48ead;">let </span><span>Some(x) = </span><span style="color:#96b5b4;">get_x</span><span>() =&gt; </span><span style="color:#96b5b4;">use_x</span><span>(x),
-</span><span>    multiline =&gt; {
-</span><span>        </span><span style="color:#96b5b4;">a</span><span>();
-</span><span>        </span><span style="color:#96b5b4;">b</span><span>();
-</span><span>        </span><span style="color:#96b5b4;">c</span><span>();
-</span><span>    }
-</span><span>    _ =&gt; </span><span style="color:#96b5b4;">scream</span><span>(&quot;</span><span style="color:#a3be8c;">aaaaaaaaaaaaaaaaaaaaaaa</span><span>&quot;)?,
-</span><span>}
-</span></code></pre>
- 
+<p>In Rust this can be simulated via <code>match</code> on unit with pattern guards (<a rel="external" href="https://twitter.com/EllenNyan0214/status/1356792709391015937">Boxy style</a>):</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">match</span><span style="color: #939AB7;"> () {</span></span>
+<span class="giallo-l"><span>    _</span><span style="color: #C6A0F6;"> if</span><span> something</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">something</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #8AADF4;font-style: italic;"> do_something</span><span style="color: #939AB7;">(),</span></span>
+<span class="giallo-l"><span>    _</span><span style="color: #C6A0F6;"> if let</span><span style="color: #EED49F;font-style: italic;"> Some</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span style="color: #8AADF4;font-style: italic;"> get_x</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #8AADF4;font-style: italic;"> use_x</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">),</span></span>
+<span class="giallo-l"><span>    _</span><span style="color: #C6A0F6;"> if</span><span> multiline</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        a</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        b</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        c</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span>    _</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #8AADF4;font-style: italic;"> scream</span><span style="color: #939AB7;">(</span><span style="color: #A6DA95;">&quot;aaaaaaaaaaaaaaaaaaaaaaa&quot;</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">?</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
+<p>But this is still messy, <code>if let</code> guards are <a rel="external" href="https://github.com/rust-lang/rust/issues/51114">unstable</a> and the repeated <code>if</code>s are still there.</p>
+<p>This is why I created <a rel="external" href="https://docs.rs/kiam/0.1.0/kiam/index.html"><code>kiam</code></a> (#shamelessplug?) — a crate that provides a simple macro that makes these chains a lot nicer:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">when!</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span>    something</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">something</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #8AADF4;font-style: italic;"> do_something</span><span style="color: #939AB7;">(),</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span style="color: #EED49F;font-style: italic;"> Some</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span style="color: #8AADF4;font-style: italic;"> get_x</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #8AADF4;font-style: italic;"> use_x</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">),</span></span>
+<span class="giallo-l"><span>    multiline</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        a</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        b</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        c</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span>    _</span><span style="color: #8BD5CA;"> =&gt;</span><span style="color: #8AADF4;font-style: italic;"> scream</span><span style="color: #939AB7;">(</span><span style="color: #A6DA95;">&quot;aaaaaaaaaaaaaaaaaaaaaaa&quot;</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">?</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre> 
 
 
   
@@ -229,7 +221,7 @@
     alt="🐸"
   />
   <div class="callout-body">
-    <p>I’ve explained <code>kiam</code> with memes on <a href="https://twitter.com/maybewaffle/status/1359100586948505603?s=20">twitter dot com</a></p>
+    <p>I’ve explained <code>kiam</code> with memes on <a rel="external" href="https://twitter.com/maybewaffle/status/1359100586948505603?s=20">twitter dot com</a></p>
 
   </div>
 </div> 
@@ -266,7 +258,7 @@
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

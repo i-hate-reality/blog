@@ -93,7 +93,7 @@
         <div class="post-content">
             <p>This is a devlog for 2023-09-01—2023-09-30, or, in other words, the month of September. This is mostly a log for <em>myself</em> so that I remember that I did things, but you may be interested in reading it too, for whatever reason.</p>
 <span id="continue-reading"></span><h1 id="triage-bot">Triage bot<a class="zola-anchor" href="#triage-bot" aria-label="Anchor link for: triage-bot">⌗</a></h1>
-<p>Rust has a github bot account that helps with management of issues and pull requests (<a href="https://github.com/rustbot">@rustbot</a>, <a href="https://rustc-dev-guide.rust-lang.org/rustbot.html">rustc dev guide page</a>, <a href="https://forge.rust-lang.org/triagebot/index.html">docs</a>). And it’s pretty cool actually. Here are some of my favorite features in no particular order:</p>
+<p>Rust has a github bot account that helps with management of issues and pull requests (<a rel="external" href="https://github.com/rustbot">@rustbot</a>, <a rel="external" href="https://rustc-dev-guide.rust-lang.org/rustbot.html">rustc dev guide page</a>, <a rel="external" href="https://forge.rust-lang.org/triagebot/index.html">docs</a>). And it’s pretty cool actually. Here are some of my favorite features in no particular order:</p>
 <ul>
 <li><code>triagebot claim</code> which allows to assign oneself to an issue, without being a member of the org</li>
 <li><code>triagebot label</code> which allows to add or remove configured labels to issues and PRs</li>
@@ -102,7 +102,7 @@
 </ul>
 <p>The last one is especially handy. Having status labels makes the responsibility clear — “who needs to do work here right now?” becomes a trivial question. Moreover having explicit comments for “this is ready for review” and “I reviewed enough here, do changes” is also nice.</p>
 <p>But the other features (including unmentioned here) are also cool, they all either empower contributors (but not members) to do stuff or lift some tedious managing work off of maintainers. Both of those are very appreciated by me.</p>
-<p>The nice thing is, triage bot is open source! You can just host your own instance and configure it for your project! This is exactly what I did (<a href="https://github.com/teloxide/teloxide/pull/941">teloxide/teloxide/941</a>).</p>
+<p>The nice thing is, triage bot is open source! You can just host your own instance and configure it for your project! This is exactly what I did (<a rel="external" href="https://github.com/teloxide/teloxide/pull/941">teloxide/teloxide/941</a>).</p>
 
   
 
@@ -121,20 +121,21 @@
     
   
 
+  
   
     
 
 
 <a href="https:&#x2F;&#x2F;blog.ihatereality.space&#x2F;teloxidebot_added_tags.png" target="_blank">
   <img 
-    src="&#x2F;processed_images&#x2F;teloxidebot_added_tags.c2e2bc84c4e04f1b.webp" 
+    src="&#x2F;processed_images&#x2F;teloxidebot_added_tags.795368b1ff7cb667.webp" 
     alt="GitHub event: teloxidebot added C-core, C-main and S-waiting-on-review tags"
     class="center" style="border-radius: 8px; width: 80%;" 
   />
 </a>
-<p>Granted, triagebot is currently hardcoded in a lot of ways to the Rust’s use cases and the bot, but it’s still nice to have a bot like this. (and I’m also trying to un-hardcode it in PRs like <a href="https://github.com/rust-lang/triagebot/pull/1734">rust-lang/triagebot/1734</a>).</p>
+<p>Granted, triagebot is currently hardcoded in a lot of ways to the Rust’s use cases and the bot, but it’s still nice to have a bot like this. (and I’m also trying to un-hardcode it in PRs like <a rel="external" href="https://github.com/rust-lang/triagebot/pull/1734">rust-lang/triagebot/1734</a>).</p>
 <h1 id="meetings">Meetings<a class="zola-anchor" href="#meetings" aria-label="Anchor link for: meetings">⌗</a></h1>
-<p>Rust’s <a href="https://www.rust-lang.org/governance/teams/lang">language team</a> has weekly triage and design meetings, which are open. I don’t exactly remember how, but in September I remembered/rediscovered that those are indeed open and decided to try attending them. Luckily in the first meeting I attended one of the discussed topics was a PR I nominated for the discussion, so I was able to provide useful context for it. That was quite a positive experience and so I’m now attending the meetings regularly, trying to help T-lang where I can :)</p>
+<p>Rust’s <a rel="external" href="https://www.rust-lang.org/governance/teams/lang">language team</a> has weekly triage and design meetings, which are open. I don’t exactly remember how, but in September I remembered/rediscovered that those are indeed open and decided to try attending them. Luckily in the first meeting I attended one of the discussed topics was a PR I nominated for the discussion, so I was able to provide useful context for it. That was quite a positive experience and so I’m now attending the meetings regularly, trying to help T-lang where I can :)</p>
  
 
 
@@ -157,44 +158,44 @@
   </div>
 </div>
 <ul>
-<li>T-lang Triage meeting 2023-09-12 (<a href="https://hackmd.io/@rust-lang-team/BkstjGCA3">minutes</a>)</li>
-<li>T-lang Triage meeting 2023-09-19 (<a href="https://hackmd.io/@rust-lang-team/r1Fq-wDyT">minutes</a>)</li>
-<li>T-lang Design meeting 2023-09-20: Add f16 and f128 float types RFC read (<a href="https://hackmd.io/@rust-lang-team/rkSQNidkp">minutes</a>)</li>
-<li>T-lang Design meeting 2023-09-27: MaybeDangling RFC read (<a href="https://hackmd.io/@rust-lang-team/BJ0yJkfe6">minutes</a>)</li>
+<li>T-lang Triage meeting 2023-09-12 (<a rel="external" href="https://hackmd.io/@rust-lang-team/BkstjGCA3">minutes</a>)</li>
+<li>T-lang Triage meeting 2023-09-19 (<a rel="external" href="https://hackmd.io/@rust-lang-team/r1Fq-wDyT">minutes</a>)</li>
+<li>T-lang Design meeting 2023-09-20: Add f16 and f128 float types RFC read (<a rel="external" href="https://hackmd.io/@rust-lang-team/rkSQNidkp">minutes</a>)</li>
+<li>T-lang Design meeting 2023-09-27: MaybeDangling RFC read (<a rel="external" href="https://hackmd.io/@rust-lang-team/BJ0yJkfe6">minutes</a>)</li>
 </ul>
 <h1 id="other-stuff">Other stuff<a class="zola-anchor" href="#other-stuff" aria-label="Anchor link for: other-stuff">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/rust-lang/compiler-team/issues/670">rust-lang/compiler-team/670</a> — Allow overriding default codegen backend on a per-target basis
+<li><a rel="external" href="https://github.com/rust-lang/compiler-team/issues/670">rust-lang/compiler-team/670</a> — Allow overriding default codegen backend on a per-target basis
 <ul>
 <li>(This is a Major (Change|Compiler) Proposal)</li>
 <li>This is something we needed at my <code>{dayjob}</code> and that we wanted to upstream :)</li>
 </ul>
 </li>
-<li><a href="https://github.com/teloxide/teloxide/pull/938">teloxide/teloxide/938</a> — Improve graceful shutdown
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/938">teloxide/teloxide/938</a> — Improve graceful shutdown
 <ul>
 <li>This is hilarious, because the graceful shutdown code was written in a very dumb way (I’m allowed to say that, I’m the author), we were wasting <strong>a lot</strong> of time for nothing</li>
 <li>No really, this was a known issue for years (I think?) and it actually was (relatively) easily fixable all that time</li>
 <li>(we need to cut a release that includes this PR, ugh…)</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/115547">rust-lang/rust/115547</a> — Simplify <code>core::hint::spin_loop</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/116205">rust-lang/rust/116205</a> — Stabilize <code>[const_]pointer_byte_offsets</code>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115547">rust-lang/rust/115547</a> — Simplify <code>core::hint::spin_loop</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116205">rust-lang/rust/116205</a> — Stabilize <code>[const_]pointer_byte_offsets</code>
 <ul>
 <li>Hell yeah!</li>
 <li><code>&lt;*const _&gt;::byte_offset</code> &amp; co coming to stable December 28!</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/116254">rust-lang/rust/116254</a> — Assorted improvements for <code>rustc_middle::mir::traversal</code></li>
-<li><a href="https://github.com/rust-lang/rust-analyzer/pull/15609">rust-lang/rust-analyzer/15609</a> — internal: Remove most of the duplication from <code>Semantics{,Impl}</code> via deref</li>
-<li><a href="https://github.com/rust-lang/futures-rs/pull/2774">rust-lang/futures-rs/2774</a> — Remove an outdated comment from docs</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/943">teloxide/teloxide/943</a> — Update nightly Rust</li>
-<li><a href="https://github.com/teloxide/teloxide/issues/940">teloxide/teloxide/940</a> — Add missing <code>{Update,Message}::filter_*</code> functions (issue)
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116254">rust-lang/rust/116254</a> — Assorted improvements for <code>rustc_middle::mir::traversal</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust-analyzer/pull/15609">rust-lang/rust-analyzer/15609</a> — internal: Remove most of the duplication from <code>Semantics{,Impl}</code> via deref</li>
+<li><a rel="external" href="https://github.com/rust-lang/futures-rs/pull/2774">rust-lang/futures-rs/2774</a> — Remove an outdated comment from docs</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/943">teloxide/teloxide/943</a> — Update nightly Rust</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/issues/940">teloxide/teloxide/940</a> — Add missing <code>{Update,Message}::filter_*</code> functions (issue)
 <ul>
 <li>This is a call for contributions, that is moreover still not implemented/claimed, you can work on it!</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/issues/115939">teloxide/teloxide/939</a> — Implement support for TBA 6.5 (issue)</li>
-<li><a href="https://github.com/rust-lang/rust/issues/115939">rust-lang/rust/115939</a> — Tracking Issue for <code>cmp::minmax{_by,_by_key}</code> (issue)
+<li><a rel="external" href="https://github.com/rust-lang/rust/issues/115939">teloxide/teloxide/939</a> — Implement support for TBA 6.5 (issue)</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/issues/115939">rust-lang/rust/115939</a> — Tracking Issue for <code>cmp::minmax{_by,_by_key}</code> (issue)
 <ul>
 <li>Have you ever wanted to sort 2 elements? Now there is a function for that!</li>
 <li>Seriously though, I think those are nice functions and this actually comes up in real code</li>
@@ -204,36 +205,36 @@
 </ul>
 <h1 id="discussions-answered">Discussions answered<a class="zola-anchor" href="#discussions-answered" aria-label="Anchor link for: discussions-answered">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/teloxide/teloxide/discussions/926">teloxide/teloxide/926</a> — <code>teloxide::update_listeners::polling</code> &gt; Failed to get webhook info</li>
-<li><a href="https://github.com/teloxide/teloxide/discussions/930">teloxide/teloxide/930</a> — How to check if user sending message is privileged (the owner or an administrator of the chat)?</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/discussions/926">teloxide/teloxide/926</a> — <code>teloxide::update_listeners::polling</code> &gt; Failed to get webhook info</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/discussions/930">teloxide/teloxide/930</a> — How to check if user sending message is privileged (the owner or an administrator of the chat)?</li>
 </ul>
 <h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pull/114845">rust-lang/rust/114845</a> — Add alignment to the NPO guarantee</li>
-<li><a href="https://github.com/rust-lang/rust/pull/115345">rust-lang/rust/115345</a> — MCP661: Move wasm32-wasi-preview1-threads target to Tier 2</li>
-<li><a href="https://github.com/rust-lang/rust/pull/115624">rust-lang/rust/115624</a> Print the path of a return-position impl trait in trait when <code>return_type_notation</code> is enabled</li>
-<li><a href="https://github.com/rust-lang/rust/pull/113807">rust-lang/rust/113807</a> — Tests crash from inappropriate use of common linkage</li>
-<li><a href="https://github.com/rust-lang/rust/pull/115765">rust-lang/rust/115765</a> — Add source type for invalid bool casts</li>
-<li><a href="https://github.com/rust-lang/rust/pull/115810">rust-lang/rust/115810</a> — Folding comments</li>
-<li><a href="https://github.com/rust-lang/rust/pull/115860">rust-lang/rust/115860</a> Enable varargs support for AAPCS calling convention</li>
-<li><a href="https://github.com/rust-lang/rust/pull/112380">rust-lang/rust/112380</a> — Add allow-by-default lint for unit bindings</li>
-<li><a href="https://github.com/rust-lang/rust/pull/115542">rust-lang/rust/115542</a> — Simplify/Optimize FileEncoder</li>
-<li><a href="https://github.com/rust-lang/rust/pull/113955">rust-lang/rust/113955</a> — Pretty-print argument-position impl trait to name it</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116062">rust-lang/rust/116062</a> — Change <code>start</code> to <code>#[start]</code> in some diagnostics</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116052">rust-lang/rust/116052</a> — Add a way to decouple the implementation and the declaration of a <code>TyCtxt</code> method</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116067">rust-lang/rust/116067</a> — Open the FileEncoder file for reading and writing</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116103">rust-lang/rust/116103</a> — test: reproduce the issue with the cstr parsing inside a the proc macro</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116198">rust-lang/rust/116198</a> — Add more diagnostic items for clippy</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116239">rust-lang/rust/116239</a> Only visit reachable nodes in <code>SsaLocals</code></li>
-<li><a href="https://github.com/rust-lang/rfcs/pull/3336">rust-lang/rfcs/3336</a> — <code>MaybeDangling</code></li>
-<li><a href="https://github.com/teloxide/teloxide/pull/923">teloxide/teloxide/923</a> — Fix hide attr bug work as meta name value str</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/936">teloxide/teloxide/936</a> — Fix the type of <code>photo_size</code>,<code>photo_width</code> and <code>photo_height</code> in the <code>send_invoice</code> method</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/861">teloxide/teloxide/861</a> — Support setting the help message of commands with <code>/// ...</code></li>
-<li><a href="https://github.com/teloxide/teloxide/pull/917">teloxide/teloxide/917</a> — Add <code>MessageToCopyNotFound</code> to <code>teloxide::errors::ApiError</code></li>
-<li><a href="https://github.com/teloxide/teloxide/pull/894">teloxide/teloxide/894</a> — add fast exit with double ctrlc</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/934">teloxide/teloxide/934</a> — Activate tokio-tls when using redis-stroage</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/932">teloxide/teloxide/932</a> — Implemend <code>command_separator</code> attr to split command and args</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/946">teloxide/teloxide/946</a> — Move common fields from <code>MessageCommon</code> to <code>Message</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/114845">rust-lang/rust/114845</a> — Add alignment to the NPO guarantee</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115345">rust-lang/rust/115345</a> — MCP661: Move wasm32-wasi-preview1-threads target to Tier 2</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115624">rust-lang/rust/115624</a> Print the path of a return-position impl trait in trait when <code>return_type_notation</code> is enabled</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/113807">rust-lang/rust/113807</a> — Tests crash from inappropriate use of common linkage</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115765">rust-lang/rust/115765</a> — Add source type for invalid bool casts</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115810">rust-lang/rust/115810</a> — Folding comments</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115860">rust-lang/rust/115860</a> Enable varargs support for AAPCS calling convention</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/112380">rust-lang/rust/112380</a> — Add allow-by-default lint for unit bindings</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/115542">rust-lang/rust/115542</a> — Simplify/Optimize FileEncoder</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/113955">rust-lang/rust/113955</a> — Pretty-print argument-position impl trait to name it</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116062">rust-lang/rust/116062</a> — Change <code>start</code> to <code>#[start]</code> in some diagnostics</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116052">rust-lang/rust/116052</a> — Add a way to decouple the implementation and the declaration of a <code>TyCtxt</code> method</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116067">rust-lang/rust/116067</a> — Open the FileEncoder file for reading and writing</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116103">rust-lang/rust/116103</a> — test: reproduce the issue with the cstr parsing inside a the proc macro</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116198">rust-lang/rust/116198</a> — Add more diagnostic items for clippy</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116239">rust-lang/rust/116239</a> Only visit reachable nodes in <code>SsaLocals</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rfcs/pull/3336">rust-lang/rfcs/3336</a> — <code>MaybeDangling</code></li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/923">teloxide/teloxide/923</a> — Fix hide attr bug work as meta name value str</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/936">teloxide/teloxide/936</a> — Fix the type of <code>photo_size</code>,<code>photo_width</code> and <code>photo_height</code> in the <code>send_invoice</code> method</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/861">teloxide/teloxide/861</a> — Support setting the help message of commands with <code>/// ...</code></li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/917">teloxide/teloxide/917</a> — Add <code>MessageToCopyNotFound</code> to <code>teloxide::errors::ApiError</code></li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/894">teloxide/teloxide/894</a> — add fast exit with double ctrlc</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/934">teloxide/teloxide/934</a> — Activate tokio-tls when using redis-stroage</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/932">teloxide/teloxide/932</a> — Implemend <code>command_separator</code> attr to split command and args</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/946">teloxide/teloxide/946</a> — Move common fields from <code>MessageCommon</code> to <code>Message</code></li>
 </ul>
 <h1 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">⌗</a></h1>
 <p>This actually makes me feel better, seeing that I actually did stuff (because it felt like I didn’t (and also the previous devlog…)).</p>
@@ -248,7 +249,7 @@
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

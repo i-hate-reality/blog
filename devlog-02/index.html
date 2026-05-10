@@ -93,7 +93,7 @@
         <div class="post-content">
             <p>Blah. Things I’ve done this week (2023-04-10—2023-04-14). This is mostly a log for <em>myself</em> so that I remember that I did things, but you may be interested in reading it too, for whatever reason.</p>
 <span id="continue-reading"></span><h1 id="tagged-pointer-rewrite">Tagged Pointer Rewrite<a class="zola-anchor" href="#tagged-pointer-rewrite" aria-label="Anchor link for: tagged-pointer-rewrite">⌗</a></h1>
-<p>This is my main work of this week — rewriting tagged pointer implementation in <code>rustc</code> (<a href="https://github.com/rust-lang/rust/pull/110243">rust/110243</a>).</p>
+<p>This is my main work of this week — rewriting tagged pointer implementation in <code>rustc</code> (<a rel="external" href="https://github.com/rust-lang/rust/pull/110243">rust/110243</a>).</p>
 <p>To be honest, tagged pointers probably deserve an article of their own, with all the bits, tricks and bit tricks
 (please do tell me if you think I should write it/you want to read it).</p>
 <p>TL;DR is that “tagged pointers” is a technique of packing a pointer with a few (typically 2-3) bits of additional information (tag).</p>
@@ -101,34 +101,34 @@
 original implementation used <code>NonZeroUsize</code> as the inner type of the tagged pointer type.
 This technically works, but is generally a bad idea.
 You are <strong>really</strong> not supposed to store pointers as integers.</p>
-<p>I’ve rewritten the implementation using the new <a href="https://doc.rust-lang.org/std/ptr/index.html#provenance">“strict provenance” APIs</a> and a <code>NonNull</code> pointer as the inner type,
+<p>I’ve rewritten the implementation using the new <a rel="external" href="https://doc.rust-lang.org/std/ptr/index.html#provenance">“strict provenance” APIs</a> and a <code>NonNull</code> pointer as the inner type,
 doing other code &amp; documentation improvements along the way.
 In my opinion the resulting code is quite nice and cute, I like it.</p>
-<p>Along the way I also discovered a missed optimization case in LLVM (<a href="https://github.com/llvm/llvm-project/issues/62093">llvm/62093</a>)
+<p>Along the way I also discovered a missed optimization case in LLVM (<a rel="external" href="https://github.com/llvm/llvm-project/issues/62093">llvm/62093</a>)
 and tried to fix it on the rust side using scottmcm’s suggestion
-(<a href="https://github.com/rust-lang/rust/pull/110318">rust/110318</a>, although it looks like this is doing more harm than good, this PR is likely to be closed).
+(<a rel="external" href="https://github.com/rust-lang/rust/pull/110318">rust/110318</a>, although it looks like this is doing more harm than good, this PR is likely to be closed).
 I also learned a lot about tagged pointers and some stuff about tools around LLVM.</p>
 <p>Overall, proud of this work!</p>
 <h1 id="sharing-bytes">Sharing bytes<a class="zola-anchor" href="#sharing-bytes" aria-label="Anchor link for: sharing-bytes">⌗</a></h1>
-<p>This builds on top of the <a href="https://blog.ihatereality.space/devlog-01/#yeet-owningref">yeeting owning ref</a> from the previous devlog.
+<p>This builds on top of the <a rel="external" href="https://blog.ihatereality.space/devlog-01/#yeet-owningref">yeeting owning ref</a> from the previous devlog.
 Originally I stored <code>owner: Box&lt;dyn Send + Sync&gt;</code>, which works, but makes it impossible to clone the “<code>OwnedSlice</code>”.
 This is not the biggest deal, given that you can wrap one <code>OwnedSlice</code> in another (and still get the same access performance)…
 But some <code>rustc</code> uses become nicer with the ability to clone/re-slice an <code>OwnedSlice</code>,
-so in <a href="https://github.com/rust-lang/rust/pull/110145">rust/110145</a> I try to support that by storing <code>owner: Arc&lt;dyn Send + Sync&gt;</code> instead.
+so in <a rel="external" href="https://github.com/rust-lang/rust/pull/110145">rust/110145</a> I try to support that by storing <code>owner: Arc&lt;dyn Send + Sync&gt;</code> instead.
 The PR still needs some documentation fixes and minor adjustments, but is mostly done.</p>
 <h1 id="small-stuff">Small Stuff<a class="zola-anchor" href="#small-stuff" aria-label="Anchor link for: small-stuff">⌗</a></h1>
 <p>A couple of very small PRs that don’t really deserve descriptions:</p>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pull/110182">rust/110182</a> — <code>itertools::Either</code> instead of own impl</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110291">rust/110291</a> — Implement <code>Copy</code> for <code>LocationDetail</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110182">rust/110182</a> — <code>itertools::Either</code> instead of own impl</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110291">rust/110291</a> — Implement <code>Copy</code> for <code>LocationDetail</code></li>
 </ul>
 <p>I was also working on relaxing some bounds on <code>BTree{Set, Map}</code>,
 but this turned out to be more work than I expected, so I ended up postponing that.</p>
 <h1 id="stream">Stream<a class="zola-anchor" href="#stream" aria-label="Anchor link for: stream">⌗</a></h1>
 <p>The stream started out with some doc changes for tagged pointers (I really wanted to finish them!)
-and then I continued work on <a href="https://github.com/rust-lang/rust/pull/110061">rust/110061</a> which I’ve been working on for the last 3 streams (uhhh).
+and then I continued work on <a rel="external" href="https://github.com/rust-lang/rust/pull/110061">rust/110061</a> which I’ve been working on for the last 3 streams (uhhh).
 Tbh the stream was quite uneventful,
-although I’ve finally made the <a href="https://github.com/rust-lang/rust/pull/110061">rust/110061</a>’s suggestion work as expected
+although I’ve finally made the <a rel="external" href="https://github.com/rust-lang/rust/pull/110061">rust/110061</a>’s suggestion work as expected
 (it now suggests to change all variable uses, not just the first one)!</p>
 <p>This makes me think if the “rustc contribution” format is just bad for streams, or at least one that I can’t pull-of.
 Maybe I should stop doing them, at least for the time being? idk…</p>
@@ -138,10 +138,10 @@ I did what feels like a million “fix doc”, “fix fmt” and similar commits
 <h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
 <p>Pull requests I’ve reviewed in this week:</p>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pull/110193">rust/110193</a> — Check for body owner fallibly in error reporting</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110315">rust/110315</a> — Add a stable MIR way to get the main function</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110313">rust/110313</a> — allow <code>repr(align = x)</code> on inherent methods</li>
-<li><a href="https://github.com/rust-lang/rfcs/pull/3407">rust-lang/rfcs/3407</a> — “Explicit Tail Calls” RFC, I continue trying to review &amp; improve it (again, bit fun of explicit tail calls)</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110193">rust/110193</a> — Check for body owner fallibly in error reporting</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110315">rust/110315</a> — Add a stable MIR way to get the main function</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110313">rust/110313</a> — allow <code>repr(align = x)</code> on inherent methods</li>
+<li><a rel="external" href="https://github.com/rust-lang/rfcs/pull/3407">rust-lang/rfcs/3407</a> — “Explicit Tail Calls” RFC, I continue trying to review &amp; improve it (again, bit fun of explicit tail calls)</li>
 </ul>
 <h1 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">⌗</a></h1>
 <p>Although I didn’t do that much work, working on tagged pointers was very fun and overall I’m satisfied with this week. “See” you next week!</p>
@@ -156,7 +156,7 @@ I did what feels like a million “fix doc”, “fix fmt” and similar commits
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

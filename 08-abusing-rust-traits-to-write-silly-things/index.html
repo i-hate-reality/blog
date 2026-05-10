@@ -91,58 +91,53 @@
 
 
         <div class="post-content">
-            <p>Recently I’ve found some cursed Rust code and decided to make a little joke/question <a href="https://twitter.com/maybewaffle/status/1541910667812274183">on twitter</a>.
+            <p>Recently I’ve found some cursed Rust code and decided to make a little joke/question <a rel="external" href="https://twitter.com/maybewaffle/status/1541910667812274183">on twitter</a>.
 In the tweet I’ve presented some unusual code and asked “how could it compile?”.
-The solution was found quite fast by <a href="https://twitter.com/Veykril">@Veykril</a> (kudos to them!) and in this post I want to explain it in detail.</p>
+The solution was found quite fast by <a rel="external" href="https://twitter.com/Veykril">@Veykril</a> (kudos to them!) and in this post I want to explain it in detail.</p>
 <span id="continue-reading"></span><h1 id="the-joke-question">The joke/question<a class="zola-anchor" href="#the-joke-question" aria-label="Anchor link for: the-joke-question">⌗</a></h1>
 <p>So in the tweet I’ve presented the following code:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span>() {
-</span><span>    </span><span style="color:#b48ead;">for</span><span> x in lib::iter::&lt;</span><span style="color:#b48ead;">u32</span><span>&gt; {
-</span><span>        </span><span style="color:#b48ead;">let </span><span>_: </span><span style="color:#b48ead;">u32 </span><span>= x; </span><span style="color:#65737e;">// assert that `x` has type u32
-</span><span>    }
-</span><span>    
-</span><span>    </span><span style="color:#b48ead;">for</span><span> y in lib::iter::&lt;String&gt;() {
-</span><span>        </span><span style="color:#b48ead;">let </span><span>_: String = y;
-</span><span>    }
-</span><span>    
-</span><span>    </span><span style="color:#b48ead;">for</span><span> z in lib::iter { </span><span style="color:#65737e;">// infer type
-</span><span>        </span><span style="color:#b48ead;">let </span><span>_: &amp;</span><span style="color:#b48ead;">&#39;static str </span><span>= z;
-</span><span>    }
-</span><span>    
-</span><span>    </span><span style="color:#b48ead;">for</span><span> k in lib::iter() {
-</span><span>        </span><span style="color:#b48ead;">let </span><span>_: </span><span style="color:#b48ead;">f64 </span><span>= k;
-</span><span>    }
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">fn</span><span style="color: #8AADF4;font-style: italic;"> main</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    for</span><span> x</span><span style="color: #C6A0F6;"> in</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">iter</span><span style="color: #8BD5CA;">::</span><span style="color: #91D7E3;">&lt;</span><span style="color: #C6A0F6;">u32</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">        let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> u32</span><span style="color: #8BD5CA;"> =</span><span> x</span><span style="color: #939AB7;">;</span><span style="color: #939AB7;font-style: italic;"> // assert that `x` has type u32</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    for</span><span> y</span><span style="color: #C6A0F6;"> in</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">iter</span><span style="color: #8BD5CA;">::</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">String</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">        let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> String</span><span style="color: #8BD5CA;"> =</span><span> y</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    for</span><span> z</span><span style="color: #C6A0F6;"> in</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span>iter</span><span style="color: #939AB7;"> {</span><span style="color: #939AB7;font-style: italic;"> // infer type</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">        let</span><span> _</span><span style="color: #8BD5CA;">: &amp;</span><span style="color: #939AB7;">&#39;</span><span style="color: #8AADF4;font-style: italic;">static</span><span style="color: #EED49F;font-style: italic;"> str</span><span style="color: #8BD5CA;"> =</span><span> z</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    for</span><span> k</span><span style="color: #C6A0F6;"> in</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">iter</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">        let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> f64</span><span style="color: #8BD5CA;"> =</span><span> k</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>That compiles with <strong>stable compiler</strong>, if you have a right <code>lib</code>!
 The interesting bit here is of course that function <code>lib::iter</code> can be called with or without parentheses.
 This is normally not possible, so what is going on?</p>
 <p>First of all, some low hanging fruit: <code>for</code> loops in Rust desugar to something like this:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// Original
-</span><span style="color:#b48ead;">for</span><span> x in i { </span><span style="color:#96b5b4;">f</span><span>(x); }
-</span></code></pre>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// Desugaring
-</span><span>{
-</span><span>    </span><span style="color:#b48ead;">let mut</span><span> iter = IntoIterator::into_iter(i);
-</span><span>    </span><span style="color:#b48ead;">while let </span><span>Some(x) = iter.</span><span style="color:#96b5b4;">next</span><span>() { </span><span style="color:#96b5b4;">f</span><span>(x); }
-</span><span>    </span><span style="color:#65737e;">// while let itself desugars to loop+match,
-</span><span>    </span><span style="color:#65737e;">// but that&#39;s not the point
-</span><span>}
-</span></code></pre>
-<p>So before iteration starts <a href="https://doc.rust-lang.org/std/iter/trait.IntoIterator.html#tymethod.into_iter"><code>into_iter</code></a> is called.
-Which allows you to pass any type implementing <a href="https://doc.rust-lang.org/std/iter/trait.IntoIterator.html"><code>IntoIterator</code></a>, not just <code>Iterator</code>s.
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// Original</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">for</span><span> x</span><span style="color: #C6A0F6;"> in</span><span> i</span><span style="color: #939AB7;"> {</span><span style="color: #8AADF4;font-style: italic;"> f</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">); }</span></span></code></pre><pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// Desugaring</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">{</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let mut</span><span> iter</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> IntoIterator</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">into_iter</span><span style="color: #939AB7;">(</span><span>i</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    while let</span><span style="color: #EED49F;font-style: italic;"> Some</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span> iter</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">next</span><span style="color: #939AB7;">() {</span><span style="color: #8AADF4;font-style: italic;"> f</span><span style="color: #939AB7;">(</span><span>x</span><span style="color: #939AB7;">); }</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // while let itself desugars to loop+match,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // but that&#39;s not the point</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
+<p>So before iteration starts <a rel="external" href="https://doc.rust-lang.org/std/iter/trait.IntoIterator.html#tymethod.into_iter"><code>into_iter</code></a> is called.
+Which allows you to pass any type implementing <a rel="external" href="https://doc.rust-lang.org/std/iter/trait.IntoIterator.html"><code>IntoIterator</code></a>, not just <code>Iterator</code>s.
 That’s just to say that we need <code>iter</code> and <code>iter()</code> somehow evaluate to type(s) that implement <code>IntoIterator</code>.</p>
-<p>As a side note: on nightly there is a trait <a href="https://doc.rust-lang.org/std/future/trait.IntoFuture.html"><code>IntoFuture</code></a> that is just like <code>IntoIterator</code>, but for futures and is used for <code>.await</code> desugaring.
+<p>As a side note: on nightly there is a trait <a rel="external" href="https://doc.rust-lang.org/std/future/trait.IntoFuture.html"><code>IntoFuture</code></a> that is just like <code>IntoIterator</code>, but for futures and is used for <code>.await</code> desugaring.
 You can do all the same stuff with it, so async functions with optional <code>()</code> are possible too:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#![</span><span style="color:#bf616a;">feature</span><span>(into_future)]
-</span><span>async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">_f</span><span>() {
-</span><span>    </span><span style="color:#b48ead;">let </span><span>_: String = lib2::fut::&lt;String&gt;.await;
-</span><span>    </span><span style="color:#b48ead;">let </span><span>_: [</span><span style="color:#b48ead;">u8</span><span>; </span><span style="color:#d08770;">2</span><span>] = lib2::fut::&lt;[</span><span style="color:#b48ead;">u8</span><span>; </span><span style="color:#d08770;">2</span><span>]&gt;().await;
-</span><span>    </span><span style="color:#b48ead;">let </span><span>_: &amp;</span><span style="color:#b48ead;">str </span><span>= lib2::fut.await;
-</span><span>    </span><span style="color:#b48ead;">let </span><span>_: </span><span style="color:#b48ead;">u128 </span><span>= lib2::fut().await;
-</span><span>}
-</span></code></pre>
-<p>BTW I think it <a href="https://github.com/rust-lang/rust/issues/67644#issuecomment-1163424241">should be stabilized</a> soon, so keep an eye on the tracking issue (or don’t (I’m just very excited for this feature)).</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #EED49F;font-style: italic;">#!</span><span style="color: #939AB7;">[</span><span style="color: #EED49F;font-style: italic;">feature</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;font-style: italic;">into_future</span><span style="color: #939AB7;">)]</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">async fn</span><span style="color: #8AADF4;font-style: italic;"> _f</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> String</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> lib2</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">fut</span><span style="color: #8BD5CA;">::</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">String</span><span style="color: #91D7E3;">&gt;</span><span style="color: #8BD5CA;">.</span><span style="color: #C6A0F6;">await</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #939AB7;"> [</span><span style="color: #C6A0F6;">u8</span><span style="color: #939AB7;">;</span><span style="color: #F5A97F;"> 2</span><span style="color: #939AB7;">]</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> lib2</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">fut</span><span style="color: #8BD5CA;">::</span><span style="color: #91D7E3;">&lt;</span><span style="color: #939AB7;">[</span><span style="color: #C6A0F6;">u8</span><span style="color: #939AB7;">;</span><span style="color: #F5A97F;"> 2</span><span style="color: #939AB7;">]</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;">.</span><span style="color: #C6A0F6;">await</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> _</span><span style="color: #8BD5CA;">: &amp;</span><span style="color: #EED49F;font-style: italic;">str</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> lib2</span><span style="color: #8BD5CA;">::</span><span>fut</span><span style="color: #8BD5CA;">.</span><span style="color: #C6A0F6;">await</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> u128</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> lib2</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">fut</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;">.</span><span style="color: #C6A0F6;">await</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
+<p>BTW I think it <a rel="external" href="https://github.com/rust-lang/rust/issues/67644#issuecomment-1163424241">should be stabilized</a> soon, so keep an eye on the tracking issue (or don’t (I’m just very excited for this feature)).</p>
 <p>But, this all still leaves us with a question: how can functions be called without parenthesis?</p>
 <h1 id="tempting-idea-that-doesn-t-work">Tempting idea that doesn’t work<a class="zola-anchor" href="#tempting-idea-that-doesn-t-work" aria-label="Anchor link for: tempting-idea-that-doesn-t-work">⌗</a></h1>
  
@@ -167,14 +162,13 @@ You can do all the same stuff with it, so async functions with optional <code>()
   </div>
 </div>
 <p>So the idea is to write something like this:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">const</span><span> iter: </span><span style="color:#b48ead;">fn</span><span>() -&gt; Iter = || Iter;
-</span><span style="color:#b48ead;">impl </span><span>IntoIterator </span><span style="color:#b48ead;">for </span><span>fn() -&gt; Iter { </span><span style="color:#65737e;">/* not important */ </span><span>}
-</span><span>
-</span><span style="color:#b48ead;">struct </span><span>Iter;
-</span><span style="color:#b48ead;">impl </span><span>Iterator </span><span style="color:#b48ead;">for </span><span>Iter {}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">const</span><span> iter</span><span style="color: #8BD5CA;">:</span><span style="color: #8AADF4;font-style: italic;"> fn</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #8BD5CA;"> = ||</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">impl</span><span style="color: #EED49F;font-style: italic;"> IntoIterator</span><span style="color: #C6A0F6;"> for</span><span style="color: #8AADF4;font-style: italic;"> fn</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #939AB7;"> {</span><span style="color: #939AB7;font-style: italic;"> /* not important */</span><span style="color: #939AB7;"> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">struct</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">impl</span><span style="color: #EED49F;font-style: italic;"> Iterator</span><span style="color: #C6A0F6;"> for</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #939AB7;"> {}</span></span></code></pre>
 <p>Then <code>for _ in iter {}</code> would work because of the <code>IntoIterator</code> impl
-and <code>for _ in iter() {}</code> would work because <code>iter</code>’s type is a <a href="https://doc.rust-lang.org/stable/std/primitive.fn.html">function pointer</a> that returns a type that implements <code>Iterator</code>.</p>
+and <code>for _ in iter() {}</code> would work because <code>iter</code>’s type is a <a rel="external" href="https://doc.rust-lang.org/stable/std/primitive.fn.html">function pointer</a> that returns a type that implements <code>Iterator</code>.</p>
 <p>But… this doesn’t work for the following two reasons:</p>
 <ol>
 <li>You can’t implement a foreign trait (<code>IntoIterator</code>) for a foreign type (<code>fn() -&gt; _</code>) and standard library doesn’t (yet?) implement <code>IntoIterator</code> for function pointers.
@@ -229,12 +223,11 @@ and <code>for _ in iter() {}</code> would work because <code>iter</code>’s typ
 </div>
 <p>If only things were that simple…
 In Rust you need to use all generic parameters in the type, or else your code won’t compile:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>S&lt;T&gt;(</span><span style="color:#b48ead;">u8</span><span>);
-</span><span style="color:#65737e;">//~^ error: parameter `T` is never used
-</span><span style="color:#65737e;">//~| help: consider removing `T`, referring to it in a field, or using a marker such as `PhantomData`
-</span><span style="color:#65737e;">//~| help: if you intended `T` to be a const parameter, use `const T: usize` instead
-</span></code></pre>
-<p>This is because compiler wants to infer <a href="https://doc.rust-lang.org/nomicon/subtyping.html">variance</a> of all parameters.
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">struct</span><span style="color: #EED49F;font-style: italic;"> S</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">(</span><span style="color: #C6A0F6;">u8</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//~^ error: parameter `T` is never used</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//~| help: consider removing `T`, referring to it in a field, or using a marker such as `PhantomData`</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//~| help: if you intended `T` to be a const parameter, use `const T: usize` instead</span></span></code></pre>
+<p>This is because compiler wants to infer <a rel="external" href="https://doc.rust-lang.org/nomicon/subtyping.html">variance</a> of all parameters.
 Since a unit structure, by definition, doesn’t have any fields, you can’t use generic parameters in it!</p>
  
 
@@ -281,10 +274,8 @@ But why can’t we copy its definition into our code?</p>
   </div>
 </div>
 <p>Well… just look at its definition:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#[</span><span style="color:#bf616a;">lang </span><span>= &quot;</span><span style="color:#a3be8c;">phantom_data</span><span>&quot;] </span><span style="color:#65737e;">// &lt;-- *compiler magic*
-</span><span style="color:#b48ead;">pub struct </span><span>PhantomData&lt;T: </span><span style="background-color:#bf616a;color:#2b303b;">?</span><span>Sized&gt;;
-</span></code></pre>
- 
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #EED49F;font-style: italic;">#</span><span style="color: #939AB7;">[</span><span style="color: #EED49F;font-style: italic;">lang </span><span style="color: #8BD5CA;">=</span><span style="color: #A6DA95;"> &quot;phantom_data&quot;</span><span style="color: #939AB7;">]</span><span style="color: #939AB7;font-style: italic;"> // &lt;-- *compiler magic*</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">pub struct</span><span style="color: #EED49F;font-style: italic;"> PhantomData</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #8BD5CA;">: ?</span><span style="color: #EED49F;font-style: italic;">Sized</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">;</span></span></code></pre> 
 
 
   
@@ -307,26 +298,24 @@ But why can’t we copy its definition into our code?</p>
 </div>
 <p>Yeah…</p>
 <p>So, there is no way around this, to define a <code>PhantomData</code>-like type, we need to do something hacky…
-A hack to do this I first saw implemented by dtolnay (not surprising, is it?) in their crate <a href="https://github.com/dtolnay/ghost"><code>ghost</code></a>.</p>
+A hack to do this I first saw implemented by dtolnay (not surprising, is it?) in their crate <a rel="external" href="https://github.com/dtolnay/ghost"><code>ghost</code></a>.</p>
 <p>The hack basically looks like this:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">mod </span><span>imp {
-</span><span>    </span><span style="color:#b48ead;">pub enum </span><span>Void {}
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">pub enum </span><span>Type&lt;T&gt; {
-</span><span>        Type,
-</span><span>        __Phantom(T, Void),
-</span><span>    }
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">pub mod </span><span>reexport_hack {
-</span><span>        </span><span style="color:#b48ead;">pub use super</span><span>::Type::Type;
-</span><span>    }
-</span><span>}
-</span><span>
-</span><span>#[</span><span style="color:#bf616a;">doc</span><span>(hidden)]
-</span><span style="color:#b48ead;">pub use </span><span>imp::reexport_hack::*;
-</span><span style="color:#b48ead;">pub type </span><span>Type&lt;T&gt; = imp::Type&lt;T&gt;;
-</span></code></pre>
- 
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">mod</span><span style="color: #F5A97F;"> imp</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    pub enum</span><span style="color: #EED49F;font-style: italic;"> Void</span><span style="color: #939AB7;"> {}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    pub enum</span><span style="color: #EED49F;font-style: italic;"> Type</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">        Type</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        __Phantom</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #939AB7;">,</span><span style="color: #EED49F;font-style: italic;"> Void</span><span style="color: #939AB7;">),</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    pub mod</span><span style="color: #F5A97F;"> reexport_hack</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">        pub use super</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">Type</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">Type</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">#</span><span style="color: #939AB7;">[</span><span style="color: #EED49F;font-style: italic;">doc</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;font-style: italic;">hidden</span><span style="color: #939AB7;">)]</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">pub use</span><span style="color: #EED49F;"> imp</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">reexport_hack</span><span style="color: #8BD5CA;">::*</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">pub type</span><span style="color: #EED49F;font-style: italic;"> Type</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> imp</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">Type</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">;</span></span></code></pre> 
 
 
   
@@ -352,7 +341,7 @@ A hack to do this I first saw implemented by dtolnay (not surprising, is it?) in
 <ol>
 <li><code>pub enum Void {}</code> defines a type with no values, also known as uninhabited type.
 The nice property for us is that values of this type can’t be created.
-That is basically a stable replacement for the <a href="https://doc.rust-lang.org/stable/std/primitive.never.html"><code>!</code></a> type.</li>
+That is basically a stable replacement for the <a rel="external" href="https://doc.rust-lang.org/stable/std/primitive.never.html"><code>!</code></a> type.</li>
 <li><code>Type&lt;T&gt;</code> has two variants: unit variant <code>Type</code> and a struct variant <code>__Phantom(T, Void)</code>.
 The latter uses <code>T</code>, solving the “parameter <code>T</code> is never used” error
 while simultaneously being impossible to construct because of the <code>Void</code> field.
@@ -395,32 +384,30 @@ or <code>Ok::&lt;_, E&gt;(())</code> is an expression of type <code>Result&lt;()
 </div>
 <p>With this hack, you can define types that are indistinguishable from <code>PhantomData</code>!
 And this time we can use it to define an <code>iter&lt;_&gt;</code> “unit struct”:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">pub type </span><span>iter&lt;T&gt; = imp::iter&lt;T&gt;;
-</span><span style="color:#b48ead;">pub use </span><span>imp::reexport_hack::*;
-</span><span>
-</span><span style="color:#b48ead;">impl</span><span>&lt;T&gt; IntoIterator </span><span style="color:#b48ead;">for </span><span>iter&lt;T&gt; {
-</span><span>    </span><span style="color:#b48ead;">type </span><span>Item = T;
-</span><span>    </span><span style="color:#b48ead;">type </span><span>IntoIter = Iter&lt;T&gt;; 
-</span><span>    </span><span style="color:#65737e;">// capitalized -^
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">struct </span><span>Iter&lt;T&gt;(...);
-</span><span style="color:#b48ead;">impl</span><span>&lt;T&gt; Iterator </span><span style="color:#b48ead;">for </span><span>Iter&lt;T&gt; { </span><span style="color:#65737e;">/* not that important */ </span><span>}
-</span><span>
-</span><span style="color:#b48ead;">mod </span><span>imp { </span><span style="color:#65737e;">/* basically the same as before */</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">pub type</span><span> iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> imp</span><span style="color: #8BD5CA;">::</span><span>iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">pub use</span><span style="color: #EED49F;"> imp</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">reexport_hack</span><span style="color: #8BD5CA;">::*</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">impl</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #EED49F;font-style: italic;"> IntoIterator</span><span style="color: #C6A0F6;"> for</span><span> iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    type</span><span style="color: #EED49F;font-style: italic;"> Item</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> T</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    type</span><span style="color: #EED49F;font-style: italic;"> IntoIter</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">;</span><span> </span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // capitalized -^</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">struct</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">...</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">impl</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #EED49F;font-style: italic;"> Iterator</span><span style="color: #C6A0F6;"> for</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span><span style="color: #939AB7;font-style: italic;"> /* not that important */</span><span style="color: #939AB7;"> }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">mod</span><span style="color: #F5A97F;"> imp</span><span style="color: #939AB7;"> {</span><span style="color: #939AB7;font-style: italic;"> /* basically the same as before */</span><span style="color: #939AB7;">}</span></span></code></pre>
 <p>This already allows us to do cool stuff like this:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">for</span><span> x in lib::iter::&lt;</span><span style="color:#b48ead;">u32</span><span>&gt; {
-</span><span>    </span><span style="color:#b48ead;">let </span><span>_: </span><span style="color:#b48ead;">u32 </span><span>= x; </span><span style="color:#65737e;">// assert that `x` has type u32
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">for</span><span> z in lib::iter { </span><span style="color:#65737e;">// infer type
-</span><span>    </span><span style="color:#b48ead;">let </span><span>_: &amp;</span><span style="color:#b48ead;">&#39;static str </span><span>= z;
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">let</span><span> iter: lib::iter&lt;()&gt; = lib::iter::&lt;()&gt;;
-</span><span style="color:#65737e;">//     type ---^^^^^^^^        ^^^^^^^^^^--- constant
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">for</span><span> x</span><span style="color: #C6A0F6;"> in</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">iter</span><span style="color: #8BD5CA;">::</span><span style="color: #91D7E3;">&lt;</span><span style="color: #C6A0F6;">u32</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> _</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> u32</span><span style="color: #8BD5CA;"> =</span><span> x</span><span style="color: #939AB7;">;</span><span style="color: #939AB7;font-style: italic;"> // assert that `x` has type u32</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">for</span><span> z</span><span style="color: #C6A0F6;"> in</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span>iter</span><span style="color: #939AB7;"> {</span><span style="color: #939AB7;font-style: italic;"> // infer type</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> _</span><span style="color: #8BD5CA;">: &amp;</span><span style="color: #939AB7;">&#39;</span><span style="color: #8AADF4;font-style: italic;">static</span><span style="color: #EED49F;font-style: italic;"> str</span><span style="color: #8BD5CA;"> =</span><span> z</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> iter</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span>iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #939AB7;">()</span><span style="color: #91D7E3;">&gt;</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> lib</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">iter</span><span style="color: #8BD5CA;">::</span><span style="color: #91D7E3;">&lt;</span><span style="color: #939AB7;">()</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//     type ---^^^^^^^^        ^^^^^^^^^^--- constant</span></span></code></pre>
 <p>Now to the next hack, that would allow us to call <code>iter</code> too instead of using it as a constant!</p>
 <h1 id="hack-2">Hack #2<a class="zola-anchor" href="#hack-2" aria-label="Anchor link for: hack-2">⌗</a></h1>
  
@@ -463,7 +450,7 @@ And this time we can use it to define an <code>iter&lt;_&gt;</code> “unit stru
   />
   <div class="callout-body">
     <p>So I’ve heard that in Rust all functions and closures have unique types.
-And the ability to call these types with <code>()</code> is controlled via <a href="https://doc.rust-lang.org/std/ops/trait.Fn.html"><code>Fn</code></a>, <a href="https://doc.rust-lang.org/std/ops/trait.FnMut.html"><code>FnMut</code></a> and <a href="https://doc.rust-lang.org/std/ops/trait.FnOnce.html"><code>FnOnce</code></a> traits.
+And the ability to call these types with <code>()</code> is controlled via <a rel="external" href="https://doc.rust-lang.org/std/ops/trait.Fn.html"><code>Fn</code></a>, <a rel="external" href="https://doc.rust-lang.org/std/ops/trait.FnMut.html"><code>FnMut</code></a> and <a rel="external" href="https://doc.rust-lang.org/std/ops/trait.FnOnce.html"><code>FnOnce</code></a> traits.
 Can we just implement these traits for <code>iter&lt;T&gt;</code>?</p>
 
   </div>
@@ -492,15 +479,14 @@ These traits are unstable and I’m in the stable-compiler jail today.</p>
   </div>
 </div>
 <p>Kind of!
-We can (ab)use <a href="https://doc.rust-lang.org/std/ops/trait.Deref.html"><code>Deref</code></a> trait:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">impl</span><span>&lt;T&gt; Deref </span><span style="color:#b48ead;">for </span><span>iter&lt;T&gt; {
-</span><span>    </span><span style="color:#b48ead;">type </span><span>Target = </span><span style="color:#b48ead;">fn</span><span>() -&gt; Iter&lt;T&gt;;
-</span><span>    
-</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">deref</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; &amp;</span><span style="color:#b48ead;">Self::</span><span>Target {
-</span><span>        &amp;((|| Iter([])) as _)
-</span><span>    }
-</span><span>}
-</span></code></pre>
+We can (ab)use <a rel="external" href="https://doc.rust-lang.org/std/ops/trait.Deref.html"><code>Deref</code></a> trait:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">impl</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #EED49F;font-style: italic;"> Deref</span><span style="color: #C6A0F6;"> for</span><span> iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    type</span><span style="color: #EED49F;font-style: italic;"> Target</span><span style="color: #8BD5CA;"> =</span><span style="color: #8AADF4;font-style: italic;"> fn</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #EED49F;font-style: italic;"> Iter</span><span style="color: #91D7E3;">&lt;</span><span style="color: #EED49F;font-style: italic;">T</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span>    </span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    fn</span><span style="color: #8AADF4;font-style: italic;"> deref</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #ED8796;">self</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> -&gt; &amp;</span><span style="color: #ED8796;">Self</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">Target</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">        &amp;</span><span style="color: #939AB7;">((</span><span style="color: #8BD5CA;">||</span><span style="color: #8AADF4;font-style: italic;"> Iter</span><span style="color: #939AB7;">([]))</span><span style="color: #C6A0F6;"> as</span><span> _</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>Normally <code>Deref</code> is used for smart pointers like <code>Box</code> or <code>Arc</code> so that</p>
 <ul>
 <li>You can use the dereference operator on them (<code>*my_beloved_arc</code>)</li>
@@ -532,12 +518,12 @@ And so abnormally <code>Deref</code> is used to forward methods.</p>
   </div>
 </div>
 <p>Uh well mmm yemmm aaa phhhh mmm… mh.. yes? But everyone uses it anyway.
-It’s even used this way in the <a href="https://github.com/rust-lang/rust/blob/2953edc7b7a00d14c4ba940ebb46b4e7148a9d71/compiler/rustc_errors/src/diagnostic_builder.rs#L275">compiler itself</a>, so who cares?</p>
+It’s even used this way in the <a rel="external" href="https://github.com/rust-lang/rust/blob/2953edc7b7a00d14c4ba940ebb46b4e7148a9d71/compiler/rustc_errors/src/diagnostic_builder.rs#L275">compiler itself</a>, so who cares?</p>
 <p>Ok, so what was I- Ah, right, and what came as a surprise to me, when you are writing <code>f()</code> deref coercions can deref <code>f</code> too!
 So <code>f()</code> can become more like <code>(&amp;*f)()</code> or in other words <code>f.deref()()</code>.
 This means that by implementing deref to a function pointer for our <code>iter&lt;T&gt;</code> we can allow to call it!</p>
-<p>Full code is on the <a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2015&amp;gist=d2643f25de8d2cc6beb9d009f01d1ba3">playground</a> if you want to play with it.</p>
-<p>That’s all I have for today, two hacks that I saw used <a href="https://github.com/dtolnay/inventory/blob/e105c33023492a443b53a58cd6ab0230d0434138/src/lib.rs#L261">“in the wild”</a> (right, this one is also by dtolnay) and thought that it’s quite surprising and fun thing.</p>
+<p>Full code is on the <a rel="external" href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2015&amp;gist=d2643f25de8d2cc6beb9d009f01d1ba3">playground</a> if you want to play with it.</p>
+<p>That’s all I have for today, two hacks that I saw used <a rel="external" href="https://github.com/dtolnay/inventory/blob/e105c33023492a443b53a58cd6ab0230d0434138/src/lib.rs#L261">“in the wild”</a> (right, this one is also by dtolnay) and thought that it’s quite surprising and fun thing.</p>
 <p>bye.</p>
 
         </div>
@@ -550,7 +536,7 @@ This means that by implementing deref to a function pointer for our <code>iter&l
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

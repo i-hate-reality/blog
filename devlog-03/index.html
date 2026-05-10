@@ -107,10 +107,8 @@ but of course I’ve just missed something.</p>
 <p><code>HasTypeFlagsVisitor</code> doesn’t actually recurse all the way down!
 If it visits a given type, it doesn’t go to the subtypes, it just uses the cached type flags.
 So this is in fact quite efficient and totally fine.</p>
-<p>It turns out that I’m not the first one to stumble upon this and be confused, so I’ve made a <a href="https://github.com/rust-lang/rust/pull/110465">PR</a> that explains all of that in a comment, so that I’m hopefully the last one to be confused by that.</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>number_of_people_who_has_tripped_on_this += </span><span style="color:#d08770;">1</span><span>;
-</span></code></pre>
-<h1 id="no-transmutes-of-genericarg-and-ty">No transmutes of <code>GenericArg</code> and <code>Ty</code><a class="zola-anchor" href="#no-transmutes-of-genericarg-and-ty" aria-label="Anchor link for: no-transmutes-of-genericarg-and-ty">⌗</a></h1>
+<p>It turns out that I’m not the first one to stumble upon this and be confused, so I’ve made a <a rel="external" href="https://github.com/rust-lang/rust/pull/110465">PR</a> that explains all of that in a comment, so that I’m hopefully the last one to be confused by that.</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span>number_of_people_who_has_tripped_on_this</span><span style="color: #8BD5CA;"> +=</span><span style="color: #F5A97F;"> 1</span><span style="color: #939AB7;">;</span></span></code></pre><h1 id="no-transmutes-of-genericarg-and-ty">No transmutes of <code>GenericArg</code> and <code>Ty</code><a class="zola-anchor" href="#no-transmutes-of-genericarg-and-ty" aria-label="Anchor link for: no-transmutes-of-genericarg-and-ty">⌗</a></h1>
 <p>This was my “quest” of the week.</p>
 <p>It all started from me changing how <code>Ty</code> is represented, trying to make a small optimization
 (yet to be completed, hopefully those changes will see the light of day next week…).
@@ -160,58 +158,55 @@ In theory this allows us to store, hash and use types and generic args that are 
 <li>This optimization actually doesn’t noticeably change the performance and memory usage of the compiler</li>
 <li>… While also blocking other optimizations (as, again, shown by my problems)</li>
 </ol>
-<p>With all of that in mind I’ve made <a href="https://github.com/rust-lang/rust/pull/110496">#110496</a> which removed the transmutes.
-Later I also followed it by <a href="https://github.com/rust-lang/rust/pull/110599">#110599</a> and <a href="https://github.com/rust-lang/rust/pull/110622">#110622</a> which removed other artifacts of this optimization.</p>
+<p>With all of that in mind I’ve made <a rel="external" href="https://github.com/rust-lang/rust/pull/110496">#110496</a> which removed the transmutes.
+Later I also followed it by <a rel="external" href="https://github.com/rust-lang/rust/pull/110599">#110599</a> and <a rel="external" href="https://github.com/rust-lang/rust/pull/110622">#110622</a> which removed other artifacts of this optimization.</p>
 <h1 id="deny-unsafe-op-in-unsafe-fn-in-rustc-data-structures"><code>deny(unsafe_op_in_unsafe_fn)</code> in <code>rustc_data_structures</code><a class="zola-anchor" href="#deny-unsafe-op-in-unsafe-fn-in-rustc-data-structures" aria-label="Anchor link for: deny-unsafe-op-in-unsafe-fn-in-rustc-data-structures">⌗</a></h1>
 <p>This is the continuation of my improvements of tagged pointers, after their cleanup it made sense to deny <code>unsafe_op_in_unsafe_fn</code> lint in the crate.</p>
 <p><code>unsafe_op_in_unsafe_fn</code> lints against the following code:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">unsafe fn </span><span style="color:#8fa1b3;">dangerous</span><span>() {}
-</span><span>
-</span><span style="color:#b48ead;">unsafe fn </span><span style="color:#8fa1b3;">something_unsafe</span><span>() {
-</span><span>    </span><span style="color:#96b5b4;">dangerous</span><span>()
-</span><span>    </span><span style="color:#65737e;">//^-- this is allowed, by linted by `unsafe_op_in_unsafe_fn`
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">unsafe fn </span><span style="color:#8fa1b3;">something_unsafe_fixed</span><span>() {
-</span><span>    </span><span style="color:#b48ead;">unsafe </span><span>{
-</span><span>        </span><span style="color:#96b5b4;">dangerous</span><span>()
-</span><span>    }
-</span><span>    </span><span style="color:#65737e;">//^-- this is the fix for the lint
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">unsafe fn</span><span style="color: #8AADF4;font-style: italic;"> dangerous</span><span style="color: #939AB7;">() {}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">unsafe fn</span><span style="color: #8AADF4;font-style: italic;"> something_unsafe</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    dangerous</span><span style="color: #939AB7;">()</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    //^-- this is allowed, by linted by `unsafe_op_in_unsafe_fn`</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">unsafe fn</span><span style="color: #8AADF4;font-style: italic;"> something_unsafe_fixed</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    unsafe</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        dangerous</span><span style="color: #939AB7;">()</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    //^-- this is the fix for the lint</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>The reason for this lint’s existence is that <code>unsafe fn</code> mainly conveys that it’s unsafe to call <em>that</em> function, but by default it also allows to use other <code>unsafe</code> functions inside it, without <code>unsafe</code> blocks. This might be a little foot-gun, at it places more code in <code>unsafe</code> context than necessary, potentially leading to missed safety requirements. With the lint and <code>unsafe {}</code> inside <code>unsafe</code> functions everything is more explicit and it’s less easy to make mistakes, which is very important for <code>unsafe</code> code.</p>
 <h1 id="closure-suggestions-finally-merged">Closure suggestions finally merged!<a class="zola-anchor" href="#closure-suggestions-finally-merged" aria-label="Anchor link for: closure-suggestions-finally-merged">⌗</a></h1>
-<p>The pull request I’ve been working on on <a href="https://blog.ihatereality.space/devlog-01/#stream">streams</a> has been finally <a href="https://github.com/rust-lang/rust/pull/110061">merged</a>, yay!</p>
+<p>The pull request I’ve been working on on <a rel="external" href="https://blog.ihatereality.space/devlog-01/#stream">streams</a> has been finally <a rel="external" href="https://github.com/rust-lang/rust/pull/110061">merged</a>, yay!</p>
 <h1 id="add-impl-tag-macro-to-implement-tag-for-tagged-pointer-easily">Add <code>impl_tag!</code> macro to implement <code>Tag</code> for tagged pointer easily<a class="zola-anchor" href="#add-impl-tag-macro-to-implement-tag-for-tagged-pointer-easily" aria-label="Anchor link for: add-impl-tag-macro-to-implement-tag-for-tagged-pointer-easily">⌗</a></h1>
-<p>As the title suggests, this is a <a href="https://github.com/rust-lang/rust/pull/110615">PR</a> that continues my <a href="https://blog.ihatereality.space/devlog-02/#tagged-pointer-rewrite">work</a> on tagged pointers in rustc, by adding a macro to implement the <code>Tag</code> trait. As a reminder this is basically how <code>Tag</code> looks:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">unsafe trait </span><span>Tag {
-</span><span>    </span><span style="color:#65737e;">/// The number of bits required
-</span><span>    </span><span style="color:#b48ead;">const </span><span style="color:#d08770;">BITS</span><span>: </span><span style="color:#b48ead;">u32</span><span>;
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">into_usize</span><span>(</span><span style="color:#bf616a;">self</span><span>) -&gt; </span><span style="color:#b48ead;">usize</span><span>;
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">unsafe fn </span><span style="color:#8fa1b3;">from_usize</span><span>(</span><span style="color:#bf616a;">tag</span><span>: </span><span style="color:#b48ead;">usize</span><span>) -&gt; </span><span style="color:#b48ead;">Self</span><span>;
-</span><span>}
-</span></code></pre>
+<p>As the title suggests, this is a <a rel="external" href="https://github.com/rust-lang/rust/pull/110615">PR</a> that continues my <a rel="external" href="https://blog.ihatereality.space/devlog-02/#tagged-pointer-rewrite">work</a> on tagged pointers in rustc, by adding a macro to implement the <code>Tag</code> trait. As a reminder this is basically how <code>Tag</code> looks:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">unsafe trait</span><span style="color: #EED49F;font-style: italic;"> Tag</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    /// The number of bits required</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    const</span><span style="color: #F5A97F;"> BITS</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> u32</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    fn</span><span style="color: #8AADF4;font-style: italic;"> into_usize</span><span style="color: #939AB7;">(</span><span style="color: #ED8796;">self</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #C6A0F6;"> usize</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    unsafe fn</span><span style="color: #8AADF4;font-style: italic;"> from_usize</span><span style="color: #939AB7;">(</span><span style="color: #EE99A0;">tag</span><span style="color: #8BD5CA;">:</span><span style="color: #C6A0F6;"> usize</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #ED8796;"> Self</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>Implementing it correctly is a little bit tricky, since you need to correctly handle all the <code>unsafe</code> invariants, so adding a macro seems very nice. At the moment the macro usage looks something like the following, although I’ll probably remove the explicit tags later:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>impl_tag! {
-</span><span>    </span><span style="color:#b48ead;">impl </span><span>Tag </span><span style="color:#b48ead;">for </span><span>Type;
-</span><span>    Type::A &lt;=&gt; 0,
-</span><span>    Type::B { v: </span><span style="color:#d08770;">false </span><span>} &lt;=&gt; </span><span style="color:#d08770;">1</span><span>,
-</span><span>    Type::B { v: </span><span style="color:#d08770;">true </span><span>} &lt;=&gt; </span><span style="color:#d08770;">2</span><span>,
-</span><span>}
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">impl_tag!</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    impl</span><span style="color: #EED49F;font-style: italic;"> Tag</span><span style="color: #C6A0F6;"> for</span><span style="color: #EED49F;font-style: italic;"> Type</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">    Type</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">A</span><span style="color: #8BD5CA;"> &lt;=</span><span>&gt; </span><span style="color: #F5A97F;">0</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">    Type</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">B</span><span style="color: #939AB7;"> {</span><span> v</span><span style="color: #8BD5CA;">:</span><span style="color: #ED8796;"> false</span><span style="color: #939AB7;"> }</span><span style="color: #8BD5CA;"> &lt;=</span><span>&gt; </span><span style="color: #F5A97F;">1</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">    Type</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">B</span><span style="color: #939AB7;"> {</span><span> v</span><span style="color: #8BD5CA;">:</span><span style="color: #ED8796;"> true</span><span style="color: #939AB7;"> }</span><span style="color: #8BD5CA;"> &lt;=</span><span>&gt; </span><span style="color: #F5A97F;">2</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre>
 <p>I hope you agree that it’s a lot nicer than manually doing the implementation :)</p>
-<p>As a side note, while working on this macro I’ve discovered <a href="https://github.com/rust-lang/rust/issues/110613">#110613</a> which is annoying bug/feature of how macros and lints work, which was pretty sad. I won’t copy the issue description here, so go look at it if you want.</p>
+<p>As a side note, while working on this macro I’ve discovered <a rel="external" href="https://github.com/rust-lang/rust/issues/110613">#110613</a> which is annoying bug/feature of how macros and lints work, which was pretty sad. I won’t copy the issue description here, so go look at it if you want.</p>
 <h1 id="other-stuff">Other stuff<a class="zola-anchor" href="#other-stuff" aria-label="Anchor link for: other-stuff">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pull/110461">rust/110461</a> — Use <code>Item::expect_*</code> and <code>ImplItem::expect_*</code> more</li>
-<li><a href="https://github.com/rust-lang/libs-team/issues/212">rust-lang/libs-team/212</a> — <code>Option::is_none_or</code> (API change proposal)</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110545">rust/110545</a> — Add <code>GenericArgKind::as_{type,const,region}</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/110539">rust/110539</a> — Move around <code>{Idx, IndexVec, IndexSlice}</code> adjacent code</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110621">rust/110621</a> — (More) consistently use “region” terminology in <code>rustc_middle</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/110451">rust/110451</a> — Minor changes to <code>IndexVec::ensure_contains_elem</code> &amp; related methods</li>
-<li><a href="https://github.com/teloxide/teloxide/discussions/872">teloxide/discussions/872</a> — How to add a <code>tracing::span</code> to every incoming message?
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110461">rust/110461</a> — Use <code>Item::expect_*</code> and <code>ImplItem::expect_*</code> more</li>
+<li><a rel="external" href="https://github.com/rust-lang/libs-team/issues/212">rust-lang/libs-team/212</a> — <code>Option::is_none_or</code> (API change proposal)</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110545">rust/110545</a> — Add <code>GenericArgKind::as_{type,const,region}</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110539">rust/110539</a> — Move around <code>{Idx, IndexVec, IndexSlice}</code> adjacent code</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110621">rust/110621</a> — (More) consistently use “region” terminology in <code>rustc_middle</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110451">rust/110451</a> — Minor changes to <code>IndexVec::ensure_contains_elem</code> &amp; related methods</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/discussions/872">teloxide/discussions/872</a> — How to add a <code>tracing::span</code> to every incoming message?
 <ul>
 <li>I answered this :&gt;</li>
 </ul>
@@ -219,37 +214,37 @@ Later I also followed it by <a href="https://github.com/rust-lang/rust/pull/1105
 </ul>
 <h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/pull/110394">rust/110394</a> — Various minor Idx-related tweaks</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110313">rust/110313</a> — allow <code>repr(align = x)</code> on inherent methods</li>
-<li><a href="https://github.com/rust-lang/rust/pull/106934">rust/106934</a> — Add offset_of! macro (RFC 3308)
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110394">rust/110394</a> — Various minor Idx-related tweaks</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110313">rust/110313</a> — allow <code>repr(align = x)</code> on inherent methods</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/106934">rust/106934</a> — Add offset_of! macro (RFC 3308)
 <ul>
 <li>very happy with this one in particular, it was very nice to finally approve it!</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/110438">rust/110438</a> — Allow <code>transmute</code>-ing for tuples with <code>[u8; &lt;const N: usize&gt;]</code>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110438">rust/110438</a> — Allow <code>transmute</code>-ing for tuples with <code>[u8; &lt;const N: usize&gt;]</code>
 <ul>
 <li>this seems like a bad idea and so was basically rejected</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/110473">rust/110473</a> — Assert that global cache values are stable on insertion</li>
-<li><a href="https://github.com/rust-lang/rust/pull/108106">rust/108106</a> — Improve niche placement by trying two strategies and picking the better result</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110548">rust/110548</a> — Make <code>impl Debug for Span</code> not panic on not having session globals.</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110540">rust/110540</a> — Fix wrong comment in rustc_hir/src/hir.rs</li>
-<li><a href="https://github.com/rust-lang/rust/pull/110596">rust/110596</a> — Rename <code>wasm32-wasi</code> to <code>wasm32-wasi-preview1</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110473">rust/110473</a> — Assert that global cache values are stable on insertion</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/108106">rust/108106</a> — Improve niche placement by trying two strategies and picking the better result</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110548">rust/110548</a> — Make <code>impl Debug for Span</code> not panic on not having session globals.</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110540">rust/110540</a> — Fix wrong comment in rustc_hir/src/hir.rs</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/110596">rust/110596</a> — Rename <code>wasm32-wasi</code> to <code>wasm32-wasi-preview1</code></li>
 </ul>
 <h1 id="bisection">Bisection<a class="zola-anchor" href="#bisection" aria-label="Anchor link for: bisection">⌗</a></h1>
-<p>When a regression is found in the rust compiler it is helpful to run a bisection, which allows you to find which exact PR/commit/version introduced the regression. For rustc bisection is usually done via <a href="https://github.com/rust-lang/cargo-bisect-rustc"><code>cargo bisect-rustc</code></a>, which is pretty cool to look at, it runs a binary search, checking the regression and trying to find the place that changes the compilation result or script result, etc (it has multiple modes).</p>
+<p>When a regression is found in the rust compiler it is helpful to run a bisection, which allows you to find which exact PR/commit/version introduced the regression. For rustc bisection is usually done via <a rel="external" href="https://github.com/rust-lang/cargo-bisect-rustc"><code>cargo bisect-rustc</code></a>, which is pretty cool to look at, it runs a binary search, checking the regression and trying to find the place that changes the compilation result or script result, etc (it has multiple modes).</p>
 <ul>
-<li><a href="https://github.com/rust-lang/rust/issues/110551">rust/110551</a> — Codegen regression involving <code>assume</code>/<code>unreachable_unchecked</code>
+<li><a rel="external" href="https://github.com/rust-lang/rust/issues/110551">rust/110551</a> — Codegen regression involving <code>assume</code>/<code>unreachable_unchecked</code>
 <ul>
 <li>A codegen regression was found, which I helped to bisect/track (although finding the root cause and fixing was done by <code>@saethlin</code>)</li>
 <li>For some reason I had a lot of problems bisecting this one, but I think I was just unlucky with my choice of upper/lower bounds on the bisection</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/issues/110457">110457</a> — Incremental recompilation MIR ICE</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/issues/110457">110457</a> — Incremental recompilation MIR ICE</li>
 </ul>
 <h1 id="stream">Stream<a class="zola-anchor" href="#stream" aria-label="Anchor link for: stream">⌗</a></h1>
-<p>This week I did not make the programming stream, and I probably won’t make them in the near future, following my <a href="https://blog.ihatereality.space/devlog-02/#stream">concerns</a> from the previous devlog</p>
+<p>This week I did not make the programming stream, and I probably won’t make them in the near future, following my <a rel="external" href="https://blog.ihatereality.space/devlog-02/#stream">concerns</a> from the previous devlog</p>
 <h1 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">⌗</a></h1>
 <p>It feels like I did <strong>a lot</strong> this week, it feels great!!
 Hopefully I won’t lose <em>all</em> that momentum next week, heh.
@@ -265,7 +260,7 @@ See you next time 0/</p>
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

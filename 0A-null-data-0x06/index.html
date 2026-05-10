@@ -99,31 +99,28 @@
 <p>today i successfully debugged one issue that turned out to be quite funny, let me share the story.</p>
 <p>i’m mainly working with usb-hid devices (universal serial bus human interface devices devices), i.e. things like keyboards and mice – peripherals. one thing that is very helpful when debugging issues with them is getting “hid-descriptor” – description of the device and what it says it’ll communicate.</p>
 <p>on paper <code>lsusb</code> should be able to list this information, buuuut…</p>
-<pre data-lang="shell" style="background-color:#2b303b;color:#c0c5ce;" class="language-shell "><code class="language-shell" data-lang="shell"><span>: ~; lsusb -d 1d50:615e -v | rg &quot;HID Device Descriptor&quot; -A9
-</span><span>Couldn&#39;t open device, some information will be missing
-</span><span>        HID Device Descriptor:
-</span><span>          bLength                 9
-</span><span>          bDescriptorType        33
-</span><span>          bcdHID               1.11
-</span><span>          bCountryCode            0 Not supported
-</span><span>          bNumDescriptors         1
-</span><span>          bDescriptorType        34 (null)
-</span><span>          wDescriptorLength     103
-</span><span>          Report Descriptors:
-</span><span>            ** UNAVAILABLE **
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #ED8796;font-style: italic;">:</span><span style="color: #A6DA95;"> ~</span><span style="color: #939AB7;">;</span><span style="color: #8AADF4;font-style: italic;"> lsusb</span><span style="color: #A6DA95;"> -d 1d50:615e -v</span><span style="color: #8BD5CA;"> |</span><span style="color: #8AADF4;font-style: italic;"> rg</span><span style="color: #A6DA95;"> &quot;HID Device Descriptor&quot; -A9</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">Couldn&#39;t open device, some information will be missing</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        HID Device Descriptor:</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          bLength                 9</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          bDescriptorType        33</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          bcdHID               1.11</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          bCountryCode            0 Not supported</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          bNumDescriptors         1</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          bDescriptorType        34 (null)</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          wDescriptorLength     103</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          Report Descriptors:</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            ** UNAVAILABLE **</span></span></code></pre>
 <p>to be clear, report descriptors are the interesting part – it describes what the peripheral reports to the host.</p>
 <p>in this example it’s quite easy to notice the error, but when i tried it for the first time it was a lot harder to notice because the error was between lines that my brain filtered out:</p>
-<pre data-lang="shell" style="background-color:#2b303b;color:#c0c5ce;" class="language-shell "><code class="language-shell" data-lang="shell"><span>: ~; lsusb -d 1d50:615e -v
-</span><span>
-</span><span>Bus 005 Device 013: ID 1d50:615e OpenMoko, Inc. Blank Slate
-</span><span>Couldn&#39;t open device, some information will be missing
-</span><span>Negotiated speed: Full Speed (12Mbps)
-</span><span>Device Descriptor:
-</span><span>  bLength                18
-</span><span>...
-</span></code></pre>
- 
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #ED8796;font-style: italic;">:</span><span style="color: #A6DA95;"> ~</span><span style="color: #939AB7;">;</span><span style="color: #8AADF4;font-style: italic;"> lsusb</span><span style="color: #A6DA95;"> -d 1d50:615e -v</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">Bus</span><span style="color: #F5A97F;"> 005</span><span style="color: #A6DA95;"> Device 013: ID 1d50:615e OpenMoko, Inc. Blank Slate</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">Couldn&#39;t open device, some information will be missing</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">Negotiated speed: Full Speed (12Mbps)</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">Device Descriptor:</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">  bLength                18</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">...</span></span></code></pre> 
 
 
   
@@ -146,29 +143,27 @@
 </div>
 <p>idk.</p>
 <p>but either way, if it can’t open the device, trying to run it as root is usually a good idea:</p>
-<pre data-lang="shell" style="background-color:#2b303b;color:#c0c5ce;" class="language-shell "><code class="language-shell" data-lang="shell"><span>: ~; sudo lsusb -d 1d50:615e -v | rg &quot;Report Descriptors&quot; -A1
-</span><span>          Report Descriptors:
-</span><span>            ** UNAVAILABLE **
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #ED8796;font-style: italic;">:</span><span style="color: #A6DA95;"> ~</span><span style="color: #939AB7;">;</span><span style="color: #8AADF4;font-style: italic;"> sudo</span><span style="color: #A6DA95;"> lsusb -d 1d50:615e -v</span><span style="color: #8BD5CA;"> |</span><span style="color: #8AADF4;font-style: italic;"> rg</span><span style="color: #A6DA95;"> &quot;Report Descriptors&quot; -A1</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">          Report</span><span style="color: #A6DA95;"> Descriptors:</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            **</span><span style="color: #A6DA95;"> UNAVAILABLE</span><span> **</span></span></code></pre>
 <p>that didn’t help ;-;</p>
 <p>and honestly, this is where my debugging stopped at first. i couldn’t find anything explaining how to get report descriptors.</p>
-<p>today i was trying to debug this issue <em>again</em> (i keep running into it!) and actually <em>was</em> able to find a <a href="https://www.slashdev.ca/2010/05/08/get-usb-report-descriptor-with-linux/">solution in the slashdev.ca blog</a>. i’m… not sure how i missed it the last time… whatever. i built a command based on the solution and…</p>
-<pre data-lang="shell" style="background-color:#2b303b;color:#c0c5ce;" class="language-shell "><code class="language-shell" data-lang="shell"><span>: ~; echo -n &quot;5-1.1.4:1.0&quot; | sudo tee /sys/bus/usb/drivers/usbhid/unbind \
-</span><span>         &amp;&amp; sudo lsusb -d 1d50:615e -v | rg &quot;Report Descriptor&quot; -A10 \
-</span><span>         &amp;&amp; echo -n &quot;5-1.1.4:1.0&quot; | sudo tee /sys/bus/usb/drivers/usbhid/bind
-</span><span>5-1.1.4:1.0          Report Descriptor: (length is 103)
-</span><span>            Item(Global): Usage Page, data= [ 0x01 ] 1
-</span><span>                            (null)
-</span><span>            Item(Local ): (null), data= [ 0x06 ] 6
-</span><span>                            (null)
-</span><span>            Item(Main  ): (null), data= [ 0x01 ] 1
-</span><span>                            Application
-</span><span>            Item(Global): (null), data= [ 0x01 ] 1
-</span><span>            Item(Global): Usage Page, data= [ 0x07 ] 7
-</span><span>                            (null)
-</span><span>            Item(Local ): (null), data= [ 0xe0 ] 224
-</span><span>5-1.1.4:1.0⏎   
-</span></code></pre>
+<p>today i was trying to debug this issue <em>again</em> (i keep running into it!) and actually <em>was</em> able to find a <a rel="external" href="https://www.slashdev.ca/2010/05/08/get-usb-report-descriptor-with-linux/">solution in the slashdev.ca blog</a>. i’m… not sure how i missed it the last time… whatever. i built a command based on the solution and…</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #ED8796;font-style: italic;">:</span><span style="color: #A6DA95;"> ~</span><span style="color: #939AB7;">;</span><span style="color: #ED8796;font-style: italic;"> echo</span><span style="color: #A6DA95;"> -n &quot;5-1.1.4:1.0&quot;</span><span style="color: #8BD5CA;"> |</span><span style="color: #8AADF4;font-style: italic;"> sudo</span><span style="color: #A6DA95;"> tee /sys/bus/usb/drivers/usbhid/unbind</span><span style="color: #F5BDE6;"> \</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">         &amp;&amp;</span><span style="color: #8AADF4;font-style: italic;"> sudo</span><span style="color: #A6DA95;"> lsusb -d 1d50:615e -v</span><span style="color: #8BD5CA;"> |</span><span style="color: #8AADF4;font-style: italic;"> rg</span><span style="color: #A6DA95;"> &quot;Report Descriptor&quot; -A10</span><span style="color: #F5BDE6;"> \</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">         &amp;&amp;</span><span style="color: #ED8796;font-style: italic;"> echo</span><span style="color: #A6DA95;"> -n &quot;5-1.1.4:1.0&quot;</span><span style="color: #8BD5CA;"> |</span><span style="color: #8AADF4;font-style: italic;"> sudo</span><span style="color: #A6DA95;"> tee /sys/bus/usb/drivers/usbhid/bind</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">5-1.1.4:1.0</span><span style="color: #A6DA95;">          Report Descriptor:</span><span> (length</span><span style="color: #A6DA95;"> is</span><span style="color: #F5A97F;"> 103</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            Item(Global</span><span>): Usage Page, data</span><span style="color: #8BD5CA;">=</span><span style="color: #8AADF4;font-style: italic;"> [</span><span style="color: #F5A97F;"> 0x01</span><span style="color: #A6DA95;"> ]</span><span style="color: #F5A97F;"> 1</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">                            (</span><span style="color: #8AADF4;font-style: italic;">null</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            Item(Local</span><span> ): (</span><span style="color: #8AADF4;font-style: italic;">null</span><span>), data</span><span style="color: #8BD5CA;">=</span><span style="color: #8AADF4;font-style: italic;"> [</span><span style="color: #F5A97F;"> 0x06</span><span style="color: #A6DA95;"> ]</span><span style="color: #F5A97F;"> 6</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">                            (</span><span style="color: #8AADF4;font-style: italic;">null</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            Item(Main</span><span>  ): (</span><span style="color: #8AADF4;font-style: italic;">null</span><span>), data</span><span style="color: #8BD5CA;">=</span><span style="color: #8AADF4;font-style: italic;"> [</span><span style="color: #F5A97F;"> 0x01</span><span style="color: #A6DA95;"> ]</span><span style="color: #F5A97F;"> 1</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">                            Application</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            Item(Global</span><span>): (</span><span style="color: #8AADF4;font-style: italic;">null</span><span>), data</span><span style="color: #8BD5CA;">=</span><span style="color: #8AADF4;font-style: italic;"> [</span><span style="color: #F5A97F;"> 0x01</span><span style="color: #A6DA95;"> ]</span><span style="color: #F5A97F;"> 1</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            Item(Global</span><span>): Usage Page, data</span><span style="color: #8BD5CA;">=</span><span style="color: #8AADF4;font-style: italic;"> [</span><span style="color: #F5A97F;"> 0x07</span><span style="color: #A6DA95;"> ]</span><span style="color: #F5A97F;"> 7</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">                            (</span><span style="color: #8AADF4;font-style: italic;">null</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">            Item(Local</span><span> ): (</span><span style="color: #8AADF4;font-style: italic;">null</span><span>), data</span><span style="color: #8BD5CA;">=</span><span style="color: #8AADF4;font-style: italic;"> [</span><span style="color: #F5A97F;"> 0xe0</span><span style="color: #A6DA95;"> ]</span><span style="color: #F5A97F;"> 224</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">5-1.1.4:1.0⏎</span><span>   </span></span></code></pre>
 <p>so, multiple things:</p>
 <ol>
 <li>yaaay it works</li>
@@ -176,21 +171,20 @@
 <li>why does it say <code>(null)</code> everywhere???</li>
 </ol>
 <p>somehow <code>lsusb</code>’s parser must be broken ig?… but how and why… googling <code>lsusb descriptor "(null)"</code> of course yielded nothing.</p>
-<p>one suspicion i had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a <a href="https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch">suspicious patch</a>:</p>
-<pre data-lang="patch" style="background-color:#2b303b;color:#c0c5ce;" class="language-patch "><code class="language-patch" data-lang="patch"><span>diff --git a/lsusb.py b/lsusb.py
-</span><span>index bbc4dbb..8af1b1f 100755
-</span><span>--- a/lsusb.py
-</span><span>+++ b/lsusb.py
-</span><span>@@ -27,8 +27,7 @@ </span><span style="color:#8fa1b3;">showwakeup = False
-</span><span> 
-</span><span> prefix = &quot;/sys/bus/usb/devices/&quot;
-</span><span> usbids = [
-</span><span style="color:#bf616a;">-	&quot;/usr/share/hwdata/usb.ids&quot;,
-</span><span style="color:#bf616a;">-	&quot;/usr/share/usb.ids&quot;,
-</span><span style="color:#a3be8c;">+	&quot;@hwdata@/share/hwdata/usb.ids&quot;,
-</span><span> ]
-</span><span> cols = (&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
-</span></code></pre>
+<p>one suspicion i had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a <a rel="external" href="https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch">suspicious patch</a>:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="diff"><span class="giallo-l"><span>diff --git a/lsusb.py b/lsusb.py</span></span>
+<span class="giallo-l"><span>index bbc4dbb..8af1b1f 100755</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;">--- a/lsusb.py</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;">+++ b/lsusb.py</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">@@</span><span> -27,8 +27,7</span><span style="color: #939AB7;"> @@</span><span> showwakeup = False</span></span>
+<span class="giallo-l"><span> </span></span>
+<span class="giallo-l"><span> prefix = &quot;/sys/bus/usb/devices/&quot;</span></span>
+<span class="giallo-l"><span> usbids = [</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">-</span><span style="color: #ED8796;">	&quot;/usr/share/hwdata/usb.ids&quot;,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">-</span><span style="color: #ED8796;">	&quot;/usr/share/usb.ids&quot;,</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">+</span><span style="color: #A6DA95;">	&quot;@hwdata@/share/hwdata/usb.ids&quot;,</span></span>
+<span class="giallo-l"><span> ]</span></span>
+<span class="giallo-l"><span> cols = (&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)</span></span></code></pre>
 <p>i tried checking if the right path is in the <code>lsusb</code> binary, but had no success.</p>
  
 
@@ -214,19 +208,17 @@
   </div>
 </div>
 <p>i then also tried this on my friend’s laptop (where <code>lsusb</code> comes from arch packages) and it had a similar bug, which suggests that this <em>isn’t</em> packaging mistake.</p>
-<p>i decided to look into <code>lsusb</code> <a href="https://github.com/gregkh/usbutils/blob/ff432498eb7aeb4fe33a27ddc89a0a43d7fe6fe1/lsusb.c">sources</a>, hoping that maybe i can just see the bug. <code>^Fhid</code> found <code>dump_report_desc</code>, which calls <code>names_reporttag(btag)</code> (this is the function that returns <code>(null)</code>), which is just a wrapper over <code>names_genericstrtable</code> which is</p>
-<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">static const char </span><span>*</span><span style="color:#8fa1b3;">names_genericstrtable</span><span>(</span><span style="color:#b48ead;">const struct</span><span> genericstrtable *</span><span style="color:#bf616a;">t</span><span>,
-</span><span>					 </span><span style="color:#b48ead;">unsigned int </span><span style="color:#bf616a;">idx</span><span>)
-</span><span>{
-</span><span>	</span><span style="color:#b48ead;">const struct</span><span> genericstrtable *h;
-</span><span>
-</span><span>	</span><span style="color:#b48ead;">for </span><span>(h = t; t-&gt;name; t++)
-</span><span>		</span><span style="color:#b48ead;">if </span><span>(h-&gt;num == idx)
-</span><span>			</span><span style="color:#b48ead;">return</span><span> h-&gt;name;
-</span><span>	</span><span style="color:#b48ead;">return </span><span style="color:#d08770;">NULL</span><span>;
-</span><span>}
-</span></code></pre>
- 
+<p>i decided to look into <code>lsusb</code> <a rel="external" href="https://github.com/gregkh/usbutils/blob/ff432498eb7aeb4fe33a27ddc89a0a43d7fe6fe1/lsusb.c">sources</a>, hoping that maybe i can just see the bug. <code>^Fhid</code> found <code>dump_report_desc</code>, which calls <code>names_reporttag(btag)</code> (this is the function that returns <code>(null)</code>), which is just a wrapper over <code>names_genericstrtable</code> which is</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="c"><span class="giallo-l"><span style="color: #C6A0F6;">static const char</span><span style="color: #8BD5CA;"> *</span><span style="color: #8AADF4;font-style: italic;">names_genericstrtable</span><span style="color: #939AB7;">(</span><span style="color: #C6A0F6;">const struct</span><span> genericstrtable </span><span style="color: #8BD5CA;">*</span><span style="color: #EE99A0;font-style: italic;">t</span><span style="color: #939AB7;">,</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">					 unsigned int</span><span style="color: #EE99A0;font-style: italic;"> idx</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">{</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">	const struct</span><span> genericstrtable </span><span style="color: #8BD5CA;">*</span><span>h</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">	for</span><span style="color: #939AB7;"> (</span><span>h </span><span style="color: #8BD5CA;">=</span><span> t</span><span style="color: #939AB7;">;</span><span> t</span><span style="color: #939AB7;">-&gt;</span><span>name</span><span style="color: #939AB7;">;</span><span> t</span><span style="color: #8BD5CA;">++</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">		if</span><span style="color: #939AB7;"> (</span><span>h</span><span style="color: #939AB7;">-&gt;</span><span>num</span><span style="color: #8BD5CA;"> ==</span><span> idx</span><span style="color: #939AB7;">)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">			return</span><span> h</span><span style="color: #939AB7;">-&gt;</span><span>name</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">	return</span><span style="color: #ED8796;"> NULL</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre> 
 
 
   
@@ -251,20 +243,18 @@
 <p>it took me a bit of time to convince myself this is actually a bug, simply because i’m not very familiar with the c language. but sure enough this is a bug.</p>
 <p>it’s basically iterating over <code>t</code>, but then using <code>h</code> for return condition. this means that this function always returns <code>null</code>, unless it is asked to find the first element of the table. <code>git blame</code> shows that this was introduced when switching from hash tables to arrays+linear lookups.</p>
 <p>do i even need to say that this would be easily caught by any reasonable language? oh well.</p>
-<p>after that, i fixed the bug, created a <a href="https://github.com/WaffleLapkin/nixos/commit/0cc4993866642dbf3388624e9e2a11ef7d0f056e">patched package</a> for my own usage and sent <a href="https://github.com/gregkh/usbutils/pull/228">a pr with the fix</a> to the upstream.</p>
+<p>after that, i fixed the bug, created a <a rel="external" href="https://github.com/WaffleLapkin/nixos/commit/0cc4993866642dbf3388624e9e2a11ef7d0f056e">patched package</a> for my own usage and sent <a rel="external" href="https://github.com/gregkh/usbutils/pull/228">a pr with the fix</a> to the upstream.</p>
 <p>okbye.</p>
 <p>postscriptum: i only found this while writing this post, but it turns out <code>usbhid-dump</code> (still from the same package as <code>lsusb</code>) can dump the descriptor without unbinding the device?… (but it doesn’t pretty print it) (why can’t <code>lsusb</code> do the same?…)</p>
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>: ~; sudo usbhid-dump -d 1d50:615e
-</span><span>005:013:000:DESCRIPTOR         1744574422.718624
-</span><span> 05 01 09 06 A1 01 85 01 05 07 19 E0 29 E7 15 00
-</span><span> 25 01 75 01 95 08 81 02 05 07 75 08 95 01 81 03
-</span><span> 05 07 15 00 25 01 19 00 29 67 75 01 95 68 81 02
-</span><span> C0 05 0C 09 01 A1 01 85 02 05 0C 15 00 26 FF 0F
-</span><span> 19 00 2A FF 0F 75 10 95 06 81 00 C0 06 50 FF 0A
-</span><span> 56 4C A1 01 85 50 15 00 25 01 75 01 95 40 05 0A
-</span><span> 19 00 29 3F 81 02 C0
-</span></code></pre>
-
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="plain"><span class="giallo-l"><span>: ~; sudo usbhid-dump -d 1d50:615e</span></span>
+<span class="giallo-l"><span>005:013:000:DESCRIPTOR         1744574422.718624</span></span>
+<span class="giallo-l"><span> 05 01 09 06 A1 01 85 01 05 07 19 E0 29 E7 15 00</span></span>
+<span class="giallo-l"><span> 25 01 75 01 95 08 81 02 05 07 75 08 95 01 81 03</span></span>
+<span class="giallo-l"><span> 05 07 15 00 25 01 19 00 29 67 75 01 95 68 81 02</span></span>
+<span class="giallo-l"><span> C0 05 0C 09 01 A1 01 85 02 05 0C 15 00 26 FF 0F</span></span>
+<span class="giallo-l"><span> 19 00 2A FF 0F 75 10 95 06 81 00 C0 06 50 FF 0A</span></span>
+<span class="giallo-l"><span> 56 4C A1 01 85 50 15 00 25 01 75 01 95 40 05 0A</span></span>
+<span class="giallo-l"><span> 19 00 29 3F 81 02 C0</span></span></code></pre>
         </div>
 
         
@@ -275,7 +265,7 @@
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

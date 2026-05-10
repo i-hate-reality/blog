@@ -93,11 +93,10 @@
         <div class="post-content">
             <p>This is a devlog for 2023-11-01—2023-11-30, or, in other words, the month of November. This is mostly a log for <em>myself</em> so that I remember that I did things, but you may be interested in reading it too, for whatever reason.</p>
 <span id="continue-reading"></span><h1 id="forbidden-function-casts-rfc">Forbidden function casts RFC<a class="zola-anchor" href="#forbidden-function-casts-rfc" aria-label="Anchor link for: forbidden-function-casts-rfc">⌗</a></h1>
-<p>I’ve written a <a href="https://github.com/rust-lang/rfcs/pull/3526">small RFC</a>!</p>
+<p>I’ve written a <a rel="external" href="https://github.com/rust-lang/rfcs/pull/3526">small RFC</a>!</p>
 <p>To get the full context you should read the RFC, but tl;dr, Rust allows the following:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">f</span><span>() {}
-</span><span style="color:#b48ead;">let</span><span> b = f as </span><span style="color:#b48ead;">u8</span><span>; </span><span style="color:#65737e;">// get lower byte of function pointer address??
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">fn</span><span style="color: #8AADF4;font-style: italic;"> f</span><span style="color: #939AB7;">() {}</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">let</span><span> b</span><span style="color: #8BD5CA;"> =</span><span> f</span><span style="color: #C6A0F6;"> as u8</span><span style="color: #939AB7;">;</span><span style="color: #939AB7;font-style: italic;"> // get lower byte of function pointer address??</span></span></code></pre>
 <p>This is not only very cursed, but is also error prone — sometimes it’s easy to accidentally write <code>f as u8</code> instead of <code>f() as u8</code>. My RFC proposes to forbid those kinds of casts, replacing them with more explicit and less error prone options.</p>
  
 
@@ -147,19 +146,19 @@
 <p>…</p>
 <p>Anyway, here is the list of meeting:</p>
 <ul>
-<li>T-lang Triage meeting 2023-11-01 (<a href="https://hackmd.io/@rust-lang-team/HJ8yvyxXa">minutes</a>)</li>
-<li>T-lang Planning meeting 2023-11-01 (<a href="https://hackmd.io/@rust-lang-team/BycoyWlma">minutes</a>)
+<li>T-lang Triage meeting 2023-11-01 (<a rel="external" href="https://hackmd.io/@rust-lang-team/HJ8yvyxXa">minutes</a>)</li>
+<li>T-lang Planning meeting 2023-11-01 (<a rel="external" href="https://hackmd.io/@rust-lang-team/BycoyWlma">minutes</a>)
 <ul>
 <li>Admittedly I didn’t do anything there. Note to self: there is no reason to come to planning meetings if you are not T-lang.</li>
 </ul>
 </li>
-<li>T-lang Triage meeting 2023-11-08 (<a href="https://hackmd.io/@rust-lang-team/HkkNflY7p">minutes</a>)</li>
-<li>T-lang Design meeting 2023-11-08: Minimal TAIT stabilization proposal from T-types (Mini-TAIT) (<a href="https://hackmd.io/@rust-lang-team/SyJFnSFma">minutes</a>)</li>
-<li>T-lang Triage meeting 2023-11-15 (<a href="https://hackmd.io/@rust-lang-team/BkIjk9Z4a">minutes</a>)</li>
-<li>T-lang Design meeting 2023-11-15: 2024 Edition Review (<a href="https://hackmd.io/@rust-lang-team/BJwSHtM4T">minutes</a>)</li>
-<li>T-lang Triage meeting 2023-11-22 (<a href="https://hackmd.io/@rust-lang-team/S1jBJ6q4p">minutes</a>)</li>
-<li>T-lang Triage meeting 2023-11-29 (<a href="https://hackmd.io/@rust-lang-team/rJu4t_EH6">minutes</a>)</li>
-<li>T-lang Design meeting 2023-11-29 “Weak” type aliases in Rust 2024 (<a href="https://hackmd.io/@rust-lang-team/ByiKGRQrp">minutes</a>)
+<li>T-lang Triage meeting 2023-11-08 (<a rel="external" href="https://hackmd.io/@rust-lang-team/HkkNflY7p">minutes</a>)</li>
+<li>T-lang Design meeting 2023-11-08: Minimal TAIT stabilization proposal from T-types (Mini-TAIT) (<a rel="external" href="https://hackmd.io/@rust-lang-team/SyJFnSFma">minutes</a>)</li>
+<li>T-lang Triage meeting 2023-11-15 (<a rel="external" href="https://hackmd.io/@rust-lang-team/BkIjk9Z4a">minutes</a>)</li>
+<li>T-lang Design meeting 2023-11-15: 2024 Edition Review (<a rel="external" href="https://hackmd.io/@rust-lang-team/BJwSHtM4T">minutes</a>)</li>
+<li>T-lang Triage meeting 2023-11-22 (<a rel="external" href="https://hackmd.io/@rust-lang-team/S1jBJ6q4p">minutes</a>)</li>
+<li>T-lang Triage meeting 2023-11-29 (<a rel="external" href="https://hackmd.io/@rust-lang-team/rJu4t_EH6">minutes</a>)</li>
+<li>T-lang Design meeting 2023-11-29 “Weak” type aliases in Rust 2024 (<a rel="external" href="https://hackmd.io/@rust-lang-team/ByiKGRQrp">minutes</a>)
 <ul>
 <li>The meeting itself was a bit ???, I feel like a lot of the time everyone was just a bit (or maybe a bit more than a bit) lost and didn’t know what to do. But in the end we’ve reached some understanding of the next steps, so it wasn’t for nothing. Very excited for type aliases to finally check bounds!</li>
 </ul>
@@ -187,33 +186,33 @@
   </div>
 </div><h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/rust-lang/team/pull/1116">rust-lang/team/1116</a> — Update <code>fuchsia.toml</code> to reflect team changes</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/971">teloxide/teloxide/971</a> — Change poll question length</li>
-<li><a href="https://github.com/teloxide/teloxide/pull/973">teloxide/teloxide/973</a> — Change setChatTitle title length</li>
-<li><a href="https://github.com/rust-lang/rust/pull/116988">rust-lang/rust/116988</a> — document that the null pointer has the 0 address</li>
-<li><a href="https://github.com/rust-lang/rust/pull/117683">rust-lang/rust/117683</a> — When encountering struct fn call literal with private fields, suggest all builders</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118138">rust-lang/rust/118138</a> — Fixes error count display is different when there’s only one error left
+<li><a rel="external" href="https://github.com/rust-lang/team/pull/1116">rust-lang/team/1116</a> — Update <code>fuchsia.toml</code> to reflect team changes</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/971">teloxide/teloxide/971</a> — Change poll question length</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/973">teloxide/teloxide/973</a> — Change setChatTitle title length</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/116988">rust-lang/rust/116988</a> — document that the null pointer has the 0 address</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/117683">rust-lang/rust/117683</a> — When encountering struct fn call literal with private fields, suggest all builders</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118138">rust-lang/rust/118138</a> — Fixes error count display is different when there’s only one error left
 <ul>
 <li>This PR is merge conflicts as a service</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/118147">rust-lang/rust/118147</a> — Fix some unnecessary casts</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118133">rust-lang/rust/118133</a> — Stabilize RFC3324 dyn upcasting coercion
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118147">rust-lang/rust/118147</a> — Fix some unnecessary casts</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118133">rust-lang/rust/118133</a> — Stabilize RFC3324 dyn upcasting coercion
 <ul>
 <li>Trait upcasting! Stable! Soon! (2024-02-08)</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/117301">rust-lang/rust/117301</a> — Call <code>FileEncoder::finish</code> in rmeta encoding</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118358">rust-lang/rust/118358</a> — make const tests independent of std debug assertions</li>
-<li><a href="https://github.com/rust-lang/rust/pull/117200">rust-lang/rust/117200</a> — Don’t add redundant help for object safety violations</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118381">rust-lang/rust/118381</a> — rustc_span: Use correct edit distance start length for suggestions
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/117301">rust-lang/rust/117301</a> — Call <code>FileEncoder::finish</code> in rmeta encoding</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118358">rust-lang/rust/118358</a> — make const tests independent of std debug assertions</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/117200">rust-lang/rust/117200</a> — Don’t add redundant help for object safety violations</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118381">rust-lang/rust/118381</a> — rustc_span: Use correct edit distance start length for suggestions
 <ul>
 <li>Unicode never sleeps &gt;:)</li>
 </ul>
 </li>
-<li><a href="https://github.com/rust-lang/rust/pull/118397">rust-lang/rust/118397</a> — Fix comments for unsigned non-zero <code>checked_add</code>, <code>saturating_add</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/118456">rust-lang/rust/118456</a> — rustc_span: Remove unused symbols</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118297">rust-lang/rust/118297</a> — Merge <code>unused_tuple_struct_fields</code> into <code>dead_code</code>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118397">rust-lang/rust/118397</a> — Fix comments for unsigned non-zero <code>checked_add</code>, <code>saturating_add</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118456">rust-lang/rust/118456</a> — rustc_span: Remove unused symbols</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118297">rust-lang/rust/118297</a> — Merge <code>unused_tuple_struct_fields</code> into <code>dead_code</code>
 <ul>
 <li>Got assigned to it right after the T-lang meeting that approved the idea, fun</li>
 </ul>
@@ -221,22 +220,22 @@
 </ul>
 <h1 id="issues">Issues<a class="zola-anchor" href="#issues" aria-label="Anchor link for: issues">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/teloxide/teloxide/issues/963">teloxide/teloxide/963</a> — Add <code>cargo-semver-checks</code> to CI checks (call for contribution!)</li>
-<li><a href="https://github.com/rust-lang/rust/issues/117691">rust-lang/rust/117691</a> — Tracking Issue for convenience methods on <code>NonNull</code></li>
-<li><a href="https://github.com/matklad/pale-fire/issues/55">matklad/pale-fire/55</a> — <code>static mut</code> is not highlighted as unsafe</li>
-<li><a href="https://github.com/rust-lang/compiler-team/issues/693">rust-lang/compiler-team/693</a> — De-llvm some integer intrinsics that on the Rust side always use <code>u32</code></li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/issues/963">teloxide/teloxide/963</a> — Add <code>cargo-semver-checks</code> to CI checks (call for contribution!)</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/issues/117691">rust-lang/rust/117691</a> — Tracking Issue for convenience methods on <code>NonNull</code></li>
+<li><a rel="external" href="https://github.com/matklad/pale-fire/issues/55">matklad/pale-fire/55</a> — <code>static mut</code> is not highlighted as unsafe</li>
+<li><a rel="external" href="https://github.com/rust-lang/compiler-team/issues/693">rust-lang/compiler-team/693</a> — De-llvm some integer intrinsics that on the Rust side always use <code>u32</code></li>
 </ul>
 <h1 id="code">Code<a class="zola-anchor" href="#code" aria-label="Anchor link for: code">⌗</a></h1>
 <ul>
-<li><a href="https://github.com/teloxide/teloxide/pull/961">teloxide/teloxide/961</a> — Support more methods in <code>DefaultParseMode</code></li>
-<li><a href="https://github.com/teloxide/teloxide/pull/962">teloxide/teloxide/962</a> — Don’t auto-add <code>C-main</code> label to all PRs</li>
-<li><a href="https://github.com/rust-lang/rust/pull/117697">rust-lang/rust/117697</a> — Non null convenience ops</li>
-<li><a href="https://github.com/rust-lang/rust/pull/117824">rust-lang/rust/117824</a> — Stabilize <code>ptr::{from_ref, from_mut}</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/118313">rust-lang/rust/118313</a> — Improve some comments for non-zero ops</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118314">rust-lang/rust/118314</a> — Rename <code>{collections=&gt;alloc}{tests,benches}</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/118315">rust-lang/rust/118315</a> — Use <code>usize::repeat_u8</code> instead of implementing <code>repeat_byte</code> in <code>memchr.rs</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/118321">rust-lang/rust/118321</a> — rustdoc: Remove space from fake-variadic fn ptr impls</li>
-<li><a href="https://github.com/rust-lang/rust/pull/118326">rust-lang/rust/118326</a> — Add <code>NonZero*::count_ones</code></li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/961">teloxide/teloxide/961</a> — Support more methods in <code>DefaultParseMode</code></li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/962">teloxide/teloxide/962</a> — Don’t auto-add <code>C-main</code> label to all PRs</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/117697">rust-lang/rust/117697</a> — Non null convenience ops</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/117824">rust-lang/rust/117824</a> — Stabilize <code>ptr::{from_ref, from_mut}</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118313">rust-lang/rust/118313</a> — Improve some comments for non-zero ops</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118314">rust-lang/rust/118314</a> — Rename <code>{collections=&gt;alloc}{tests,benches}</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118315">rust-lang/rust/118315</a> — Use <code>usize::repeat_u8</code> instead of implementing <code>repeat_byte</code> in <code>memchr.rs</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118321">rust-lang/rust/118321</a> — rustdoc: Remove space from fake-variadic fn ptr impls</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/118326">rust-lang/rust/118326</a> — Add <code>NonZero*::count_ones</code></li>
 </ul>
 <h1 id="summary">Summary<a class="zola-anchor" href="#summary" aria-label="Anchor link for: summary">⌗</a></h1>
 <p>The backlog is finally cleared, my devlogs are at the present time!</p>
@@ -252,7 +251,7 @@
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     

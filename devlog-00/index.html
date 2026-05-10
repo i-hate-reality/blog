@@ -93,16 +93,16 @@
         <div class="post-content">
             <p>Things I’ve done this week (2023-03-27—2023-03-31). This is mostly a log for <em>myself</em> so that I remember that I did things™ but you may be interested in reading it too, for whatever reason.</p>
 <span id="continue-reading"></span><h1 id="don-t-skip-all-directories-when-tidy-checking">Don’t skip all directories when tidy-checking<a class="zola-anchor" href="#don-t-skip-all-directories-when-tidy-checking" aria-label="Anchor link for: don-t-skip-all-directories-when-tidy-checking">⌗</a></h1>
-<p>While I’ve technically done this the week <em>before</em>, <a href="https://github.com/rust-lang/rust/pull/109440">the PR</a> has been merged this week, so I’ll document it here.</p>
+<p>While I’ve technically done this the week <em>before</em>, <a rel="external" href="https://github.com/rust-lang/rust/pull/109440">the PR</a> has been merged this week, so I’ll document it here.</p>
 <p>Context: in rustc development we have this thing called <code>tidy</code>. It is basically a custom linter to check some code style related things in the code base. The implementation is messy, but it works.</p>
 <p>Well the gist of the problem fixed by my PR is that it stopped working. More precisely it stopped checking all files that live in directories (i.e. almost all files) because of a bug introduced by a PR that was meant to speed up it (well, I mean, doing nothing is pretty fast, so-). I’ve noticed this while trying to do another change in tidy and not being able to test my change.</p>
 <p>Debugging the issue was a little big weird, because I assumed that the bug was in a specific check, rather than in the whole file-check-framework, but after a bit of <code>dbg!</code> debug printing I figured everything out. The fix itself wasn’t hard — change a check that a file has an extension so that it doesn’t ignore directories (that almost never have extensions).</p>
-<p>However, after the fix was done &amp; even reviewed, merging the PR proved to be hard. First of all we have (or had? I did not watch this closely) an issue that basically made it so merge fails 50% of the time, because of some weird issue in CI (see <a href="https://rust-lang.zulipchat.com/#narrow/stream/242791-t-infra/topic/Repeated.20failures.20related.20to.20LLVM.20tools.3F/near/344575051">this discussion</a> and <a href="https://github.com/rust-lang/rust/issues/108227">this issue</a> for details). Moreover it turns out that without the automatic <code>tidy</code> checks the code was not kept tidy, which meant that there was a high change that any merged PR made my PR unmergeable. But, eventually, it was merged so all is good :)</p>
+<p>However, after the fix was done &amp; even reviewed, merging the PR proved to be hard. First of all we have (or had? I did not watch this closely) an issue that basically made it so merge fails 50% of the time, because of some weird issue in CI (see <a rel="external" href="https://rust-lang.zulipchat.com/#narrow/stream/242791-t-infra/topic/Repeated.20failures.20related.20to.20LLVM.20tools.3F/near/344575051">this discussion</a> and <a rel="external" href="https://github.com/rust-lang/rust/issues/108227">this issue</a> for details). Moreover it turns out that without the automatic <code>tidy</code> checks the code was not kept tidy, which meant that there was a high change that any merged PR made my PR unmergeable. But, eventually, it was merged so all is good :)</p>
 <h1 id="installing-git-on-dev-desktop">Installing git on dev-desktop<a class="zola-anchor" href="#installing-git-on-dev-desktop" aria-label="Anchor link for: installing-git-on-dev-desktop">⌗</a></h1>
 <p>While this isn’t something that was done publicly, I still want to document this, since it was <em>wild</em>.</p>
-<p>Context: I’m using a thing called <a href="https://forge.rust-lang.org/infra/docs/dev-desktop.html">dev-desktop</a> — a service managed by the rust infra team, that allows rust contributors to use a cloud machine to contribute to rust. This mostly helps if you (like me) have slow/old/etc computer locally, which makes it harder to work with a big project like rust.</p>
-<p>Context 2: on the dev-desktop machines the OS is ubuntu, which is annoying for many reasons, including outdated packages. One of the most annoying cases of outdated packages is <code>git</code> which, for example, doesn’t have the setting to make <code>git push</code> automatically create remote branches (<a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushautoSetupRemote"><code>push.autoSetupRemote</code></a>).</p>
-<p>And so, I’ve seen that <a href="https://github.com/fee1-dead"><code>fee1-dead</code></a> solved this by installing git via nix (which you can do for your user without having root on the system, etc). This seemed easy at first, but later proved to be quite difficult due to computers being what they are.</p>
+<p>Context: I’m using a thing called <a rel="external" href="https://forge.rust-lang.org/infra/docs/dev-desktop.html">dev-desktop</a> — a service managed by the rust infra team, that allows rust contributors to use a cloud machine to contribute to rust. This mostly helps if you (like me) have slow/old/etc computer locally, which makes it harder to work with a big project like rust.</p>
+<p>Context 2: on the dev-desktop machines the OS is ubuntu, which is annoying for many reasons, including outdated packages. One of the most annoying cases of outdated packages is <code>git</code> which, for example, doesn’t have the setting to make <code>git push</code> automatically create remote branches (<a rel="external" href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-pushautoSetupRemote"><code>push.autoSetupRemote</code></a>).</p>
+<p>And so, I’ve seen that <a rel="external" href="https://github.com/fee1-dead"><code>fee1-dead</code></a> solved this by installing git via nix (which you can do for your user without having root on the system, etc). This seemed easy at first, but later proved to be quite difficult due to computers being what they are.</p>
 <p>First of all I <code>cargo install nix-user-chroot</code> and started following the [tutorial](https://nixos.wiki/wiki/Nix_Installation_Guide#nix-user-chroot “https://nixos.wiki/wiki/Nix_Installation_Guide#nix-user-chroot).</p>
 <p>The first problem turned out to be that I accidentally made it so that when I logging to shell, the chroot is entered multiple times, but since this is not allowed, the second attempt to enter chroot fails, crashing the shell. Now, this would be fine if I had an open <code>ssh</code> session and could fix that, but in the only open connection I did <code>. the_shell_config</code>, which abruptly ended my <code>ssh</code> session, locking myself out of <code>dev-desktop</code>. Moreover, it turns out that without working shell, it is impossibly to do anything through <code>ssh</code>:</p>
 <ul>
@@ -110,124 +110,117 @@
 <li><code>ssh "/bin/bash"</code> and alike run the command in the shell via ``$SHELL -c command`</li>
 <li><code>scp</code> also opens shell to run <code>sftp</code> server in it, so overwriting config with it is not an option (it just outputs <code>scp: Connection closed</code>)</li>
 <li>and so on — it is literally impossible to do anything, without another way to access the machine</li>
-<li>unless you have a known vulnerability with RCE, see this <a href="https://serverfault.com/questions/94503/login-without-running-bash-profile-or-bashrc">question</a></li>
+<li>unless you have a known vulnerability with RCE, see this <a rel="external" href="https://serverfault.com/questions/94503/login-without-running-bash-profile-or-bashrc">question</a></li>
 </ul>
 <p>In the end I written to the <code>t-infra</code> channel on rust zulip, after which someone from the team commented out my problematic configs, fixing this problem.</p>
 <p>The next problem was actually figuring out how to not run chroot multiple times, I ended up checking if <code>~/.nix-profile/bin/nix-env</code> exists.</p>
 <p>The next problem was vscode’s ssh feature not working. Turned out that since I’ve re-ran <code>fish -l</code> in the chroot, my shell config never ended, so ssh’s command did not get executed (internally vscode does <code>ssh host command</code>). Eventually I figured that I can check for <code>status is-interactive</code> before entering chroot.</p>
 <p>The last (phew) problem was that the newly installed git, did not <em>actually</em> work:</p>
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>:~/rust-b (better_docs_for_e0223); git push --force-with-lease
-</span><span>sudo: /etc/sudo.conf is owned by uid 65534, should be 0
-</span><span>sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set
-</span><span>^C⏎                                                      
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="plain"><span class="giallo-l"><span>:~/rust-b (better_docs_for_e0223); git push --force-with-lease</span></span>
+<span class="giallo-l"><span>sudo: /etc/sudo.conf is owned by uid 65534, should be 0</span></span>
+<span class="giallo-l"><span>sudo: /usr/bin/sudo must be owned by uid 0 and have the setuid bit set</span></span>
+<span class="giallo-l"><span>^C⏎                                                      </span></span></code></pre>
 <p>Turns out <code>dev-desktop</code> uses a custom git credentials helper, which uses <code>sudo</code> to switch to some special user and the <code>sudo</code> just straight up does not work inside chroot. This was one of the most annoying issues here, having many sub-issues (I don’t even want to remember anything about the path that lead to the final solution…), annoying shell techicalities, etc, etc…</p>
 <p>In the end, my workaround is to run a server outside of chroot, that runs the <code>dev-desktop</code> git credentials helper when <code>nc</code>-ed into. I don’t like this solution, it seems very fragile and bad, but it works, so I’ll allow it.</p>
 <p><code>~/.config/fish/conf.d/nix.fish</code>:</p>
-<pre data-lang="fish" style="background-color:#2b303b;color:#c0c5ce;" class="language-fish "><code class="language-fish" data-lang="fish"><span style="color:#65737e;"># This is needed for the nix *in* chroot to work properly
-</span><span style="color:#65737e;"># (exports some variables and stuff)
-</span><span style="color:#65737e;"># (this was &quot;added by Nix installer&quot;)
-</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">test -e </span><span>~/.nix-profile/etc/profile.d/nix.fish;
-</span><span>    </span><span style="color:#bf616a;">. </span><span>~/.nix-profile/etc/profile.d/nix.fish;
-</span><span style="color:#b48ead;">end
-</span><span>
-</span><span style="color:#65737e;"># This is needed to enter chroot
-</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">test -e </span><span>~/.cargo/bin/nix-user-chroot;
-</span><span>    </span><span style="color:#65737e;"># Only enter chroot once
-</span><span>    </span><span style="color:#65737e;"># (otherwise it crashes shell)
-</span><span>    and not </span><span style="color:#bf616a;">test -e </span><span>~/.nix-profile/bin/nix-env;
-</span><span>    </span><span style="color:#65737e;"># Don&#39;t run chroot if this is a non-interactive shell
-</span><span>    </span><span style="color:#65737e;"># (otherwise `ssh host command` hangs)
-</span><span>    and </span><span style="color:#bf616a;">status </span><span>is-interactive;
-</span><span>
-</span><span>   </span><span style="color:#65737e;"># Before entering chroot, start a server that allows to get credentials from outside of chroot
-</span><span>   </span><span style="color:#bf616a;">~/unchroot-server/target/debug/unchroot-server </span><span>&amp;
-</span><span>
-</span><span>   </span><span style="color:#65737e;"># Run a new shell inside chroot
-</span><span>   </span><span style="color:#bf616a;">~/.cargo/bin/nix-user-chroot </span><span>~/.nix fish </span><span style="color:#bf616a;">-l</span><span>;
-</span><span style="color:#b48ead;">end
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="fish"><span class="giallo-l"><span style="color: #939AB7;font-style: italic;"># This is needed for the nix *in* chroot to work properly</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;"># (exports some variables and stuff)</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;"># (this was &quot;added by Nix installer&quot;)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">if</span><span style="color: #8AADF4;font-style: italic;"> test</span><span> -e ~/.nix-profile/etc/profile.d/nix.fish;</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">    .</span><span> ~/.nix-profile/etc/profile.d/nix.fish;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">end</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;"># This is needed to enter chroot</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">if</span><span style="color: #8AADF4;font-style: italic;"> test</span><span> -e ~/.cargo/bin/nix-user-chroot;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    # Only enter chroot once</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    # (otherwise it crashes shell)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    and not</span><span> test -e ~/.nix-profile/bin/nix-env;</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    # Don&#39;t run chroot if this is a non-interactive shell</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    # (otherwise `ssh host command` hangs)</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    and</span><span> status is-interactive;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">   # Before entering chroot, start a server that allows to get credentials from outside of chroot</span></span>
+<span class="giallo-l"><span>   ~/unchroot-server/target/debug/unchroot-server </span><span style="color: #8BD5CA;">&amp;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">   # Run a new shell inside chroot</span></span>
+<span class="giallo-l"><span>   ~/.cargo/bin/nix-user-chroot ~/.nix fish -l;</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">end</span></span></code></pre>
 <p><code>~/.gitconfig</code> (the empty <code>helper =</code> is needed to disable the non-hacked one):</p>
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>[credential]
-</span><span>	helper =
-</span><span>[credential]
-</span><span>	helper = &quot;~/git-credential-nix-chroot-compat&quot;
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="plain"><span class="giallo-l"><span>[credential]</span></span>
+<span class="giallo-l"><span>	helper =</span></span>
+<span class="giallo-l"><span>[credential]</span></span>
+<span class="giallo-l"><span>	helper = &quot;~/git-credential-nix-chroot-compat&quot;</span></span></code></pre>
 <p><code>~/git-credential-nix-chroot-compat</code>:</p>
-<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>#!/bin/fish
-</span><span>
-</span><span># if inside the chroot ...
-</span><span>if test -e /home/gh-WaffleLapkin/.nix-profile/bin/nix-env;
-</span><span>    # try connecting to the outside-of-chroot-server
-</span><span>    echo -e $argv &quot;\n&quot; (string join &quot;\n&quot; (cat -)) | nc localhost 6666
-</span><span>else
-</span><span>    # otherwise just run the actual credential helper
-</span><span>    git-credential-dev-desktop $argv;
-</span><span>end
-</span></code></pre>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="plain"><span class="giallo-l"><span>#!/bin/fish</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span># if inside the chroot ...</span></span>
+<span class="giallo-l"><span>if test -e /home/gh-WaffleLapkin/.nix-profile/bin/nix-env;</span></span>
+<span class="giallo-l"><span>    # try connecting to the outside-of-chroot-server</span></span>
+<span class="giallo-l"><span>    echo -e $argv &quot;\n&quot; (string join &quot;\n&quot; (cat -)) | nc localhost 6666</span></span>
+<span class="giallo-l"><span>else</span></span>
+<span class="giallo-l"><span>    # otherwise just run the actual credential helper</span></span>
+<span class="giallo-l"><span>    git-credential-dev-desktop $argv;</span></span>
+<span class="giallo-l"><span>end</span></span></code></pre>
 <p>The server:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">use </span><span>std::{
-</span><span>    io::{</span><span style="color:#bf616a;">self</span><span>, BufRead, BufReader},
-</span><span>    net::{TcpListener, TcpStream},
-</span><span>    process::{Command, Stdio},
-</span><span>};
-</span><span>
-</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span>() -&gt; std::io::Result&lt;()&gt; {
-</span><span>    </span><span style="color:#b48ead;">let</span><span> listener = TcpListener::bind(&quot;</span><span style="color:#a3be8c;">0.0.0.0:6666</span><span>&quot;)?;
-</span><span>
-</span><span>    </span><span style="color:#65737e;">// accept connections and process them serially
-</span><span>    </span><span style="color:#b48ead;">for</span><span> stream in listener.</span><span style="color:#96b5b4;">incoming</span><span>() {
-</span><span>        </span><span style="color:#96b5b4;">handle_client</span><span>(stream?);
-</span><span>    }
-</span><span>    Ok(())
-</span><span>}
-</span><span>
-</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">handle_client</span><span>(</span><span style="color:#bf616a;">stream</span><span>: TcpStream) {
-</span><span>    stream
-</span><span>        .</span><span style="color:#96b5b4;">set_write_timeout</span><span>(Some(std::time::Duration::from_secs(</span><span style="color:#d08770;">5</span><span>)))
-</span><span>        .</span><span style="color:#96b5b4;">ok</span><span>();
-</span><span>
-</span><span>    stream
-</span><span>        .</span><span style="color:#96b5b4;">set_read_timeout</span><span>(Some(std::time::Duration::from_secs(</span><span style="color:#d08770;">1</span><span>)))
-</span><span>        .</span><span style="color:#96b5b4;">ok</span><span>();
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">let </span><span>Ok(stream_clone) = stream.</span><span style="color:#96b5b4;">try_clone</span><span>() </span><span style="color:#b48ead;">else </span><span>{ </span><span style="color:#b48ead;">return </span><span>};
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">let mut</span><span> streamr = BufReader::new(stream);
-</span><span>    </span><span style="color:#b48ead;">let mut</span><span> streamw = stream_clone;
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">let mut</span><span> buf = String::new();
-</span><span>    streamr.</span><span style="color:#96b5b4;">read_line</span><span>(&amp;</span><span style="color:#b48ead;">mut</span><span> buf).</span><span style="color:#96b5b4;">ok</span><span>();
-</span><span>
-</span><span>    </span><span style="color:#b48ead;">let </span><span>Ok(child) = Command::new(&quot;</span><span style="color:#a3be8c;">git-credential-dev-desktop</span><span>&quot;).</span><span style="color:#96b5b4;">args</span><span>(buf.</span><span style="color:#96b5b4;">split</span><span>(&#39; &#39;)).</span><span style="color:#96b5b4;">stdin</span><span>(Stdio::piped()).</span><span style="color:#96b5b4;">stdout</span><span>(Stdio::piped()).</span><span style="color:#96b5b4;">spawn</span><span>() </span><span style="color:#b48ead;">else </span><span>{ </span><span style="color:#b48ead;">return</span><span>; };
-</span><span>    </span><span style="color:#b48ead;">let </span><span>Some(</span><span style="color:#b48ead;">mut</span><span> stdin) = child.stdin </span><span style="color:#b48ead;">else </span><span>{ </span><span style="color:#b48ead;">return </span><span>};
-</span><span>    </span><span style="color:#b48ead;">let </span><span>Some(</span><span style="color:#b48ead;">mut</span><span> stdout) = child.stdout </span><span style="color:#b48ead;">else </span><span>{ </span><span style="color:#b48ead;">return </span><span>};
-</span><span>
-</span><span>    std::thread::spawn(</span><span style="color:#b48ead;">move </span><span>|| _ = io::copy(&amp;</span><span style="color:#b48ead;">mut</span><span> streamr, &amp;</span><span style="color:#b48ead;">mut</span><span> stdin));
-</span><span>
-</span><span>    io::copy(&amp;</span><span style="color:#b48ead;">mut</span><span> stdout, &amp;</span><span style="color:#b48ead;">mut</span><span> streamw).</span><span style="color:#96b5b4;">ok</span><span>();
-</span><span>}
-</span></code></pre>
-<h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #C6A0F6;">use</span><span style="color: #EED49F;"> std</span><span style="color: #8BD5CA;">::</span><span style="color: #939AB7;">{</span></span>
+<span class="giallo-l"><span style="color: #EED49F;">    io</span><span style="color: #8BD5CA;">::</span><span style="color: #939AB7;">{</span><span style="color: #ED8796;">self</span><span style="color: #939AB7;">,</span><span style="color: #EED49F;font-style: italic;"> BufRead</span><span style="color: #939AB7;">,</span><span style="color: #EED49F;font-style: italic;"> BufReader</span><span style="color: #939AB7;">},</span></span>
+<span class="giallo-l"><span style="color: #EED49F;">    net</span><span style="color: #8BD5CA;">::</span><span style="color: #939AB7;">{</span><span style="color: #EED49F;font-style: italic;">TcpListener</span><span style="color: #939AB7;">,</span><span style="color: #EED49F;font-style: italic;"> TcpStream</span><span style="color: #939AB7;">},</span></span>
+<span class="giallo-l"><span style="color: #EED49F;">    process</span><span style="color: #8BD5CA;">::</span><span style="color: #939AB7;">{</span><span style="color: #EED49F;font-style: italic;">Command</span><span style="color: #939AB7;">,</span><span style="color: #EED49F;font-style: italic;"> Stdio</span><span style="color: #939AB7;">},</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">};</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">fn</span><span style="color: #8AADF4;font-style: italic;"> main</span><span style="color: #939AB7;">()</span><span style="color: #8BD5CA;"> -&gt;</span><span style="color: #EED49F;"> std</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">io</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;font-style: italic;">Result</span><span style="color: #91D7E3;">&lt;</span><span style="color: #939AB7;">()</span><span style="color: #91D7E3;">&gt;</span><span style="color: #939AB7;"> {</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span> listener</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> TcpListener</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">bind</span><span style="color: #939AB7;">(</span><span style="color: #A6DA95;">&quot;0.0.0.0:6666&quot;</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">?</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">    // accept connections and process them serially</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    for</span><span> stream</span><span style="color: #C6A0F6;"> in</span><span> listener</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">incoming</span><span style="color: #939AB7;">() {</span></span>
+<span class="giallo-l"><span style="color: #8AADF4;font-style: italic;">        handle_client</span><span style="color: #939AB7;">(</span><span>stream</span><span style="color: #8BD5CA;">?</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">    }</span></span>
+<span class="giallo-l"><span style="color: #EED49F;font-style: italic;">    Ok</span><span style="color: #939AB7;">(())</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">fn</span><span style="color: #8AADF4;font-style: italic;"> handle_client</span><span style="color: #939AB7;">(</span><span style="color: #EE99A0;">stream</span><span style="color: #8BD5CA;">:</span><span style="color: #EED49F;font-style: italic;"> TcpStream</span><span style="color: #939AB7;">) {</span></span>
+<span class="giallo-l"><span>    stream</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">        .</span><span style="color: #8AADF4;font-style: italic;">set_write_timeout</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;font-style: italic;">Some</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;">std</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">time</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">Duration</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">from_secs</span><span style="color: #939AB7;">(</span><span style="color: #F5A97F;">5</span><span style="color: #939AB7;">)))</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">        .</span><span style="color: #8AADF4;font-style: italic;">ok</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    stream</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">        .</span><span style="color: #8AADF4;font-style: italic;">set_read_timeout</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;font-style: italic;">Some</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;">std</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">time</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">Duration</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">from_secs</span><span style="color: #939AB7;">(</span><span style="color: #F5A97F;">1</span><span style="color: #939AB7;">)))</span></span>
+<span class="giallo-l"><span style="color: #8BD5CA;">        .</span><span style="color: #8AADF4;font-style: italic;">ok</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span style="color: #EED49F;font-style: italic;"> Ok</span><span style="color: #939AB7;">(</span><span>stream_clone</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span> stream</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">try_clone</span><span style="color: #939AB7;">()</span><span style="color: #C6A0F6;"> else</span><span style="color: #939AB7;"> {</span><span style="color: #C6A0F6;"> return</span><span style="color: #939AB7;"> };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let mut</span><span> streamr</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> BufReader</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">(</span><span>stream</span><span style="color: #939AB7;">);</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let mut</span><span> streamw</span><span style="color: #8BD5CA;"> =</span><span> stream_clone</span><span style="color: #939AB7;">;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let mut</span><span> buf</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> String</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span>    streamr</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">read_line</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #C6A0F6;">mut</span><span> buf</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">ok</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span style="color: #EED49F;font-style: italic;"> Ok</span><span style="color: #939AB7;">(</span><span>child</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;font-style: italic;"> Command</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">new</span><span style="color: #939AB7;">(</span><span style="color: #A6DA95;">&quot;git-credential-dev-desktop&quot;</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">args</span><span style="color: #939AB7;">(</span><span>buf</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">split</span><span style="color: #939AB7;">(&#39; &#39;))</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">stdin</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;">Stdio</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">piped</span><span style="color: #939AB7;">())</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">stdout</span><span style="color: #939AB7;">(</span><span style="color: #EED49F;">Stdio</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">piped</span><span style="color: #939AB7;">())</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">spawn</span><span style="color: #939AB7;">()</span><span style="color: #C6A0F6;"> else</span><span style="color: #939AB7;"> {</span><span style="color: #C6A0F6;"> return</span><span style="color: #939AB7;">; };</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span style="color: #EED49F;font-style: italic;"> Some</span><span style="color: #939AB7;">(</span><span style="color: #C6A0F6;">mut</span><span> stdin</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span> child</span><span style="color: #8BD5CA;">.</span><span>stdin </span><span style="color: #C6A0F6;">else</span><span style="color: #939AB7;"> {</span><span style="color: #C6A0F6;"> return</span><span style="color: #939AB7;"> };</span></span>
+<span class="giallo-l"><span style="color: #C6A0F6;">    let</span><span style="color: #EED49F;font-style: italic;"> Some</span><span style="color: #939AB7;">(</span><span style="color: #C6A0F6;">mut</span><span> stdout</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;"> =</span><span> child</span><span style="color: #8BD5CA;">.</span><span>stdout </span><span style="color: #C6A0F6;">else</span><span style="color: #939AB7;"> {</span><span style="color: #C6A0F6;"> return</span><span style="color: #939AB7;"> };</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EED49F;">    std</span><span style="color: #8BD5CA;">::</span><span style="color: #EED49F;">thread</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">spawn</span><span style="color: #939AB7;">(</span><span style="color: #C6A0F6;">move</span><span style="color: #8BD5CA;"> ||</span><span> _</span><span style="color: #8BD5CA;"> =</span><span style="color: #EED49F;"> io</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">copy</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #C6A0F6;">mut</span><span> streamr</span><span style="color: #939AB7;">,</span><span style="color: #8BD5CA;"> &amp;</span><span style="color: #C6A0F6;">mut</span><span> stdin</span><span style="color: #939AB7;">));</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #EED49F;">    io</span><span style="color: #8BD5CA;">::</span><span style="color: #8AADF4;font-style: italic;">copy</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">&amp;</span><span style="color: #C6A0F6;">mut</span><span> stdout</span><span style="color: #939AB7;">,</span><span style="color: #8BD5CA;"> &amp;</span><span style="color: #C6A0F6;">mut</span><span> streamw</span><span style="color: #939AB7;">)</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">ok</span><span style="color: #939AB7;">();</span></span>
+<span class="giallo-l"><span style="color: #939AB7;">}</span></span></code></pre><h1 id="reviews">Reviews<a class="zola-anchor" href="#reviews" aria-label="Anchor link for: reviews">⌗</a></h1>
 <p>Pull requests I’ve reviewed in this week:</p>
 <ul>
-<li><a href="https://github.com/teloxide/teloxide/pull/867">teloxide/867</a> — basic documentation change, no need to scare users about a problem that was fixed a while ago</li>
-<li><a href="https://github.com/rust-lang/rust/pull/109347">rust/109347</a> — <code>#[no_mangle]</code> adjacent fix</li>
-<li><a href="https://github.com/rust-lang/rust/pull/109554">rust/109554</a> — suggest <code>0..=255u8</code> instead of <code>0..256u8</code> (which overflows)</li>
-<li><a href="https://github.com/rust-lang/rust/pull/109149">rust/109149</a> — improved suggestions for wrong  usages of <code>write!</code></li>
-<li><a href="https://github.com/rust-lang/rust/pull/109779">rust/109779</a> ­— dependency updates</li>
-<li><a href="https://github.com/rust-lang/rust/pull/109762">rust/109762</a> — add a usage of <code>IndexVec</code> (an internal wrapper around <code>Vec</code> that allows use of new-typed indices)</li>
+<li><a rel="external" href="https://github.com/teloxide/teloxide/pull/867">teloxide/867</a> — basic documentation change, no need to scare users about a problem that was fixed a while ago</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109347">rust/109347</a> — <code>#[no_mangle]</code> adjacent fix</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109554">rust/109554</a> — suggest <code>0..=255u8</code> instead of <code>0..256u8</code> (which overflows)</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109149">rust/109149</a> — improved suggestions for wrong  usages of <code>write!</code></li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109779">rust/109779</a> ­— dependency updates</li>
+<li><a rel="external" href="https://github.com/rust-lang/rust/pull/109762">rust/109762</a> — add a usage of <code>IndexVec</code> (an internal wrapper around <code>Vec</code> that allows use of new-typed indices)</li>
 </ul>
 <h1 id="stream">Stream<a class="zola-anchor" href="#stream" aria-label="Anchor link for: stream">⌗</a></h1>
-<p>I’m trying to stream coding regularly now! The <a href="https://www.twitch.tv/wafflelapkin/schedule">schedule</a> so far is every Wednesday at 15:30 UTC for about 3 hours. Although I’m thinking of adjusting that…</p>
+<p>I’m trying to stream coding regularly now! The <a rel="external" href="https://www.twitch.tv/wafflelapkin/schedule">schedule</a> so far is every Wednesday at 15:30 UTC for about 3 hours. Although I’m thinking of adjusting that…</p>
 <p>This week I’ve been trying to work on rustc diagnostics.</p>
-<p>My first pick was issue <a href="https://github.com/rust-lang/rust/issues/109425">#109425</a> where a suggestion to remove function arguments leaves a trailing comma. This turned out to be tricky. It’s difficult to produce a correct suggestion, while also keeping the style of trailing comma, mostly because we don’t have access to the commas (the code representation at hand doesn’t tell anything about commas). Also the way this diagnostic is made is … complicated, which makes it even worse. In the end I figured a hack and made a PR: <a href="https://github.com/rust-lang/rust/pull/109782">#109782</a>. I don’t like this solution, but it fixes the issue, I think. We’ll see what reviewers tell me.</p>
-<p>The second pick was <a href="https://github.com/rust-lang/rust/issues/109271">#109271</a> which is arguable even worse… The gist of the issue is this:</p>
-<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// f takes ``&amp;mut self` and passes it to the closure
-</span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">f</span><span>(|</span><span style="color:#bf616a;">this</span><span>| </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">x</span><span>());
-</span><span style="color:#65737e;">//           /^^^^^^^^
-</span><span style="color:#65737e;">// this is an error since `self` is borrowed uniqly by `f`
-</span></code></pre>
+<p>My first pick was issue <a rel="external" href="https://github.com/rust-lang/rust/issues/109425">#109425</a> where a suggestion to remove function arguments leaves a trailing comma. This turned out to be tricky. It’s difficult to produce a correct suggestion, while also keeping the style of trailing comma, mostly because we don’t have access to the commas (the code representation at hand doesn’t tell anything about commas). Also the way this diagnostic is made is … complicated, which makes it even worse. In the end I figured a hack and made a PR: <a rel="external" href="https://github.com/rust-lang/rust/pull/109782">#109782</a>. I don’t like this solution, but it fixes the issue, I think. We’ll see what reviewers tell me.</p>
+<p>The second pick was <a rel="external" href="https://github.com/rust-lang/rust/issues/109271">#109271</a> which is arguable even worse… The gist of the issue is this:</p>
+<pre class="giallo" style="color: #CAD3F5; background-color: #24273A;"><code data-lang="rust"><span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// f takes ``&amp;mut self` and passes it to the closure</span></span>
+<span class="giallo-l"><span style="color: #ED8796;">self</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">f</span><span style="color: #939AB7;">(</span><span style="color: #8BD5CA;">|</span><span>this</span><span style="color: #8BD5CA;">|</span><span style="color: #ED8796;"> self</span><span style="color: #8BD5CA;">.</span><span style="color: #8AADF4;font-style: italic;">x</span><span style="color: #939AB7;">());</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">//           /^^^^^^^^</span></span>
+<span class="giallo-l"><span style="color: #939AB7;font-style: italic;">// this is an error since `self` is borrowed uniqly by `f`</span></span></code></pre>
 <p>We’d like for <code>rustc</code> to suggest changing <code>self</code> to <code>this</code>, since this is a common-ish pattern.</p>
 <p>The problem is that such diagnostic must live inside the borrow checker, and the borrow checker diagnostics are <em>very</em> hard to do. This is because borrowck operates on MIR from which you can’t easily get what the user has written. On top of that I had to do some shenanigans I did not know how to do, on top of <em>that</em> I was becoming more and more tired as the stream progressed. In the end I made <em>some</em> progress, I think I’m half way through it, but ultimately had to end the stream without finishing the fix.</p>
 <p>I’m not sure this was a good stream, struggling while being watched is not the best feeling, although I guess it can be education.</p>
@@ -247,7 +240,7 @@ P.P.S. if you’ve read all of this: sorry</p>
     
     <footer class="footer">
         <div class="footer__inner">
-                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2025 Waffle Lapkin</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
+                <div class="copyright copyright--user"><div class="copyright"><span>© 2021-2026 waffle?</span><span class="copyright-theme"><span class="copyright-theme-sep">  :: </span>Theme is based on <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a></span><span class="copyright-theme-sep"> :: </span><a href="/rss.xml">rss</a></div><span class="copyright-theme-sep"> :: </span><a href="/atom.xml">atom</a></div>
             </div>
     </footer>
     
