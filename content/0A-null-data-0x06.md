@@ -97,7 +97,7 @@ somehow `lsusb`'s parser must be broken ig?... but how and why... googling `lsus
 
 one suspicion i had is that it might be a nixpkgs packaging mistake somehow. i looked at the source and sure enough they have a [suspicious patch](https://github.com/NixOS/nixpkgs/blob/82f9b33efe8953dcbd930ac88e27632ba073c92f/pkgs/by-name/us/usbutils/fix-paths.patch):
 
-```patch
+```diff
 diff --git a/lsusb.py b/lsusb.py
 index bbc4dbb..8af1b1f 100755
 --- a/lsusb.py

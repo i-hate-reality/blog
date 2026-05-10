@@ -18,16 +18,18 @@ generate_feeds = true
 feed_filenames = ["rss.xml", "atom.xml"]
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
-highlight_theme = "base16-ocean-dark"
 
 smart_punctuation = true
 
 # Make footnotes actually work
 # Thanks, totikom, for working on <https://github.com/getzola/zola/pull/2480>
 bottom_footnotes = true
+
+[markdown.highlighting]
+error_on_missing_language = true
+style = "inline" # everything breaks if I use classes...
+theme = "catppuccin-macchiato"
+# theme = "base16-ocean-dark" # not available anymore :(
 
 [slugify]
 # My paths are already basically slugs;
@@ -43,7 +45,7 @@ logo_text = "I hate reality"
 author = "Waffle Lapkin"
 
 # TODO: make footer less weird
-copyright_html = "<div class=\"copyright\"><span>© 2021-2025 Waffle Lapkin</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">  :: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\"> :: </span><a href=\"/rss.xml\">rss</a></div><span class=\"copyright-theme-sep\"> :: </span><a href=\"/atom.xml\">atom</a>"
+copyright_html = "<div class=\"copyright\"><span>© 2021-2026 waffle?</span><span class=\"copyright-theme\"><span class=\"copyright-theme-sep\">  :: </span>Theme is based on <a href=\"https://github.com/pawroman/zola-theme-terminimal/\">Terminimal</a></span><span class=\"copyright-theme-sep\"> :: </span><a href=\"/rss.xml\">rss</a></div><span class=\"copyright-theme-sep\"> :: </span><a href=\"/atom.xml\">atom</a>"
 
 # One of: blue, green, orange, pink, red.
 # Defaults to blue. 
