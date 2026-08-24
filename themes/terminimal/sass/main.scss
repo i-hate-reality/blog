@@ -134,7 +134,7 @@ pre {
   border-top: 1px solid rgba(255, 255, 255, .1);
   border-bottom: 1px solid rgba(255, 255, 255, .1);
 
-  &[data-lang]::before {
+  [data-lang]::before {
     content: attr(data-lang);
     display: block;
     position: absolute;
@@ -161,12 +161,8 @@ pre {
   @media (max-width: $phone-max-width) {
     font-size: .85rem;
 
-    &[data-lang] {
-      padding-top: 18px;
-
-      &::before {
-        font-size: 0.9rem;
-      }
+    [data-lang]::before {
+      font-size: .85rem;
     }
 
     code {
