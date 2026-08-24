@@ -7,7 +7,15 @@
       <generator>Zola</generator>
       <language>en</language>
       <atom:link href="https://blog.ihatereality.space/rss.xml" rel="self" type="application/rss+xml"/>
-      <lastBuildDate>Sun, 10 May 2026 00:00:00 +0000</lastBuildDate>
+      <lastBuildDate>Mon, 24 Aug 2026 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>I stabilized never type</title>
+          <pubDate>Mon, 24 Aug 2026 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>https://blog.ihatereality.space/0C-never-type/</link>
+          <guid>https://blog.ihatereality.space/0C-never-type/</guid>
+          <description xml:base="https://blog.ihatereality.space/0C-never-type/">&lt;p&gt;Uh. Yeah.&lt;&#x2F;p&gt;</description>
+      </item>
       <item>
           <title>Tricking cargo into generating lock files for an old MSRV (for fun?? and profit??)</title>
           <pubDate>Sun, 10 May 2026 00:00:00 +0000</pubDate>
