@@ -23,7 +23,7 @@ I feel... empty. Just like the never type.
 
 <small>
 
-watch [my "when is never" talk](https://www.youtube.com/watch?v=3jM4cnEVrLc&t=116s) or something
+watch [my "when is never" talk](https://www.youtube.com/watch?v=3jM4cnEVrLc) or something
 
 </small>
 
