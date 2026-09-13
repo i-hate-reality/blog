@@ -33,7 +33,7 @@ Context 2: on the dev-desktop machines the OS is ubuntu, which is annoying for m
 
 And so, I've seen that [`fee1-dead`](https://github.com/fee1-dead) solved this by installing git via nix (which you can do for your user without having root on the system, etc). This seemed easy at first, but later proved to be quite difficult due to computers being what they are.
 
-First of all I `cargo install nix-user-chroot` and started following the [tutorial](https://nixos.wiki/wiki/Nix_Installation_Guide#nix-user-chroot "https://nixos.wiki/wiki/Nix_Installation_Guide#nix-user-chroot).
+First of all I `cargo install nix-user-chroot` and started following the [tutorial](https://nixos.wiki/wiki/Nix_Installation_Guide#nix-user-chroot).
 
 The first problem turned out to be that I accidentally made it so that when I logging to shell, the chroot is entered multiple times, but since this is not allowed, the second attempt to enter chroot fails, crashing the shell. Now, this would be fine if I had an open `ssh` session and could fix that, but in the only open connection I did `. the_shell_config`, which abruptly ended my `ssh` session, locking myself out of `dev-desktop`. Moreover, it turns out that without working shell, it is impossibly to do anything through `ssh`:
 
