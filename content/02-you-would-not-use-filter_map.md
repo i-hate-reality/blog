@@ -15,7 +15,7 @@ There is a function `Iterator::filter_map`. I want to argue that it's useless an
 {% callout() %}
 This ~~tweet~~ post is inspired by [this] tweet from Boxy. Thanks, Boxy. <3
 
-[this]: https://twitter.com/EllenNyan0214/status/1425911176853139460?s=20
+[this]: https://web.archive.org/web/20210812200800/https://twitter.com/EllenNyan0214/status/1425911176853139460
 {% end %}
 
 # What is `Iterator::filter_map`?
